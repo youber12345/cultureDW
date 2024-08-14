@@ -34,7 +34,7 @@ tr:first-child{
     background-color: grey;
 }
 tr:first-child:hover{
-    background-color: grey;
+    background-color: red;
     cursor: default;
 }
 td:nth-child(1){
