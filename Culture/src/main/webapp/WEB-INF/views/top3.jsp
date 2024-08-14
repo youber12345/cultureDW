@@ -14,7 +14,7 @@
     <script src="<%= request.getContextPath() %>/static/js/topsrp.js"></script>
 </head>
 
-<body>
+<body style="background-image: url('<%= request.getContextPath() %>/static/event/topback.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
     <header>
         <div class="logo">
             <img src="<%= request.getContextPath() %>/static/logo/logo.png" alt="Logo" width="100px" height="100px">
@@ -29,7 +29,7 @@
             <a href="<%= request.getContextPath() %>/loginpage"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px"></a>
         </div>
     </header>
-    <main class="main-content">
+    <main class="main-content" >
         <button id="left-button"><img src="<%= request.getContextPath() %>/static/icon/backarrow.png" alt="backarrow"></button> <!-- 왼쪽 화살표 버튼 -->
         <section class="event-list">
             <div class="event-item" onclick="navigateToEvent('<%= request.getContextPath() %>/event1')">

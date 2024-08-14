@@ -2,7 +2,6 @@ body {
     font-family: "Do Hyeon", sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #344574;
     perspective: 1500px;
     /* 3D 효과의 깊이 */
 }
@@ -11,8 +10,12 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky; /* 스티키 포지션 설정 */
+    top: 0; /* 페이지 상단에 고정 */
+
+   
     padding: 10px 20px;
-    background-color: #EF5A6F;          
+    background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -30,18 +33,25 @@ header .nav a {
     margin: 0 15px;
     font-size: 35px;
     text-decoration: none;
-    color: #ffffff;
+    color: #333;
     font-weight: bold;
 }
 
-header .nav>.a1 {
+header .nav > .a1 {
     padding-bottom: 5px;
     border-bottom: 1px solid black;
+    color: #6200ea;
+    border-bottom: 2px solid #6200ea;
+
 }
 
-header .nav a.active {
-    color: #ffffff;
-    border-bottom: 2px solid #ffffff;
+header .search-bar button {
+    padding: 5px 10px;
+    background-color: #ffffff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .main-content {
@@ -65,7 +75,6 @@ header .nav a.active {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #344574;
 }
 
 #left-button {
