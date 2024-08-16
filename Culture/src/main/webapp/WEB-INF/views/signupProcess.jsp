@@ -59,10 +59,10 @@
         int result = pstmt.executeUpdate();
 
         if(result > 0) {
-            response.sendRedirect("success.jsp"); // 성공 시 리다이렉트할 페이지
+            response.sendRedirect("success"); // 성공 시 리다이렉트할 페이지
         } else {
             out.println("회원가입에 실패하였습니다.");
-            response.sendRedirect("failure.jsp"); // 실패 시 리다이렉트할 페이지
+            response.sendRedirect("failure"); // 실패 시 리다이렉트할 페이지
         }
 
     } catch(Exception e) {

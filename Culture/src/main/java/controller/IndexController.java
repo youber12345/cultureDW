@@ -93,10 +93,10 @@ public class IndexController {
                 String inputHashedPassword = hashPassword(password);
 
                 if (storedHashedPassword.equals(inputHashedPassword)) {
-                    // 로그인 성공 시 세션에 사용자 정보를 저장하고 홈페이지로 리다이렉트
+                    // 로그인 성공 시 세션에 사용자 정보를 저장하고 마이페이지로 리다이렉트
                     HttpSession session = request.getSession();
                     session.setAttribute("userId", id);
-                    mv.setViewName("redirect:/homepage");
+                    mv.setViewName("redirect:/mypage");
                 } else {
                     // 로그인 실패 시 로그인 페이지로 다시 이동하고 오류 메시지를 표시
                     System.out.println("Invalid username or password.");
@@ -198,4 +198,18 @@ public class IndexController {
         }
         return hashedPassword;
     }
+    @GetMapping("/mypage")
+    public ModelAndView mypage(HttpServletRequest request) {
+        HttpSession session = request.getSession(false); // false로 설정하면 세션이 존재하지 않을 경우 새로 생성하지 않음
+        ModelAndView mv = new ModelAndView();
+
+        if (session != null && session.getAttribute("userId") != null) {
+            mv.setViewName("mypage"); // 사용자가 로그인 상태이면 마이페이지로 이동
+        } else {
+            mv.setViewName("redirect:/loginpage"); // 로그인 상태가 아니면 로그인 페이지로 리다이렉트
+        }
+
+        return mv;
+    }
+
 }
