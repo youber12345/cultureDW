@@ -1,5 +1,5 @@
 function background() {
-    	window.location.href = 'homepage';
+    	window.location.href = 'index';
 }
 function openLoginPopup() {
     var width = 400; // 팝업창의 너비

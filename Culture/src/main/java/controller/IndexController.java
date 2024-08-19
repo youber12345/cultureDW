@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,19 +22,19 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
-    @RequestMapping("/")
-    public String homepage() {
-        return "homepage";
-    }
 
     @GetMapping("/top3")
     public String top3() {
         return "top3";
     }
 
-    @GetMapping("/homepage")
-    public String homepage1() {
-        return "homepage";
+
+
+    @GetMapping("/event")
+    public String event(@RequestParam("eventNum") int eventNum, Model model) {
+        // 모델에 필요한 데이터를 추가
+        model.addAttribute("eventNum", eventNum);
+        return "event";  // "event.jsp"로 포워드됨
     }
 
     @GetMapping("/event1")
@@ -49,6 +50,11 @@ public class IndexController {
     @GetMapping("/event3")
     public String event3() {
         return "event3";
+    }
+    
+    @GetMapping("/event4")
+    public String event4() {
+        return "event4";
     }
 
     @GetMapping("/loginpage")
@@ -93,10 +99,10 @@ public class IndexController {
                 String inputHashedPassword = hashPassword(password);
 
                 if (storedHashedPassword.equals(inputHashedPassword)) {
-                    // 로그인 성공 시 세션에 사용자 정보를 저장하고 마이페이지로 리다이렉트
+                    // 로그인 성공 시 세션에 사용자 정보를 저장하고 홈페이지로 리다이렉트
                     HttpSession session = request.getSession();
                     session.setAttribute("userId", id);
-                    mv.setViewName("redirect:/mypage");
+                    mv.setViewName("redirect:/homepage");
                 } else {
                     // 로그인 실패 시 로그인 페이지로 다시 이동하고 오류 메시지를 표시
                     System.out.println("Invalid username or password.");
@@ -198,18 +204,4 @@ public class IndexController {
         }
         return hashedPassword;
     }
-    @GetMapping("/mypage")
-    public ModelAndView mypage(HttpServletRequest request) {
-        HttpSession session = request.getSession(false); // false로 설정하면 세션이 존재하지 않을 경우 새로 생성하지 않음
-        ModelAndView mv = new ModelAndView();
-
-        if (session != null && session.getAttribute("userId") != null) {
-            mv.setViewName("mypage"); // 사용자가 로그인 상태이면 마이페이지로 이동
-        } else {
-            mv.setViewName("redirect:/loginpage"); // 로그인 상태가 아니면 로그인 페이지로 리다이렉트
-        }
-
-        return mv;
-    }
-
 }

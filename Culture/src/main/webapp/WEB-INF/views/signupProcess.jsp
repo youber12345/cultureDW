@@ -9,12 +9,14 @@
 <body>
 <%
     // 폼 데이터 받아오기
-    String username = request.getParameter("username");
+    String id = request.getParameter("id");
     String password = request.getParameter("password");
     String email = request.getParameter("email");
     String name = request.getParameter("name");
     String gender = request.getParameter("gender");
     String phone = request.getParameter("phone");
+    //int admin = Integer.parseInt(request.getParameter("admin"));
+    String admin = request.getParameter("admin");
 
     // 비밀번호 해싱 (SHA-256)
     String hashedPassword = null;
@@ -44,25 +46,27 @@
         conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "1234");
 
         // SQL 쿼리 작성 (user_num 자동 증가 시퀀스 사용)
-        String sql = "INSERT INTO userDB (user_num, id, password, email, name, gender, phone, admin) VALUES (user_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, 0)";
+        String sql = "INSERT INTO userDB (user_num, id, password, email, name, gender, phone, admin) VALUES (user_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)";
         pstmt = conn.prepareStatement(sql);
 
         // 폼 데이터 설정
-        pstmt.setString(1, username);
+        pstmt.setString(1, id);
         pstmt.setString(2, hashedPassword); // 해싱된 비밀번호 저장
         pstmt.setString(3, email);
         pstmt.setString(4, name);
         pstmt.setString(5, gender);
         pstmt.setString(6, phone);
+        pstmt.setInt(7, Integer.parseInt(admin));
+        
 
         // 쿼리 실행
         int result = pstmt.executeUpdate();
 
         if(result > 0) {
-            response.sendRedirect("success"); // 성공 시 리다이렉트할 페이지
+            response.sendRedirect("success.jsp"); // 성공 시 리다이렉트할 페이지
         } else {
             out.println("회원가입에 실패하였습니다.");
-            response.sendRedirect("failure"); // 실패 시 리다이렉트할 페이지
+            response.sendRedirect("failure.jsp"); // 실패 시 리다이렉트할 페이지
         }
 
     } catch(Exception e) {

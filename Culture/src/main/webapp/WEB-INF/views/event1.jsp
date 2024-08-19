@@ -16,9 +16,9 @@
 <body>
     <header>
         <div class="logo"><img src="<%= request.getContextPath() %>/static/logo/logo.png" alt="Logo" width="100px" height="100px"></div>
-        <nav class="nav">
+        <nav class="nav">=
             <a href="<%= request.getContextPath() %>top3">TOP3</a>
-            <a href="<%= request.getContextPath() %>homepage" class="a1">행사정보</a>
+            <a href="<%= request.getContextPath() %>index" class="a1">행사정보</a>
             <a href="<%= request.getContextPath() %>board">게시판</a>
             <a href="<%= request.getContextPath() %>mypage">마이페이지</a>
         </nav>

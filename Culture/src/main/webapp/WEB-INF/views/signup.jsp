@@ -35,7 +35,7 @@
             return true;
         }
         function background() {
-        	window.location.href = 'homepage';
+        	window.location.href = 'index';
     }
     </script>
 </head>
@@ -84,6 +84,16 @@
                     <label for="phone">휴대전화번호</label>
                     <input type="text" id="phone" name="phone" placeholder="휴대전화번호" required>
                 </div>
+                
+                 <div class="admin-group">
+                    <label for="admin">행사 관리자</label>
+                    <select id="admin" name="admin">
+                        <option value="0">일반회원</option>
+                        <option value="1">관리자회원</option>
+                    </select>
+                </div><br> 
+
+                
                 
                 <!-- 회원가입 버튼 -->
                 <button class="submit" type="submit">회원가입</button>

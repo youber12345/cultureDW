@@ -20,8 +20,8 @@
             <img src="<%= request.getContextPath() %>/static/logo/logo.png" alt="Logo" width="100px" height="100px">
         </div>
         <nav class="nav">
-            <a href="<%= request.getContextPath() %>/top3" class="a1">TOP3</a>
-            <a href="<%= request.getContextPath() %>/homepage">행사정보</a>
+            <a href="<%= request.getContextPath() %>/top3" class="active">TOP3</a>
+            <a href="<%= request.getContextPath() %>/index">행사정보</a>
             <a href="<%= request.getContextPath() %>/board">게시판</a>
             <a href="<%= request.getContextPath() %>/mypage">마이페이지</a>
         </nav>

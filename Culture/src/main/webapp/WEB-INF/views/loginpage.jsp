@@ -5,8 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/loginstyle.css">
-    <script src="<%=request.getContextPath()%>/static/js/user.js"></script>
+   <%--  <script src="<%=request.getContextPath()%>/static/js/user.js"></script> --%>
     <title>로그인 페이지</title>
+    <script>
+    function background() {
+    	window.location.href = 'index';
+}</script>
 </head>
 <body>
     <main>
