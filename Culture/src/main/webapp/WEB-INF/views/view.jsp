@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>축제 페이지</title>
     <link rel="icon" type="image/x-icon" href="<%= request.getContextPath() %>/static/logo/logo.png">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/feststyle.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/view.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -33,6 +33,9 @@
         </div>
     </header>
 
+	<div class="event-poster-container">
+   				<img src="${event.event_poster}" alt="Event Poster">
+				</div>
     <div class="container">
         <div class="content">
             <!-- 이벤트 정보 출력 -->
@@ -52,9 +55,9 @@
                 Event event = eventService.getEventById(eventId);
 
             %>
-
+				
             <div>
-                <img src="${event.event_poster}" alt="Event Poster">
+                
                 <h2 class="h2">${event.event_name}</h2>
                 <div class="event-info">
                     <div class="event-dates">${event.event_sdate} ~ ${event.event_edate}</div>
