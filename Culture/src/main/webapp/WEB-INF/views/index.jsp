@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>서울 이벤트 & 맛집 탐방</title>
     <link rel="icon" type="image/x-icon" href="<%= request.getContextPath() %>/static/logo/logo.png">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/styles.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
