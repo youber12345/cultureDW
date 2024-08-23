@@ -1,130 +1,124 @@
-/* ±âº» ½ºÅ¸ÀÏ ¼³Á¤ */
-body{
-    font-family: "Do Hyeon", sans-serif;
-    font-style: normal;
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff;
-    color: #000000;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Body Background Example</title>
+    <style>
+        /* ê¸°ë³¸ ìŠ¤íƒ€ì¼ ì„¤ì • */
+        html, body {
+            background-image: url(/static/event/darker_background.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: "Do Hyeon", sans-serif;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
 
-    display: flex;
-    flex-direction: column;
-}
+        /* ì „ì²´ í™”ë©´ì„ ê½‰ ì±„ìš°ë„ë¡ bodyì— flex-grow ì ìš© */
+        body {
+            flex-grow: 1; /* headerë¥¼ ì œì™¸í•œ ë‚˜ë¨¸ì§€ ê³µê°„ì„ ì±„ì›€ */
+        }
 
-/* Çì´õ ½ºÅ¸ÀÏ ¼³Á¤ */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    position: sticky; /* Çì´õ¸¦ È­¸é »ó´Ü¿¡ °íÁ¤ */
-    top: 0; /* È­¸é »ó´Ü¿¡ À§Ä¡ */
-    z-index: 1000; /* ´Ù¸¥ ¿ä¼Òµé À§¿¡ Ç¥½Ã */
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-header .logo {
-    font-size: 24px;
-    font-weight: bold;
-}
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky; /* ìŠ¤í‹°í‚¤ í¬ì§€ì…˜ ì„¤ì • */
+            top: 0; /* í˜ì´ì§€ ìƒë‹¨ì— ê³ ì • */
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 10; /* ë°°ê²½ ìš”ì†Œì™€ ê²¹ì¹˜ì§€ ì•Šë„ë¡ ì„¤ì • */
+        }
 
-header .nav {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-}
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
 
-header .nav a {
-    margin: 0 15px;
-    font-size: 35px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
+        header .nav {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
 
-header .nav > .a1 {
-    padding-bottom: 5px;
-    border-bottom: 2px solid #6200ea;
-    color: #6200ea;
-}
+        header .nav a {
+            margin: 0 15px;
+            font-size: 35px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
 
-header .search-bar button {
-    padding: 5px 10px;
-    background-color: #ffffff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+        header .nav > .a1 {
+            padding-bottom: 5px;
+            border-bottom: 2px solid #6200ea;
+            color: #6200ea;
+        }
 
+        header .search-bar button {
+            padding: 5px 10px;
+            background-color: #ffffff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-/* ÀÌº¥Æ® Æ÷½ºÅÍ ÄÁÅ×ÀÌ³Ê ½ºÅ¸ÀÏ */
-.event-poster-container {
-    width: 25%; /* ¹ÙµğÀÇ 50% ³Êºñ·Î ¼³Á¤ */
-    max-width: 800px; /* ÃÖ´ë ³Êºñ¸¦ 800px·Î ¼³Á¤ */
-    height: auto; /* ³ôÀÌ´Â ÀÚµ¿À¸·Î ¼³Á¤ */
-    margin: 20px auto; /* ¼öÆò Áß¾Ó Á¤·Ä */
-    position: relative; /* ÀÚ½Ä ¿ä¼Ò¿¡ ´ëÇÑ Àı´ë À§Ä¡ ÁöÁ¤ °¡´É */
-    display: flex;
-    justify-content: center; /* ¼öÆò Áß¾Ó Á¤·Ä */
-    align-items: center; /* ¼öÁ÷ Áß¾Ó Á¤·Ä */
-}
+        /* ì´ë²¤íŠ¸ í¬ìŠ¤í„° ì»¨í…Œì´ë„ˆ ìŠ¤íƒ€ì¼ */
+        .event-poster-container {
+            width: 25%; /* ëŒ€ëµì ì¸ ë„ˆë¹„ 25%ë¡œ ì„¤ì • */
+            max-width: 800px; /* ìµœëŒ€ ë„ˆë¹„ 800px */
+            height: auto;
+            margin: 20px auto;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1; /* ê³µê°„ ì±„ìš°ê¸° */
+        }
 
-.event-poster-container img {
-    width: 100%;
-    height: auto;
-    object-fit: cover; /* ÀÌ¹ÌÁö°¡ ÄÁÅ×ÀÌ³Ê¸¦ °¡µæ Ã¤¿ìµµ·Ï ¼³Á¤ */
-}
+        .event-poster-container img {
+            width: 100%;
+            height: auto;
+            object-fit: cover; /* ì´ë¯¸ì§€ ë¹„ìœ¨ ìœ ì§€í•˜ë©° ì±„ìš°ê¸° */
+        }
 
-/* ÄÁÅ×ÀÌ³Ê ¼³Á¤ */
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    width: 100%; /* ÄÁÅ×ÀÌ³Ê°¡ ¹Ùµğ¿Í °°Àº ³Êºñ¸¦ °¡Áöµµ·Ï ¼³Á¤ */
-    box-sizing: border-box; /* paddingÀ» Æ÷ÇÔÇÑ ÀüÃ¼ ³Êºñ °è»ê */
-}
+        /* ì»¨í…Œì´ë„ˆ ìŠ¤íƒ€ì¼ */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            flex-grow: 1; /* ë‚¨ì€ ê³µê°„ì„ ì°¨ì§€ */
+        }
 
-.content {
-    width: 100%; /* ÄÁÅ×ÀÌ³ÊÀÇ ÀüÃ¼ ³Êºñ¸¦ Â÷ÁöÇÏµµ·Ï ¼³Á¤ */
-    max-width: 1200px; /* ÃÖ´ë ³Êºñ¸¦ 1200px·Î ¼³Á¤ */
-}
+        .content {
+            width: 100%;
+            max-width: 1200px;
+        }
 
-/* ¼³¸í ºÎºĞ¿¡ ½ºÅ¸ÀÏ Ãß°¡ */
-.description {
-    padding: 15px;
-    background-color: #f9f9f9; /* ¹è°æ»öÀ» Ãß°¡ÇÏ¿© ³»¿ëÀ» ´õ µ¸º¸ÀÌ°Ô ÇÔ */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* ±×¸²ÀÚ È¿°ú */
-}
-.description a {
-	
-    color: #6200ea; /* ±âº» ¸µÅ© »ö»ó ÁöÁ¤ (¿¹: ÆÄ¶õ»ö) */
-    text-decoration: none; /* ¸µÅ©¿¡ ¹ØÁÙ Á¦°Å */
+        /* ì„¤ëª… ë°•ìŠ¤ ìŠ¤íƒ€ì¼ */
+        .description {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-}
+        .description a {
+            color: #6200ea;
+            text-decoration: none;
+        }
 
-.description p {
-    line-height: 1.6;
-}
-
-/* ¸ğ¹ÙÀÏ È­¸é¿¡¼­ÀÇ ½ºÅ¸ÀÏ Á¶Á¤ */
-@media (max-width: 768px) {
-    header .nav {
-        display: none;
-    }
-    
-    header .logo {
-        font-size: 20px;
-    }
-    
-    .container {
-        padding: 10px;
-    }
-    
-    .content {
-        width: 100%;
-    }
-}
+        .description p {
+            line-height: 1.6;
+        }

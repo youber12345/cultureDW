@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <script src="<%= request.getContextPath() %>/static/js/imgslide.js" defer></script>
 </head>
-<body>
+
     <header>
         <div class="logo">
             <img src="<%= request.getContextPath() %>/static/logo/logo.png" alt="Logo" width="100px" height="100px">
@@ -32,6 +32,8 @@
             </a>
         </div>
     </header>
+    
+    <body>
 
 	<div class="event-poster-container">
    				<img src="${event.event_poster}" alt="Event Poster">
