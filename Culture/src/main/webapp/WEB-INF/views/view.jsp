@@ -1,5 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="org.apache.ibatis.session.SqlSessionFactory, org.apache.ibatis.session.SqlSession"%>
+<%@ page import="mybatis.Event, mybatis.EventDAO, mybatis.MyBatisConfig, mybatis.EventService"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -16,77 +17,60 @@
 </head>
 <body>
     <header>
-        <div class="logo"><img src="<%= request.getContextPath() %>/static/logo/logo.png" alt="Logo" width="100px" height="100px"></div>
+        <div class="logo">
+            <img src="<%= request.getContextPath() %>/static/logo/logo.png" alt="Logo" width="100px" height="100px">
+        </div>
         <nav class="nav">
-            <a href="<%= request.getContextPath() %>top3">TOP3</a>
-            <a href="<%= request.getContextPath() %>index" class="a1">행사정보</a>
-            <a href="<%= request.getContextPath() %>board">게시판</a>
-            <a href="<%= request.getContextPath() %>mypage">마이페이지</a>
+            <a href="<%= request.getContextPath() %>/top3">TOP3</a>
+            <a href="<%= request.getContextPath() %>/index" class="a1">행사정보</a>
+            <a href="<%= request.getContextPath() %>/board">게시판</a>
+            <a href="<%= request.getContextPath() %>/mypage">마이페이지</a>
         </nav>
         <div class="search-bar">
-            <a href="<%= request.getContextPath() %>loginpage"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px"></a>
+            <a href="<%= request.getContextPath() %>/loginpage">
+                <img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px">
+            </a>
         </div>
     </header>
+
     <div class="container">
         <div class="content">
-            <div class="slider">
-                <div class="slides">
-                    <div class="slide"><img src="<%= request.getContextPath() %>/static/event/3/evimg1.jpg" alt="슬라이드 이미지 1"></div> 
-                    <div class="slide"><img src="<%= request.getContextPath() %>/static/event/3/evimg2.jpg" alt="슬라이드 이미지 2"></div> 
-                    <div class="slide"><img src="<%= request.getContextPath() %>/static/event/3/evimg3.jpg" alt="슬라이드 이미지 3"></div> 
-                </div>
-                <button class="prev" onclick="prevSlide()">&#10094;</button>
-                <button class="next" onclick="nextSlide()">&#10095;</button>
-            </div>
-            <div class="icons">
-                <div><img src="<%= request.getContextPath() %>/static/icon/blackfav.png" width="30px" height="30px" onclick="toggleHeart(this)"></div>
-                <div><img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="30px" height="30px" onclick="share()"></div>
-                <div><img src="<%= request.getContextPath() %>/static/icon/blackchat.png" width="30px" height="30px" onclick="openCommentSection()"></div>
-            </div>
-            
-            <!-- 어두운 배경 레이어 -->
-            <div id="darkOverlay" class="dark-overlay"></div>
-            
-            <!-- 댓글 창 -->
-            <div id="commentSection" class="comment-section">
-                <div class="comment-header">
-                    <span>댓글</span>
-                    <button onclick="closeCommentSection()" class="close-btn">X</button>
-                </div>
-                <div class="comment-list" id="commentList">
-                    <!-- 댓글 목록이 여기에 추가됩니다 -->
-                </div>
-                <div class="comment-input">
-                    <input type="text" id="commentInput" placeholder="댓글을 입력하세요...">
-                    <button onclick="addComment()">게시</button>
-                </div>
-            </div>
+            <!-- 이벤트 정보 출력 -->
+            <%
+                // 이벤트 ID를 파라미터로 받아옴
+                String eventIdParam = request.getParameter("eventId");
+                int eventId = 0;
+                if (eventIdParam != null) {
+                    eventId = Integer.parseInt(eventIdParam);
+                }
 
-            <!-- 이벤트 정보 출력 부분 -->
-            
-            <div>행사 문구</div>
-            <!-- 제목 -->
-            <h2 class="h2">${gc.eventName}</h2>
-            <!-- 행사 날짜 -->
-            <div class="event-info">
-                <div class="event-dates">${gc.eventSDate} ~ ${gc.eventEDate}</div>
-            </div>
-            <!-- 행사 설명 및 상세 정보 -->
-            <div class="description">
-               ${gc.eventDescription}
-                <div class="more-content">
-                    <br>
-                    <p>[행사내용]
-                        1. 연락처: ${gc.eventPhone}<br>
-                        <br>
-                        2. 금액: ${gc.eventPrice}<br>
-                        <br>
-                        3. 사이트주소: <a href="${gc.eventHomepage}"></a>
-                    </p><br>
+                // MyBatis 설정 및 서비스 초기화
+                EventDAO eventDAO = new EventDAO(MyBatisConfig.getSqlSessionFactory());
+                EventService eventService = new EventService(eventDAO);
+
+                // 이벤트 데이터 가져오기
+                Event event = eventService.getEventById(eventId);
+
+            %>
+
+            <div>
+                <img src="${event.event_poster}" alt="Event Poster">
+                <h2 class="h2">${event.event_name}</h2>
+                <div class="event-info">
+                    <div class="event-dates">${event.event_sdate} ~ ${event.event_edate}</div>
                 </div>
-                <button class="more" onclick="more(this)">더보기</button>
+                <div class="description">
+                    ${event.event_description}
+                    <div class="more-content">
+                        <p>[행사내용]</p>
+                        <ul>
+                            <li>연락처: ${event.event_ph}</li>
+                            <li>금액: ${event.event_price}</li>
+                            <li>사이트 주소: <a href="${event.event_homepage}">${event.event_homepage}</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-       
         </div>
     </div>
 </body>

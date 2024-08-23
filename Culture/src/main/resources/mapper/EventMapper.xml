@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.EventMapper">
+    <select id="selectEventById" parameterType="int" resultType="mybatis.Event">
+        SELECT event_name, event_sdate, event_edate, event_description, event_ph, event_price, event_homepage, event_poster
+        FROM eventDB
+        WHERE event_num = #{event_num}
+    </select>
+
+  <select id="selectAllEvents" resultType="mybatis.Event">
+    SELECT  *
+    FROM eventDB
+    ORDER BY event_sdate
+</select>
+</mapper>

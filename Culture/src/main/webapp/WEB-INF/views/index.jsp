@@ -1,4 +1,7 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.List"%>
+<%@page import="mybatis.Event, mybatis.EventService, mybatis.EventDAO, mybatis.MyBatisConfig"%>
+<%@page import="org.apache.ibatis.session.SqlSessionFactory, org.apache.ibatis.session.SqlSession"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -18,15 +21,35 @@
             <img src="<%= request.getContextPath() %>/static/logo/logo.png" alt="Logo" width="100px" height="100px">
         </div>
         <nav class="nav">
-            <a href="<%= request.getContextPath() %>top3">TOP3</a>
-            <a href="<%= request.getContextPath() %>index" class="a1">행사정보</a>
-            <a href="<%= request.getContextPath() %>board">게시판</a>
-            <a href="<%= request.getContextPath() %>mypage">마이페이지</a>
+            <a href="<%= request.getContextPath() %>/top3">TOP3</a>
+            <a href="<%= request.getContextPath() %>/index" class="a1">행사정보</a>
+            <a href="<%= request.getContextPath() %>/board">게시판</a>
+            <a href="<%= request.getContextPath() %>/mypage">마이페이지</a>
         </nav>
         <div class="search-bar">
-            <a href="<%= request.getContextPath() %>loginpage"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px"></a>
+            <c:choose>
+                <c:when test="${not empty sessionScope.userId}">
+                    <a href="<%= request.getContextPath() %>/mypage"><img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px"></a>
+                </c:when>
+                <c:otherwise>
+                    <a href="<%= request.getContextPath() %>/loginpage"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px"></a>
+                </c:otherwise>
+            </c:choose>
         </div>
     </header>
+
+    <%
+        // MyBatis 설정 및 서비스 초기화
+        EventDAO eventDAO = new EventDAO(MyBatisConfig.getSqlSessionFactory());
+        EventService eventService = new EventService(eventDAO);
+
+        // 이벤트 리스트 가져오기
+        List<Event> eventList = eventService.getAllEvents();
+
+        // 리스트를 request에 저장
+        request.setAttribute("list", eventList);
+    %>
+
     <main class="main-content">
         <div class="filter-bar">
             <select>
@@ -49,17 +72,15 @@
             <input class="search-time" type="datetime-local" placeholder="시기">
             <button class="search-btn">검색</button>
         </div>
+
         <div class="event-list">
-           
-           <c:forEach var="ce" items="${list}">
-            <div class="event-item" onclick="location.href='/view?eventNum=${ce.eventNum}'">
-                <img src="data:image/jpeg;base64,${ce.base64Poster}" alt="Event Poster">
-                <h3>${ce.eventName}</h3>
-                <p>${ce.eventSDate} ~ ${ce.eventEDate}</p>
-                <p>${ce.eventAddress}</p>
-            </div>
+            <c:forEach var="ce" items="${list}">
+                <div class="event-item" onclick="location.href='<%= request.getContextPath() %>/view?eventNum=${ce.event_num}'">
+                    <img src="${ce.event_poster}" alt="Event Poster">
+                    <h3>${ce.event_name}</h3>
+                    <p>${ce.event_sdate} ~ ${ce.event_edate}</p>
+                </div>
             </c:forEach>
-            
         </div>
     </main>
 </body>
