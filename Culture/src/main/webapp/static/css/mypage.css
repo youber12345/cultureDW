@@ -1,5 +1,5 @@
 /* 전체 페이지 스타일 */
-body {
+html, body {
     font-family: "Do Hyeon", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -64,6 +64,7 @@ header .search-bar a {
 /* 메인 콘텐츠 스타일 */
 .main {
     width: 75%; /* 조정된 크기 */
+    
 }
 
 /* 사이드 네비게이션 스타일 */

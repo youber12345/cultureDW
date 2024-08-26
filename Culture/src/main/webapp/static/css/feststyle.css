@@ -21,8 +21,6 @@ header {
     align-items: center;
     position: sticky; /* 스티키 포지션 설정 */
     top: 0; /* 페이지 상단에 고정 */
-
-   
     padding: 10px 20px;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

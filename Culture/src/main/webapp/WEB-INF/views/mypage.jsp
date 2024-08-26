@@ -5,14 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    
     <!-- CSS 파일 링크 -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/mypage.css">
     <!-- External JS 파일 링크 -->
     <script src="<%= request.getContextPath() %>/static/js/calendar.js" defer></script>
 </head>
 <body>
-    <header>
-        <!-- header content -->
+   <header>
+        <div class="logo"><img src="<%= request.getContextPath() %>/static/logo/logo.png" alt="Logo" width="100px" height="100px"></div>
+        <nav class="nav">
+            <a href="<%= request.getContextPath() %>/top3">TOP3</a>
+            <a href="<%= request.getContextPath() %>/index">행사정보</a>
+            <a href="<%= request.getContextPath() %>/board">게시판</a>
+            <a href="<%= request.getContextPath() %>/mypage" class="a1">마이페이지</a>
+        </nav>
+        <div class="search-bar">
+		    <c:choose>
+		        <c:when test="${not empty sessionScope.userId}">
+		            <a href="<%= request.getContextPath() %>/mypage"><img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px"></a>
+		        </c:when>
+		        <c:otherwise>
+		            <a href="<%= request.getContextPath() %>/login"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px"></a>
+		        </c:otherwise>
+		    </c:choose>
+</div>
+
     </header>
     <div class="container">
         <div class="main">
