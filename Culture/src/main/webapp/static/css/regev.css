@@ -18,25 +18,22 @@ body {
     max-width: 600px;
 }
 
-.logo {
+.logo-container {
     position: absolute;
-    top: -30px; /* 로고 위치 조정 */
+    top: 250px; /* 로고를 하단으로 내리기 위해 top 값을 조정 */
     left: 50%;
     transform: translateX(-50%);
-    background-color: #ffffff;
-    padding: 15px;
-    border-radius: 50%;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    z-index: 10;
 }
+
+
 
 .form-container {
     background: #ffffff;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    padding: 70px 40px 50px; /* 폼의 상단 패딩을 늘려 로고가 올바르게 위치하도록 함 */
+    padding: 70px 40px 50px;
     width: 100%;
-    max-width: 500px;
+    max-width: 600px; /* 최대 너비를 600px로 확장 */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,7 +44,7 @@ body {
 .form-container h2 {
     text-align: center;
     margin-bottom: 30px;
-    font-size: 32px; /* 제목 글자 크기 */
+    font-size: 32px;
     color: #333;
     font-family: 'Black Han Sans', sans-serif;
     letter-spacing: 1px;
@@ -56,39 +53,42 @@ body {
 .input-group {
     margin-bottom: 20px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .input-group label {
-    display: block;
-    margin-bottom: 8px;
     font-size: 18px;
     color: #555;
     text-align: left;
     font-weight: bold;
-    transition: color 0.3s;
+    margin-bottom: 5px;
+    display: block;
 }
 
-.input-wrapper input,
-.input-wrapper textarea {
-    width: 100%;
-    padding: 16px 20px;
-    font-size: 17px;
-    border: 1px solid #ddd;
+.input-group input, 
+.input-group textarea, 
+.input-group select, 
+.input-group .form-control {
+    width: 100%; /* 전체 너비 사용 */
+    font-size: 20px; /* 글자 크기 증가 */
+    padding: 18px 24px; /* 패딩을 더 늘려 입력 필드를 더 크게 만듦 */
     border-radius: 12px;
+    border: 1px solid #ddd;
     outline: none;
-    transition: all 0.3s ease;
     background-color: #f9f9f9;
+    display: block;
+    margin-top: 5px;
+    box-sizing: border-box;
 }
 
-.input-wrapper input:focus,
-.input-wrapper textarea:focus {
+.input-group input:focus, 
+.input-group textarea:focus, 
+.input-group select:focus, 
+.input-group .form-control:focus {
     border-color: #007bff;
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
     background-color: #fff;
-}
-
-.input-wrapper textarea {
-    resize: none;
 }
 
 .button-group {
@@ -99,8 +99,8 @@ body {
 }
 
 button {
-    padding: 16px 0; /* 높이를 동일하게 맞추기 위해 패딩 조정 */
-    width: 48%; /* 동일한 너비를 가지도록 설정 */
+    padding: 18px 0; /* 버튼 패딩 증가 */
+    width: 48%;
     font-size: 18px;
     color: #fff;
     background-color: #007bff;
