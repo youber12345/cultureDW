@@ -1,0 +1,155 @@
+body {
+    font-family: 'Do Hyeon', sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.signup-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+}
+
+.logo {
+    position: absolute;
+    top: -30px; /* 로고 위치 조정 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.form-container {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    padding: 70px 40px 50px; /* 폼의 상단 패딩을 늘려 로고가 올바르게 위치하도록 함 */
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px; /* 제목 글자 크기 */
+    color: #333;
+    font-family: 'Black Han Sans', sans-serif;
+    letter-spacing: 1px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+    color: #555;
+    text-align: left;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.input-wrapper input,
+.input-wrapper textarea {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 17px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.input-wrapper input:focus,
+.input-wrapper textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+    background-color: #fff;
+}
+
+.input-wrapper textarea {
+    resize: none;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 30px;
+}
+
+button {
+    padding: 16px 0; /* 높이를 동일하게 맞추기 위해 패딩 조정 */
+    width: 48%; /* 동일한 너비를 가지도록 설정 */
+    font-size: 18px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+#prevButton {
+    background-color: #6c757d;
+}
+
+#prevButton:hover {
+    background-color: #5a6268;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.logo img {
+    width: 60px;
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 50px 20px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #prevButton {
+        margin-bottom: 10px;
+    }
+}
