@@ -1,0 +1,134 @@
+/* �⺻ ��Ÿ�� ���� */
+
+html, body {
+background-image: url(/static/event/darker_background.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Do Hyeon", sans-serif;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    /* 3D 효과의 깊이 */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky; /* 스티키 포지션 설정 */
+    top: 0; /* 페이지 상단에 고정 */
+
+   
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header .nav {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+header .nav a {
+    margin: 0 15px;
+    font-size: 35px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+header .nav > .a1 {
+    padding-bottom: 5px;
+    border-bottom: 2px solid #6200ea;
+    color: #6200ea;
+}
+
+header .search-bar button {
+    padding: 5px 10px;
+    background-color: #ffffff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+/* �̺�Ʈ ������ �����̳� ��Ÿ�� */
+.event-poster-container {
+    width: 25%; /* �ٵ��� 50% �ʺ�� ���� */
+    max-width: 800px; /* �ִ� �ʺ� 800px�� ���� */
+    height: auto; /* ���̴� �ڵ����� ���� */
+    margin: 20px auto; /* ���� �߾� ���� */
+    position: relative; /* �ڽ� ��ҿ� ���� ���� ��ġ ���� ���� */
+    display: flex;
+    justify-content: center; /* ���� �߾� ���� */
+    align-items: center; /* ���� �߾� ���� */
+}
+
+.event-poster-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* �̹����� �����̳ʸ� ���� ä�쵵�� ���� */
+}
+
+/* �����̳� ���� */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%; /* �����̳ʰ� �ٵ�� ���� �ʺ� �������� ���� */
+    box-sizing: border-box; /* padding�� ������ ��ü �ʺ� ��� */
+}
+
+.content {
+    width: 100%; /* �����̳��� ��ü �ʺ� �����ϵ��� ���� */
+    max-width: 1200px; /* �ִ� �ʺ� 1200px�� ���� */
+}
+
+/* ���� �κп� ��Ÿ�� �߰� */
+.description {
+    padding: 15px;
+    background-color: #f9f9f9; /* ������ �߰��Ͽ� ������ �� �����̰� �� */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* �׸��� ȿ�� */
+}
+.description a {
+	
+    color: #6200ea; /* �⺻ ��ũ ���� ���� (��: �Ķ���) */
+    text-decoration: none; /* ��ũ�� ���� ���� */
+
+}
+
+.description p {
+    line-height: 1.6;
+}
+
+/* ����� ȭ�鿡���� ��Ÿ�� ���� */
+@media (max-width: 768px) {
+    header .nav {
+        display: none;
+    }
+    
+    header .logo {
+        font-size: 20px;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+    
+    .content {
+        width: 100%;
+    }
+}
