@@ -85,12 +85,14 @@ public class IndexController {
         }
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate(); // 세션 무효화 (로그아웃)
         return "redirect:/index"; // 로그아웃 후 index 페이지로 리다이렉트
     }
+
+
 
     @GetMapping("/mypage")
     public String mypage(HttpSession session, Model model) {

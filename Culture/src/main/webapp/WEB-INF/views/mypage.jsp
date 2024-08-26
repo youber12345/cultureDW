@@ -78,9 +78,10 @@
                     <c:if test="${admin == 1}">
                         <button onclick="location.href='<%= request.getContextPath() %>/eventRegistration'">행사 등록하기</button>
                     </c:if>
-                    <form action="<%= request.getContextPath() %>/logout" method="post">
-                        <button type="submit">로그아웃</button>
-                    </form>
+                   <form action="<%= request.getContextPath() %>/logout" method="post">
+    <button type="submit">로그아웃</button>
+</form>
+
                 </div>
             </div>
         </nav>
