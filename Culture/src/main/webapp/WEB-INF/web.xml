@@ -48,14 +48,20 @@
     <url-pattern>/eventDetails</url-pattern>
   </servlet-mapping>
 
-  <!-- DisplayImageServlet 서블릿 매핑: /displayImage 경로에 매핑 -->
-  <servlet>
-    <servlet-name>DisplayImageServlet</servlet-name>
-    <servlet-class>imageInOut.DisplayImageServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DisplayImageServlet</servlet-name>
-    <url-pattern>/displayImage</url-pattern>
-  </servlet-mapping>
+
+  <filter>
+  	<filter-name>SetCharacterEncoding</filter-name>
+  	<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+        <!-- utf-8로 인코딩 값 설정 -->
+  		<init-param>
+  			<param-name>encoding</param-name>
+  			<param-value>utf-8</param-value>
+  		</init-param>
+</filter>
   
+<!-- 모든 url에 필터를 적용시키겠다 -->
+<filter-mapping>
+  	<filter-name>SetCharacterEncoding</filter-name>
+  	<url-pattern>/*</url-pattern>
+</filter-mapping>
 </web-app>
