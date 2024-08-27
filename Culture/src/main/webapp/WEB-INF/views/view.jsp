@@ -35,7 +35,7 @@
 		        </c:otherwise>
 		    </c:choose>
 </div>
-
+	
     </header>
     <div class="container">
         <div class="content">
@@ -45,6 +45,29 @@
             <div class="event-info">
                 <div class="event-dates">${event.event_sdate} ~ ${event.event_edate}</div>
             </div>
+            		  <div class="icons">
+		    <div><img src="<%= request.getContextPath() %>/static/icon/blackfav.png" width="30px" height="30px" onclick="toggleHeart(this)">    </div>
+		    <div><img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="30px" height="30px" onclick="share()">    </div>
+		    <div><img src="<%= request.getContextPath() %>/static/icon/blackchat.png" width="30px" height="30px" onclick="openCommentSection()">    </div>
+		</div>
+		
+		<!-- 어두운 배경 레이어 -->
+		<div id="darkOverlay" class="dark-overlay"></div>
+		
+		<!-- 댓글 창 -->
+		<div id="commentSection" class="comment-section">
+		    <div class="comment-header">
+		        <span>댓글</span>
+		        <button onclick="closeCommentSection()" class="close-btn">X</button>
+		    </div>
+		    <div class="comment-list" id="commentList">
+		        <!-- 댓글 목록이 여기에 추가됩니다 -->
+		    </div>
+		    <div class="comment-input">
+		        <input type="text" id="commentInput" placeholder="댓글을 입력하세요...">
+		        <button onclick="addComment()">게시</button>
+		    </div>
+		</div>
             <div class="description">
                 ${event.event_description}
                 <div class="more-content">

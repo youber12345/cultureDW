@@ -112,6 +112,111 @@ header .search-bar button {
     line-height: 1.6;
 }
 
+.icons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+/* 어두운 배경 */
+.dark-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* 댓글 창 (크기 확장 및 애니메이션 추가) */
+.comment-section {
+    display: none;
+    position: fixed;
+    bottom: -100%; /* 초기 위치를 화면 아래로 설정 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%; /* 크기 확장 */
+    max-width: 500px; /* 최대 너비를 700px로 설정 */
+    height: 20%; /* 높이 확장 */
+    background-color: #ffffff;
+    border-radius: 15px;
+    z-index: 1000;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: bottom 0.5s ease-in-out; /* 아래에서 위로 이동하는 애니메이션 */
+}
+
+/* 댓글 창이 활성화된 상태에서의 위치 */
+.comment-section.active {
+    bottom: 5%; /* 화면 아래에서 10% 위치로 올라오게 설정 */
+}
+
+/* 어두운 배경 */
+.dark-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    transition: opacity 0.5s ease-in-out; /* 배경의 투명도 애니메이션 추가 */
+}
+
+/* 어두운 배경이 활성화된 상태 */
+.dark-overlay.active {
+    display: block;
+    opacity: 1; /* 활성화 시 완전 불투명 */
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.comment-list {
+    max-height: 60%;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding-right: 10px; /* 스크롤바와 텍스트 간격 */
+}
+
+.comment-input {
+    display: flex;
+    padding-top: 10px;
+    border-top: 1px solid #dddddd;
+}
+
+.comment-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+
+.comment-input button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #6200ea;
+    color: white;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 /* ����� ȭ�鿡���� ��Ÿ�� ���� */
 @media (max-width: 768px) {
     header .nav {
