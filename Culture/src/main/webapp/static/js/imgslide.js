@@ -71,7 +71,13 @@ function addComment() {
         commentInput.value = "";
     }
 }
-
+document.getElementById('commentInput').addEventListener('keydown', function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // 기본 동작(엔터 키로 줄바꿈)을 막음
+            addComment(); // 댓글 추가 함수 호출
+        }
+    });
+    
 function share() {
     const url = window.location.href;  // 현재 페이지의 URL
     const text = "Check out this event: 강릉 문화유산 야행!";  // 공유할 텍스트
