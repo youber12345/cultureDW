@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- CSS 파일 링크 -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/mypage.css">
     <!-- External JS 파일 링크 -->
@@ -28,15 +28,15 @@
             <a href="<%= request.getContextPath() %>/mypage" class="a1">마이페이지</a>
         </nav>
         <div class="search-bar">
-            <c:choose>
-                <c:when test="${not empty sessionScope.userId}">
-                    <a href="<%= request.getContextPath() %>/mypage"><img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="마이페이지" width="50px" height="50px"></a>
-                </c:when>
-                <c:otherwise>
-                    <a href="<%= request.getContextPath() %>/login"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="로그인" width="50px" height="50px"></a>
-                </c:otherwise>
-            </c:choose>
-        </div>
+    <c:choose>
+        <c:when test="${not empty sessionScope.userId}">
+            <a href="<%= request.getContextPath() %>/mypage"><img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px"></a>
+        </c:when>
+        <c:otherwise>
+            <a href="<%= request.getContextPath() %>/login"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px"></a>
+        </c:otherwise>
+    </c:choose>
+</div>
     </header>
 
     <div class="container">
