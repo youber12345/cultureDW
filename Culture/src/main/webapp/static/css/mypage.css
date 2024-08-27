@@ -120,6 +120,8 @@ header .search-bar {
     width: 100%;
     max-width: 100%; /* 전체 너비 설정 */
     margin: 20px 0; /* 중앙 정렬 */
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .calendar .header {
@@ -169,7 +171,7 @@ header .search-bar {
 }
 
 .calendar .saturday {
-    color: blue;
+    color: #0080ff;
 }
 
 .calendar td {
@@ -191,9 +193,9 @@ header .search-bar {
 }
 
 .current-day {
-    background-color: #e6f7ff;
+    background-color: #FFE4E1; 
     color: #000;
-    border: 2px solid #007bff;
+    border: 2px solid red;
     border-radius: 4px; /* 추가된 둥근 테두리 */
 }
 
