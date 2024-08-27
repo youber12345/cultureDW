@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar</title>
+    <title>마이 페이지</title>
     
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -16,8 +17,10 @@
     <script src="<%= request.getContextPath() %>/static/js/calendar.js" defer></script>
 </head>
 <body>
-   <header>
-        <div class="logo"><img src="<%= request.getContextPath() %>/static/logo/logo.png" alt="Logo" width="100px" height="100px"></div>
+    <header>
+        <div class="logo">
+            <img src="<%= request.getContextPath() %>/static/logo/logo.png" alt="로고" width="100px" height="100px">
+        </div>
         <nav class="nav">
             <a href="<%= request.getContextPath() %>/top3">TOP3</a>
             <a href="<%= request.getContextPath() %>/index">행사정보</a>
@@ -25,17 +28,17 @@
             <a href="<%= request.getContextPath() %>/mypage" class="a1">마이페이지</a>
         </nav>
         <div class="search-bar">
-		    <c:choose>
-		        <c:when test="${not empty sessionScope.userId}">
-		            <a href="<%= request.getContextPath() %>/mypage"><img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px"></a>
-		        </c:when>
-		        <c:otherwise>
-		            <a href="<%= request.getContextPath() %>/login"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px"></a>
-		        </c:otherwise>
-		    </c:choose>
-</div>
-
+            <c:choose>
+                <c:when test="${not empty sessionScope.userId}">
+                    <a href="<%= request.getContextPath() %>/mypage"><img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="마이페이지" width="50px" height="50px"></a>
+                </c:when>
+                <c:otherwise>
+                    <a href="<%= request.getContextPath() %>/login"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="로그인" width="50px" height="50px"></a>
+                </c:otherwise>
+            </c:choose>
+        </div>
     </header>
+
     <div class="container">
         <div class="main">
             <div class="calendar">
@@ -61,10 +64,8 @@
                     </tbody>
                 </table>
             </div>
-
-            <div class="selected-date" id="selectedDate"></div>
         </div>
-        <nav class="nav-right">
+        <div class="side-panel">
             <div class="user-info">
                 <h2>${username}님</h2>
                 <p>이메일: ${email}</p>
@@ -78,13 +79,19 @@
                     <c:if test="${admin == 1}">
                         <button onclick="location.href='<%= request.getContextPath() %>/eventRegistration'">행사 등록하기</button>
                     </c:if>
-                   <form action="<%= request.getContextPath() %>/logout" method="post">
-    <button type="submit">로그아웃</button>
-</form>
-
+                    <form action="<%= request.getContextPath() %>/logout" method="post">
+                        <button type="submit">로그아웃</button>
+                    </form>
                 </div>
             </div>
-        </nav>
+            <div class="todo-list">
+                <div id="selectedDate"></div>
+                <h2>TO DO LIST</h2>
+                <div id="todoContent">
+                    <!-- 선택된 날짜의 TO DO LIST 내용이 동적으로 생성됩니다 -->
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -20,7 +20,6 @@ function renderCalendar(year, month) {
     const firstDay = new Date(year, month - 1, 1).getDay();
     const lastDate = new Date(year, month, 0).getDate();
 
-    // 연도와 월을 화면에 표시
     const currentMonthElement = document.getElementById('currentMonth');
     if (currentMonthElement) {
         currentMonthElement.textContent = `${year}.${month.toString().padStart(2, '0')}`;
@@ -94,8 +93,26 @@ function nextMonth() {
 function selectDate(day) {
     const lastDate = new Date(currentYear, currentMonth, 0).getDate();
     if (day > 0 && day <= lastDate) {
-        document.getElementById('selectedDate').innerHTML = `<h1>${currentYear}년 ${currentMonth}월 ${day}일</h1>`;
+        // 선택된 날짜를 가져와 TO DO LIST 위에 표시
+        const selectedDateElement = document.getElementById('selectedDate');
+        const formattedDate = `${currentYear}.${currentMonth.toString().padStart(2, '0')}.${day.toString().padStart(2, '0')}`;
+        selectedDateElement.innerHTML = `<h1>${formattedDate}</h1>`;
+        
+        // TO DO LIST 폼에 날짜를 반영
+        renderTodoList(formattedDate);
     }
+}
+
+function renderTodoList(dateString) {
+    const todoContent = document.getElementById('todoContent');
+    todoContent.innerHTML = `
+        <h3>${dateString}의 TO DO LIST</h3>
+        <form>
+            <label for="todo">할 일:</label>
+            <input type="text" id="todo" name="todo">
+            <button type="submit">추가</button>
+        </form>
+    `;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
