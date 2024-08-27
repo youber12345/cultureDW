@@ -1,9 +1,6 @@
 /* 기본 HTML 및 BODY 스타일 설정 */
 html, body {
-    background-image: url(/static/event/darker_background.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-color: #FFF5F5;
     font-family: "Do Hyeon", sans-serif;
     width: 100%;
     height: 100%;
@@ -21,7 +18,7 @@ header {
     position: sticky; /* 스티키 포지션 설정 */
     top: 0; /* 페이지 상단에 고정 */
     padding: 10px 20px;
-    background-color: rgba(255, 255, 255, 1);
+    background-color: #FFE4E1;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -46,8 +43,8 @@ header .nav a {
 
 header .nav > .a1 {
     padding-bottom: 5px;
-    border-bottom: 2px solid #6200ea;
-    color: #6200ea;
+    border-bottom: 2px solid #FF7F7F;
+    color: #FF7F7F;
 }
 
 header .search-bar button {
@@ -70,6 +67,7 @@ header .search-bar button {
     justify-content: center; /* 중앙 정렬 */
     align-items: center; /* 중앙 정렬 */
     overflow: hidden; /* 이미지가 컨테이너를 넘지 않도록 설정 */
+    
 }
 
 .event-poster-container img {
@@ -77,6 +75,7 @@ header .search-bar button {
     height: 100%; /* 높이를 100%로 설정 */
     object-fit: contain; /* 이미지 비율을 유지하며 크기 맞추기, 잘리지 않음 */
     border-radius: 10px; /* 테두리를 둥글게 설정 (선택 사항) */
+    
 }
 
 /* 컨테이너 및 콘텐츠 스타일 */
@@ -87,11 +86,13 @@ header .search-bar button {
     padding: 20px;
     width: 100%; /* 컨테이너의 너비 설정 */
     box-sizing: border-box; /* padding이 요소의 너비에 포함되도록 설정 */
+	
 }
 
 .content {
     width: 100%; /* 콘텐츠의 너비 설정 */
     max-width: 1200px; /* 최대 너비 설정 */
+    
 }
 
 .event-poster {

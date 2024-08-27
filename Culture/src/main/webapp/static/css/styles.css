@@ -6,7 +6,7 @@ body {
     font-size: 15px;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #FFF5F5;
 }
 
 header {
@@ -17,7 +17,7 @@ header {
     top: 0;
     z-index: 1000;
     padding: 10px 20px;
-    background-color: rgba(255, 255, 255, 1);
+    background-color: #FFE4E1;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -42,8 +42,8 @@ header .nav a {
 
 header .nav > .a1 {
     padding-bottom: 5px;
-    border-bottom: 2px solid #6200ea;
-    color: #6200ea;
+    border-bottom: 2px solid #FF7F7F;
+    color: #FF7F7F;
 }
 
 header .search-bar button {
