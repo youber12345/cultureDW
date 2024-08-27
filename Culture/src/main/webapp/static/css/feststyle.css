@@ -1,7 +1,6 @@
-/* �⺻ ��Ÿ�� ���� */
-
+/* 기본 HTML 및 BODY 스타일 설정 */
 html, body {
-background-image: url(/static/event/darker_background.jpg);
+    background-image: url(/static/event/darker_background.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -60,99 +59,83 @@ header .search-bar button {
     cursor: pointer;
 }
 
-
-/* �̺�Ʈ ������ �����̳� ��Ÿ�� */
+/* 이벤트 포스터 컨테이너 */
 .event-poster-container {
-    width: 25%; /* �ٵ��� 50% �ʺ�� ���� */
-    max-width: 800px; /* �ִ� �ʺ� 800px�� ���� */
-    height: auto; /* ���̴� �ڵ����� ���� */
-    margin: 20px auto; /* ���� �߾� ���� */
-    position: relative; /* �ڽ� ��ҿ� ���� ���� ��ġ ���� ���� */
+    width: 25%; /* 부모 컨테이너의 너비 설정 */
+    max-width: 800px; /* 최대 너비 설정 */
+    height: 800px; /* 고정된 높이 설정 */
+    margin: 20px auto; /* 중앙 정렬 및 여백 설정 */
+    position: relative; /* 상대 위치 설정 */
     display: flex;
-    justify-content: center; /* ���� �߾� ���� */
-    align-items: center; /* ���� �߾� ���� */
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center; /* 중앙 정렬 */
+    overflow: hidden; /* 이미지가 컨테이너를 넘지 않도록 설정 */
 }
 
 .event-poster-container img {
-    width: 100%;
-    height: auto;
-    object-fit: cover; /* �̹����� �����̳ʸ� ���� ä�쵵�� ���� */
+    width: 100%; /* 너비를 100%로 설정 */
+    height: 100%; /* 높이를 100%로 설정 */
+    object-fit: contain; /* 이미지 비율을 유지하며 크기 맞추기, 잘리지 않음 */
+    border-radius: 10px; /* 테두리를 둥글게 설정 (선택 사항) */
 }
 
-/* �����̳� ���� */
+/* 컨테이너 및 콘텐츠 스타일 */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    width: 100%; /* �����̳ʰ� �ٵ�� ���� �ʺ� �������� ���� */
-    box-sizing: border-box; /* padding�� ������ ��ü �ʺ� ��� */
+    width: 100%; /* 컨테이너의 너비 설정 */
+    box-sizing: border-box; /* padding이 요소의 너비에 포함되도록 설정 */
 }
 
 .content {
-    width: 100%; /* �����̳��� ��ü �ʺ� �����ϵ��� ���� */
-    max-width: 1200px; /* �ִ� �ʺ� 1200px�� ���� */
+    width: 100%; /* 콘텐츠의 너비 설정 */
+    max-width: 1200px; /* 최대 너비 설정 */
 }
 
-/* ���� �κп� ��Ÿ�� �߰� */
+.event-poster {
+    width: 100%; /* 부모 컨테이너의 너비에 맞게 이미지 크기 조절 */
+    max-width: 1500px; /* 최대 너비 설정 */
+    height: 800px; /* 고정된 높이 설정 */
+    object-fit: contain; /* 이미지 비율을 유지하며 크기 맞추기 */
+    border-radius: 10px; /* 테두리를 둥글게 설정 (선택 사항) */
+    display: block; /* 이미지가 블록 요소로 취급되도록 설정 (중앙 정렬을 위해) */
+    margin: 0 auto; /* 이미지 중앙 정렬 */
+    
+}
+
+/* 아이콘 이미지 스타일 */
+.icons {
+    display: flex; /* Flexbox를 사용하여 아이콘을 가로로 정렬 */
+    gap: 10px; /* 아이콘 사이의 간격 설정 */
+    margin: 20px 0; /* 상하 여백 설정 */
+}
+
+.icons img {
+    width: 30px; /* 아이콘의 너비 설정 */
+    height: 30px; /* 아이콘의 높이 설정 */
+}
+
+
+/* 설명 영역 스타일 */
 .description {
     padding: 15px;
-    background-color: #f9f9f9; /* ������ �߰��Ͽ� ������ �� �����̰� �� */
+    background-color: #f9f9f9; /* 설명 배경색 설정 */
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* �׸��� ȿ�� */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 설정 */
 }
-.description a {
-	
-    color: #6200ea; /* �⺻ ��ũ ���� ���� (��: �Ķ���) */
-    text-decoration: none; /* ��ũ�� ���� ���� */
 
+.description a {
+    color: #6200ea; /* 링크 색상 설정 */
+    text-decoration: none; /* 링크 텍스트 장식 제거 */
 }
 
 .description p {
     line-height: 1.6;
 }
 
-.icons {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-/* 어두운 배경 */
-.dark-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-}
-
-/* 댓글 창 (크기 확장 및 애니메이션 추가) */
-.comment-section {
-    display: none;
-    position: fixed;
-    bottom: -100%; /* 초기 위치를 화면 아래로 설정 */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 95%; /* 크기 확장 */
-    max-width: 500px; /* 최대 너비를 700px로 설정 */
-    height: 20%; /* 높이 확장 */
-    background-color: #ffffff;
-    border-radius: 15px;
-    z-index: 1000;
-    padding: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: bottom 0.5s ease-in-out; /* 아래에서 위로 이동하는 애니메이션 */
-}
-
-/* 댓글 창이 활성화된 상태에서의 위치 */
-.comment-section.active {
-    bottom: 5%; /* 화면 아래에서 10% 위치로 올라오게 설정 */
-}
-
-/* 어두운 배경 */
+/* 어두운 배경 레이어 스타일 */
 .dark-overlay {
     display: none;
     position: fixed;
@@ -171,6 +154,30 @@ header .search-bar button {
     opacity: 1; /* 활성화 시 완전 불투명 */
 }
 
+/* 댓글 창 스타일 */
+.comment-section {
+    display: none;
+    position: fixed;
+    bottom: -100%; /* 초기 위치를 화면 아래로 설정 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%; /* 크기 확장 */
+    max-width: 500px; /* 최대 너비 설정 */
+    height: 20%; /* 높이 확장 */
+    background-color: #ffffff;
+    border-radius: 15px;
+    z-index: 1000;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: bottom 0.5s ease-in-out; /* 아래에서 위로 이동하는 애니메이션 */
+}
+
+/* 댓글 창이 활성화된 상태에서의 위치 */
+.comment-section.active {
+    bottom: 5%; /* 화면 아래에서 5% 위치로 올라오게 설정 */
+}
+
+/* 댓글 창 헤더 스타일 */
 .comment-header {
     display: flex;
     justify-content: space-between;
@@ -186,6 +193,7 @@ header .search-bar button {
     cursor: pointer;
 }
 
+/* 댓글 목록 스타일 */
 .comment-list {
     max-height: 60%;
     overflow-y: auto;
@@ -193,6 +201,7 @@ header .search-bar button {
     padding-right: 10px; /* 스크롤바와 텍스트 간격 */
 }
 
+/* 댓글 입력 영역 스타일 */
 .comment-input {
     display: flex;
     padding-top: 10px;
@@ -216,8 +225,7 @@ header .search-bar button {
     cursor: pointer;
 }
 
-
-/* ����� ȭ�鿡���� ��Ÿ�� ���� */
+/* 반응형 디자인 */
 @media (max-width: 768px) {
     header .nav {
         display: none;

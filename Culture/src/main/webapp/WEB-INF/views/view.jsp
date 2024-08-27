@@ -40,12 +40,12 @@
     <div class="container">
         <div class="content">
             <!-- 이벤트 정보 출력 -->
-            <img src="${event.event_poster}" alt="Event Poster">
+            <img class="event-poster" src="${event.event_poster}" alt="Event Poster">
             <h2 class="h2">${event.event_name}</h2>
             <div class="event-info">
                 <div class="event-dates">${event.event_sdate} ~ ${event.event_edate}</div>
             </div>
-            		  <div class="icons">
+            <div class="icons">
 		    <div><img src="<%= request.getContextPath() %>/static/icon/blackfav.png" width="30px" height="30px" onclick="toggleHeart(this)">    </div>
 		    <div><img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="30px" height="30px" onclick="share()">    </div>
 		    <div><img src="<%= request.getContextPath() %>/static/icon/blackchat.png" width="30px" height="30px" onclick="openCommentSection()">    </div>
