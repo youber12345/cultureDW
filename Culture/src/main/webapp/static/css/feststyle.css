@@ -112,7 +112,7 @@ header .search-bar button {
 .icons {
     display: flex; /* Flexbox를 사용하여 아이콘을 가로로 정렬 */
     justify-content: center; /* 아이콘을 중앙 정렬 */
-    gap: 100px; /* 아이콘 사이의 간격 설정 */
+    gap: 50px; /* 아이콘 사이의 간격 설정 */
     margin: 20px 0; /* 상하 여백 설정 */
 }
 
@@ -163,18 +163,20 @@ header .search-bar button {
 .comment-section {
     display: none;
     position: fixed;
-    bottom: -100%; /* 초기 위치를 화면 아래로 설정 */
+    bottom: -100%;
     left: 50%;
     transform: translateX(-50%);
-    width: 95%; /* 크기 확장 */
-    max-width: 500px; /* 최대 너비 설정 */
-    height: 20%; /* 높이 확장 */
+    width: 95%;
+    max-width: 500px;
+    height: 20%;
     background-color: #ffffff;
     border-radius: 15px;
     z-index: 1000;
     padding: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: bottom 0.5s ease-in-out; /* 아래에서 위로 이동하는 애니메이션 */
+    transition: bottom 0.5s ease-in-out;
+    font-size: 25px;
+    text-align: left; /* 댓글 섹션 전체의 텍스트를 좌측 정렬 */
 }
 
 /* 댓글 창이 활성화된 상태에서의 위치 */
@@ -229,6 +231,27 @@ header .search-bar button {
     border-radius: 5px;
     cursor: pointer;
 }
+/* 댓글 작성자 이름 스타일 */
+.comment-item {
+    display: flex;           /* username과 댓글 내용을 한 줄로 나란히 배치 */
+    align-items: flex-start; /* username과 댓글 내용을 위쪽 정렬 */
+    margin-bottom: 10px;     /* 댓글 간의 간격 */
+}
+
+.comment-author {
+    font-weight: bold;       /* username을 굵게 표시 */
+    margin-right: 10px;      /* username과 댓글 내용 사이의 간격 */
+    white-space: nowrap;     /* username이 줄바꿈되지 않도록 설정 */
+}
+
+.comment-content {
+    white-space: normal;     /* 댓글 내용이 길어지면 줄바꿈되도록 설정 */
+    word-wrap: break-word;   /* 긴 단어가 있을 경우에도 줄바꿈되도록 설정 */
+    flex-grow: 1;            /* 남은 공간을 댓글 내용이 차지하도록 설정 */
+}
+
+
+
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {

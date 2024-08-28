@@ -56,11 +56,24 @@ public class IndexController {
     }
 
     @GetMapping("/view")
-    public String view(@RequestParam("eventNum") int eventNum, Model model) {
+    public String view(@RequestParam("eventNum") int eventNum, HttpSession session, Model model) {
+        // 세션에서 사용자 정보 가져오기
+        User user = (User) session.getAttribute("user");
+
+        // 사용자 정보가 있는 경우
+        if (user != null) {
+            model.addAttribute("username", user.getId());
+            model.addAttribute("email", user.getEmail());
+            model.addAttribute("admin", user.getAdmin()); // admin 값을 직접 사용
+        }
+
+        // 이벤트 정보 가져오기
         Event event = eventService.getEventById(eventNum);
         model.addAttribute("event", event);
+
         return "view"; // view.jsp로 이동
     }
+
 
     @GetMapping("/login")
     public String loginForm() {

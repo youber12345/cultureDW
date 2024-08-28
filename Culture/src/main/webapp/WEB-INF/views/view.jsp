@@ -16,6 +16,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <script src="<%= request.getContextPath() %>/static/js/imgslide.js" defer></script>
+  <script>
+        const username = "${username}"; // 세션에서 가져온 사용자 이름
+    </script>
 </head>
 <body>
     <header>

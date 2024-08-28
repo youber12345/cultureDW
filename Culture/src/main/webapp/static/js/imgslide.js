@@ -66,17 +66,26 @@ function addComment() {
 
     if (commentInput.value.trim() !== "") {
         const newComment = document.createElement('div');
-        newComment.textContent = commentInput.value;
+        newComment.classList.add('comment-item'); // 새롭게 추가된 클래스
+
+        newComment.innerHTML = `
+            <span class="comment-author">${username}</span>
+            <span class="comment-content">${commentInput.value}</span>
+        `;
         commentList.appendChild(newComment);
         commentInput.value = "";
     }
 }
+
 document.getElementById('commentInput').addEventListener('keydown', function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault(); // 기본 동작(엔터 키로 줄바꿈)을 막음
-            addComment(); // 댓글 추가 함수 호출
-        }
-    });
+    if (event.key === "Enter") {
+        event.preventDefault();
+        addComment();
+    }
+});
+
+
+
     
 function share() {
     const url = window.location.href;  // 현재 페이지의 URL
