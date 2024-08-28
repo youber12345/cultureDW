@@ -1,6 +1,9 @@
-package mybatis;
+package Service;
 
 import java.util.List;
+
+import DAO.EventDAO;
+import DTO.Event;
 
 public class EventService {
     private final EventDAO eventDAO;

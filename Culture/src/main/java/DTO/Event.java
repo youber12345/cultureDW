@@ -1,4 +1,4 @@
-package mybatis;
+package DTO;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,6 +1,8 @@
-package user;
+package Mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import DTO.User;
 
 @Mapper
 public interface UserMapper {

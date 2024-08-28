@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="org.apache.ibatis.session.SqlSessionFactory, org.apache.ibatis.session.SqlSession" %>
-<%@ page import="mybatis.Event, mybatis.EventDAO, mybatis.MyBatisConfig, mybatis.*" %>
+<%@ page import="DTO.Event,DAO.EventDAO, mybatis.MyBatisConfig, mybatis.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>

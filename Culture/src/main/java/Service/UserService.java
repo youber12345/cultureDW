@@ -1,8 +1,11 @@
-package user;
+package Service;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
+
+import DTO.User;
+import Mapper.UserMapper;
 
 @Service
 public class UserService {

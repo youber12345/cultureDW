@@ -1,23 +1,23 @@
 package controller;
 
-import mybatis.EventService;
-import mybatis.Event;
-import mybatis.EventDAO;
 import mybatis.MyBatisConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import user.UserService;
-import user.User;
+
+import DAO.EventDAO;
+import DTO.Event;
+import DTO.User;
+import Service.EventService;
+import Service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.io.File;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;

@@ -1,4 +1,4 @@
-package user;
+package DTO;
 
 public class User {
     private int userNum;

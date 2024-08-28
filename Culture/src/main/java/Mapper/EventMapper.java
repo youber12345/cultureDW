@@ -1,6 +1,8 @@
-package mybatis;
+package Mapper;
 
 import java.util.List;
+
+import DTO.Event;
 
 public interface EventMapper {
 
