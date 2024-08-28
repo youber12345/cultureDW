@@ -86,7 +86,7 @@
          
 			</div><br>
 			<ul>
-                행사 분류 :${event.event_description}
+                행사 분류 :${event.event_tag}
                 </ul>
                 <div class="more-content">
                  <ul>
