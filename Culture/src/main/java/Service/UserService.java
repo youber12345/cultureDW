@@ -5,7 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 
 import DTO.User;
-import Mapper.UserMapper;
+import mapper.UserMapper;
 
 @Service
 public class UserService {

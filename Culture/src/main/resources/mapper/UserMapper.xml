@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Mapper.UserMapper">
+<mapper namespace="mapper.UserMapper">
     <!-- 사용자 ID로 사용자 정보를 조회하는 쿼리 -->
     <select id="getUserById" resultType="DTO.User">
         SELECT id, password, email, name, gender, phone, admin
