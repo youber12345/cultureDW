@@ -3,6 +3,7 @@
 <%@ page import="org.apache.ibatis.session.SqlSessionFactory, org.apache.ibatis.session.SqlSession" %>
 <%@ page import="mybatis.Event, mybatis.EventDAO, mybatis.MyBatisConfig, mybatis.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -67,7 +68,8 @@
             <div class="event-item" onclick="location.href='<%= request.getContextPath() %>/view?eventNum=${ce.event_num}'">
                 <img src="${ce.event_poster}" alt="Event Poster">
                 <h3>${ce.event_name}</h3>
-                <p>${ce.event_sdate} ~ ${ce.event_edate}</p>
+	        <fmt:formatDate value="${ce.event_sdate}" pattern="yyyy.MM.dd" /> ~
+	        <fmt:formatDate value="${ce.event_edate}" pattern="yyyy.MM.dd" /> 
             </div>
         </c:forEach>
     </div>
