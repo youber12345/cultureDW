@@ -207,7 +207,6 @@ header .search-bar {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     flex: 1; /* 할 일 목록이 페이지 높이에 맞춰지도록 설정 */
 }
-
 .todo-list h2 {
     font-size: 24px;
     margin-bottom: 20px;
