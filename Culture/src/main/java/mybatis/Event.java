@@ -20,21 +20,6 @@ public class Event {
     private String event_lat;
     private String event_lot;
 
-    public String getEvent_lat() {
-		return event_lat;
-	}
-
-	public void setEvent_lat(String event_lat) {
-		this.event_lat = event_lat;
-	}
-
-	public String getEvent_lot() {
-		return event_lot;
-	}
-
-	public void setEvent_lot(String event_lot) {
-		this.event_lot = event_lot;
-	}
 
 	// 날짜 포맷을 위한 SimpleDateFormat
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -155,6 +140,22 @@ public class Event {
     public String getFormattedEvent_edate() {
         return dateFormat.format(event_edate);
     }
+    
+    public String getEvent_lat() {
+		return event_lat;
+	}
+
+	public void setEvent_lat(String event_lat) {
+		this.event_lat = event_lat;
+	}
+
+	public String getEvent_lot() {
+		return event_lot;
+	}
+
+	public void setEvent_lot(String event_lot) {
+		this.event_lot = event_lot;
+	}
 
 	@Override
 	public String toString() {
