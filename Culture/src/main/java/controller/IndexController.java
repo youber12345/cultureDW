@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
@@ -157,7 +159,7 @@ public class IndexController {
 
     @PostMapping("/eventProcess")
     public String eventProcess(
-            @RequestParam(value = "event_name" ) String event_name,
+            @RequestParam(value = "event_name") String event_name,
             @RequestParam(value = "event_sdate") String event_sdate,
             @RequestParam(value = "event_edate") String event_edate,
             @RequestParam(value = "event_price") String event_price,
@@ -169,28 +171,42 @@ public class IndexController {
             @RequestParam(value = "event_ph") String event_ph,
             HttpServletRequest request, 
             Model model) {
-        // 새로운 Event 객체 생성 및 데이터 설정
-        Event event = new Event();
-        event.setEvent_name(event_name);
-        event.setEvent_sdate(event_sdate);
-        event.setEvent_edate(event_edate);
-        event.setEvent_price(event_price);
-        event.setEvent_address(event_address);
-        event.setEvent_tag(event_tag);
-        event.setEvent_homepage(event_homepage);
-        event.setEvent_poster(event_poster);
-        event.setEvent_description(event_description);
-        event.setEvent_ph(event_ph);
 
-        // 이벤트 데이터베이스에 삽입
-        boolean isSuccess = eventService.createEvent(event);
+        // 날짜 형식을 위한 SimpleDateFormat
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        if (isSuccess) {
-            return "redirect:/index"; 
-        } else {
-            model.addAttribute("error", "이벤트 등록에 실패했습니다. 다시 시도해주세요.");
+        try {
+            // 새로운 Event 객체 생성 및 데이터 설정
+            Event event = new Event();
+            event.setEvent_name(event_name);
+            
+            // String으로 받은 날짜를 Date로 변환
+            event.setEvent_sdate(dateFormat.parse(event_sdate));
+            event.setEvent_edate(dateFormat.parse(event_edate));
+            
+            event.setEvent_price(event_price);
+            event.setEvent_address(event_address);
+            event.setEvent_tag(event_tag);
+            event.setEvent_homepage(event_homepage);
+            event.setEvent_poster(event_poster);
+            event.setEvent_description(event_description);
+            event.setEvent_ph(event_ph);
+
+            // 이벤트 데이터베이스에 삽입
+            boolean isSuccess = eventService.createEvent(event);
+
+            if (isSuccess) {
+                return "redirect:/index"; 
+            } else {
+                model.addAttribute("error", "이벤트 등록에 실패했습니다. 다시 시도해주세요.");
+                return "eventRegistration"; 
+            }
+        } catch (ParseException e) {
+            // 날짜 파싱 중 오류 발생 시 처리
+            model.addAttribute("error", "잘못된 날짜 형식입니다. yyyy-MM-dd 형식으로 입력해주세요.");
             return "eventRegistration"; 
         }
     }
+
    }
 

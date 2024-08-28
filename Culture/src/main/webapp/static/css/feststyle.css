@@ -86,12 +86,14 @@ header .search-bar button {
     padding: 20px;
     width: 100%; /* 컨테이너의 너비 설정 */
     box-sizing: border-box; /* padding이 요소의 너비에 포함되도록 설정 */
+	text-align:center;
 	
 }
 
 .content {
     width: 100%; /* 콘텐츠의 너비 설정 */
     max-width: 1200px; /* 최대 너비 설정 */
+    font-size: 30px;
     
 }
 
@@ -109,13 +111,14 @@ header .search-bar button {
 /* 아이콘 이미지 스타일 */
 .icons {
     display: flex; /* Flexbox를 사용하여 아이콘을 가로로 정렬 */
-    gap: 10px; /* 아이콘 사이의 간격 설정 */
+    justify-content: center; /* 아이콘을 중앙 정렬 */
+    gap: 100px; /* 아이콘 사이의 간격 설정 */
     margin: 20px 0; /* 상하 여백 설정 */
 }
 
 .icons img {
-    width: 30px; /* 아이콘의 너비 설정 */
-    height: 30px; /* 아이콘의 높이 설정 */
+    width: 50px; /* 아이콘의 너비 설정 */
+    height: 50px; /* 아이콘의 높이 설정 */
 }
 
 
@@ -125,6 +128,7 @@ header .search-bar button {
     background-color: #f9f9f9; /* 설명 배경색 설정 */
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 설정 */
+    font-size: 30px;
 }
 
 .description a {

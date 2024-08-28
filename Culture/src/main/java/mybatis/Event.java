@@ -1,10 +1,14 @@
 package mybatis;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Event {
     private int event_num;
     private String event_name;
-    private String event_sdate;
-    private String event_edate;
+    private Date event_sdate;
+    private Date event_edate;
     private String event_description;
     private String event_ph;
     private String event_price;
@@ -13,6 +17,9 @@ public class Event {
     private String event_address;
     private String event_tag;
     private String event_guName;
+
+    // 날짜 포맷을 위한 SimpleDateFormat
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     // Getter와 Setter 메서드들...
 
@@ -32,20 +39,30 @@ public class Event {
         this.event_name = event_name;
     }
 
-    public String getEvent_sdate() {
+    public Date getEvent_sdate() {
         return event_sdate;
     }
 
-    public void setEvent_sdate(String event_sdate) {
+    public void setEvent_sdate(Date event_sdate) {
         this.event_sdate = event_sdate;
     }
 
-    public String getEvent_edate() {
+    // String 형태의 날짜를 Date로 변환하여 설정하는 메서드
+    public void setEvent_sdate(String event_sdate) throws ParseException {
+        this.event_sdate = dateFormat.parse(event_sdate);
+    }
+
+    public Date getEvent_edate() {
         return event_edate;
     }
 
-    public void setEvent_edate(String event_edate) {
+    public void setEvent_edate(Date event_edate) {
         this.event_edate = event_edate;
+    }
+
+    // String 형태의 날짜를 Date로 변환하여 설정하는 메서드
+    public void setEvent_edate(String event_edate) throws ParseException {
+        this.event_edate = dateFormat.parse(event_edate);
     }
 
     public String getEvent_description() {
@@ -110,5 +127,14 @@ public class Event {
 
     public void setEvent_guName(String event_guName) {
         this.event_guName = event_guName;
+    }
+
+    // Date 객체를 yyyy-MM-dd 형식의 String으로 변환하는 메서드
+    public String getFormattedEvent_sdate() {
+        return dateFormat.format(event_sdate);
+    }
+
+    public String getFormattedEvent_edate() {
+        return dateFormat.format(event_edate);
     }
 }

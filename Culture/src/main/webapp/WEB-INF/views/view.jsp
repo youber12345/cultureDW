@@ -3,6 +3,7 @@
 <%@ page import="org.apache.ibatis.session.SqlSessionFactory, org.apache.ibatis.session.SqlSession"%>
 <%@ page import="mybatis.Event, mybatis.EventDAO, mybatis.MyBatisConfig"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -43,12 +44,14 @@
             <img class="event-poster" src="${event.event_poster}" alt="Event Poster">
             <h2 class="h2">${event.event_name}</h2>
             <div class="event-info">
-                <div class="event-dates">${event.event_sdate} ~ ${event.event_edate}</div>
-            </div>
+            <div class="event-dates">
+	        <fmt:formatDate value="${event.event_sdate}" pattern="yyyy.MM.dd" /> ~
+	        <fmt:formatDate value="${event.event_edate}" pattern="yyyy.MM.dd" />    
+			</div>
             <div class="icons">
-		    <div><img src="<%= request.getContextPath() %>/static/icon/blackfav.png" width="30px" height="30px" onclick="toggleHeart(this)">    </div>
-		    <div><img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="30px" height="30px" onclick="share()">    </div>
-		    <div><img src="<%= request.getContextPath() %>/static/icon/blackchat.png" width="30px" height="30px" onclick="openCommentSection()">    </div>
+		    <div><img src="<%= request.getContextPath() %>/static/icon/blackfav.png" width="50px" height="50px" onclick="toggleHeart(this)">    </div>
+		    <div><img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="50px" height="50px" onclick="share()">    </div>
+		    <div><img src="<%= request.getContextPath() %>/static/icon/blackchat.png" width="50px" height="50px" onclick="openCommentSection()">    </div>
 		</div>
 		
 		<!-- 어두운 배경 레이어 -->
