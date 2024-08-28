@@ -46,18 +46,16 @@
     <div class="container">
         <div class="content">
             <!-- 이벤트 정보 출력 -->
-            <img class="event-poster" src="${event.event_poster}" alt="Event Poster">
             <h2 class="h2">${event.event_name}</h2>
-            <div class="event-info">
-            <div class="event-dates">
-	        <fmt:formatDate value="${event.event_sdate}" pattern="yyyy.MM.dd" /> ~
-	        <fmt:formatDate value="${event.event_edate}" pattern="yyyy.MM.dd" />    
-			</div>
+            <img class="event-poster" src="${event.event_poster}" alt="Event Poster">
+            
             <div class="icons">
 		    <div><img src="<%= request.getContextPath() %>/static/icon/blackfav.png" width="50px" height="50px" onclick="toggleHeart(this)">    </div>
 		    <div><img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="50px" height="50px" onclick="share()">    </div>
 		    <div><img src="<%= request.getContextPath() %>/static/icon/blackchat.png" width="50px" height="50px" onclick="openCommentSection()">    </div>
-		</div>
+			</div><br>
+            <div class="event-info">
+            
 		
 		<!-- 어두운 배경 레이어 -->
 		<div id="darkOverlay" class="dark-overlay"></div>
@@ -76,18 +74,32 @@
 		        <button onclick="addComment()">게시</button>
 		    </div>
 		</div>
+		
             <div class="description">
-                ${event.event_description}
+            
+            <div class="event-dates">
+            
+            <h2>행사 및 축제 기간</h2>
+	        <fmt:formatDate value="${event.event_sdate}" pattern="yyyy.MM.dd" /> ~
+	        <fmt:formatDate value="${event.event_edate}" pattern="yyyy.MM.dd" />    
+			
+         
+			</div><br>
+                행사 분류 :${event.event_description}
                 <div class="more-content">
-                    <p>[행사내용]</p>
-                    <ul>
-                        <li>연락처: ${event.event_ph}</li>
-                        <li>금액: ${event.event_price}</li>
-                        <li>사이트 주소: <a href="${event.event_homepage}">${event.event_homepage}</a></li>
+                 <ul>
+                    	<p class="t1">[행사내용]</p>
+                   
+                    <div class="t2">
+                        <div>연락처: ${event.event_ph}</div>
+                        <div>금액: ${event.event_price}</div>
+                        <div>사이트 주소: <a href="${event.event_homepage}">${event.event_homepage}</a></div>
+                        </div>
+                        <p class="t1">위치</p>
+              			<div id="map" data-lat="${event.event_lot}" data-lng="${event.event_lat}"></div>
                     </ul>
                 </div>
             </div>
-              <div id="map" style="width: 500px; height: 400px;" data-lat="${event.event_lot}" data-lng="${event.event_lat}"></div>
         
         </div>
     </div>

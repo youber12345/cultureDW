@@ -1,6 +1,6 @@
 /* 기본 HTML 및 BODY 스타일 설정 */
 html, body {
-    background-color: #FFF5F5;
+    background-color: #F9F9F9;
     font-family: "Do Hyeon", sans-serif;
     width: 100%;
     height: 100%;
@@ -8,15 +8,15 @@ html, body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    /* 3D 효과의 깊이 */
 }
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky; /* 스티키 포지션 설정 */
-    top: 0; /* 페이지 상단에 고정 */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     padding: 10px 20px;
     background-color: #FFE4E1;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -56,26 +56,23 @@ header .search-bar button {
     cursor: pointer;
 }
 
+
 /* 이벤트 포스터 컨테이너 */
 .event-poster-container {
-    width: 25%; /* 부모 컨테이너의 너비 설정 */
-    max-width: 800px; /* 최대 너비 설정 */
-    height: 800px; /* 고정된 높이 설정 */
-    margin: 20px auto; /* 중앙 정렬 및 여백 설정 */
-    position: relative; /* 상대 위치 설정 */
-    display: flex;
-    justify-content: center; /* 중앙 정렬 */
-    align-items: center; /* 중앙 정렬 */
-    overflow: hidden; /* 이미지가 컨테이너를 넘지 않도록 설정 */
-    
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .event-poster-container img {
-    width: 100%; /* 너비를 100%로 설정 */
-    height: 100%; /* 높이를 100%로 설정 */
-    object-fit: contain; /* 이미지 비율을 유지하며 크기 맞추기, 잘리지 않음 */
-    border-radius: 10px; /* 테두리를 둥글게 설정 (선택 사항) */
-    
+	max-width: 1000px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 /* 컨테이너 및 콘텐츠 스타일 */
@@ -84,63 +81,64 @@ header .search-bar button {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    width: 100%; /* 컨테이너의 너비 설정 */
-    box-sizing: border-box; /* padding이 요소의 너비에 포함되도록 설정 */
-	text-align:center;
-	
+    width: 100%;
 }
 
 .content {
-    width: 100%; /* 콘텐츠의 너비 설정 */
-    max-width: 1200px; /* 최대 너비 설정 */
-    font-size: 30px;
-    
-}
-
-.event-poster {
-    width: 100%; /* 부모 컨테이너의 너비에 맞게 이미지 크기 조절 */
-    max-width: 1500px; /* 최대 너비 설정 */
-    height: 800px; /* 고정된 높이 설정 */
-    object-fit: contain; /* 이미지 비율을 유지하며 크기 맞추기 */
-    border-radius: 10px; /* 테두리를 둥글게 설정 (선택 사항) */
-    display: block; /* 이미지가 블록 요소로 취급되도록 설정 (중앙 정렬을 위해) */
-    margin: 0 auto; /* 이미지 중앙 정렬 */
-    
+    width: 100%;
+    max-width: 1200px;
+    font-size: 25px;
+    line-height: 1.6;
 }
 
 /* 아이콘 이미지 스타일 */
 .icons {
-    display: flex; /* Flexbox를 사용하여 아이콘을 가로로 정렬 */
-    justify-content: center; /* 아이콘을 중앙 정렬 */
-    gap: 50px; /* 아이콘 사이의 간격 설정 */
-    margin: 20px 0; /* 상하 여백 설정 */
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
 }
-
+.event-dates {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
 .icons img {
-    width: 50px; /* 아이콘의 너비 설정 */
-    height: 50px; /* 아이콘의 높이 설정 */
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
+.icons img:hover {
+    transform: scale(1.1);
+}
 
 /* 설명 영역 스타일 */
 .description {
-    padding: 15px;
-    background-color: #f9f9f9; /* 설명 배경색 설정 */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 설정 */
-    font-size: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+    margin-top: 20px;
 }
 
 .description a {
-    color: #6200ea; /* 링크 색상 설정 */
-    text-decoration: none; /* 링크 텍스트 장식 제거 */
+    color: #FF69B4;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.description a:hover {
+    text-decoration: underline;
 }
 
 .description p {
-    line-height: 1.6;
+    margin-bottom: 10px;
+    font-size:25px;
 }
 
-/* 어두운 배경 레이어 스타일 */
+/* 어두운 배경 레이어 */
 .dark-overlay {
     display: none;
     position: fixed;
@@ -150,65 +148,38 @@ header .search-bar button {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
-    transition: opacity 0.5s ease-in-out; /* 배경의 투명도 애니메이션 추가 */
+    transition: opacity 0.5s ease-in-out;
 }
 
-/* 어두운 배경이 활성화된 상태 */
 .dark-overlay.active {
     display: block;
-    opacity: 1; /* 활성화 시 완전 불투명 */
+    opacity: 1;
 }
 
-/* 댓글 창 스타일 */
+/* 댓글 창 */
 .comment-section {
     display: none;
     position: fixed;
     bottom: -100%;
     left: 50%;
     transform: translateX(-50%);
-    width: 95%;
-    max-width: 500px;
-    height: 20%;
+    width: 90%;
+    max-width: 600px;
+    height: 300px;
     background-color: #ffffff;
     border-radius: 15px;
     z-index: 1000;
-    padding: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: bottom 0.5s ease-in-out;
-    font-size: 25px;
-    text-align: left; /* 댓글 섹션 전체의 텍스트를 좌측 정렬 */
+    font-size: 18px;
 }
 
-/* 댓글 창이 활성화된 상태에서의 위치 */
 .comment-section.active {
-    bottom: 5%; /* 화면 아래에서 5% 위치로 올라오게 설정 */
+    bottom: 10%;
 }
 
-/* 댓글 창 헤더 스타일 */
-.comment-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #dddddd;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-/* 댓글 목록 스타일 */
-.comment-list {
-    max-height: 60%;
-    overflow-y: auto;
-    margin-bottom: 10px;
-    padding-right: 10px; /* 스크롤바와 텍스트 간격 */
-}
-
-/* 댓글 입력 영역 스타일 */
+/* 댓글 입력 영역 */
 .comment-input {
     display: flex;
     padding-top: 10px;
@@ -225,33 +196,26 @@ header .search-bar button {
 .comment-input button {
     padding: 10px 15px;
     border: none;
-    background-color: #6200ea;
+    background-color: #FF69B4;
     color: white;
     margin-left: 10px;
     border-radius: 5px;
     cursor: pointer;
 }
-/* 댓글 작성자 이름 스타일 */
-.comment-item {
-    display: flex;           /* username과 댓글 내용을 한 줄로 나란히 배치 */
-    align-items: flex-start; /* username과 댓글 내용을 위쪽 정렬 */
-    margin-bottom: 10px;     /* 댓글 간의 간격 */
+
+
+ul .t2 {
+	border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
-
-.comment-author {
-    font-weight: bold;       /* username을 굵게 표시 */
-    margin-right: 10px;      /* username과 댓글 내용 사이의 간격 */
-    white-space: nowrap;     /* username이 줄바꿈되지 않도록 설정 */
+/* 지도 스타일 */
+#map {
+    width: 100%;
+    max-width: 1200px;
+    height: 300px;
+    margin: 20px auto;
+    border-radius: 15px;
+    overflow: hidden;
 }
-
-.comment-content {
-    white-space: normal;     /* 댓글 내용이 길어지면 줄바꿈되도록 설정 */
-    word-wrap: break-word;   /* 긴 단어가 있을 경우에도 줄바꿈되도록 설정 */
-    flex-grow: 1;            /* 남은 공간을 댓글 내용이 차지하도록 설정 */
-}
-
-
-
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
@@ -259,15 +223,11 @@ header .search-bar button {
         display: none;
     }
     
-    header .logo {
-        font-size: 20px;
-    }
-    
     .container {
         padding: 10px;
     }
     
     .content {
-        width: 100%;
+        font-size: 16px;
     }
 }
