@@ -15,7 +15,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=8e480e67209fc1cea057758a6f85f8c4"></script>
     <script src="<%= request.getContextPath() %>/static/js/imgslide.js" defer></script>
+    <script src="<%= request.getContextPath() %>/static/js/kakaomap.js" defer></script>
   <script>
         const username = "${username}"; // 세션에서 가져온 사용자 이름
     </script>
@@ -85,6 +87,8 @@
                     </ul>
                 </div>
             </div>
+              <div id="map" style="width: 500px; height: 400px;" data-lat="${event.event_lot}" data-lng="${event.event_lat}"></div>
+        
         </div>
     </div>
 </body>
