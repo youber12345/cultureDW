@@ -78,14 +78,16 @@
             <div class="description">
             
             <div class="event-dates">
-            
+            <ul>
             <h2>행사 및 축제 기간</h2>
 	        <fmt:formatDate value="${event.event_sdate}" pattern="yyyy.MM.dd" /> ~
 	        <fmt:formatDate value="${event.event_edate}" pattern="yyyy.MM.dd" />    
-			
+			</ul>
          
 			</div><br>
+			<ul>
                 행사 분류 :${event.event_description}
+                </ul>
                 <div class="more-content">
                  <ul>
                     	<p class="t1">[행사내용]</p>
