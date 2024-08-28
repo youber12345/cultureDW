@@ -96,6 +96,7 @@
                         <div>연락처: ${event.event_ph}</div>
                         <div>금액: ${event.event_price}</div>
                         <div>사이트 주소: <a href="${event.event_homepage}">${event.event_homepage}</a></div>
+                        <div>행사 주소: ${event.event_address }</div>
                         </div>
                         <p class="t1">위치</p>
               			<div id="map" data-lat="${event.event_lot}" data-lng="${event.event_lat}"></div>
