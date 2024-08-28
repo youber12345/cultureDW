@@ -108,4 +108,3 @@ local.properties
 hs_err_pid*
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java
-출처: https://yat-ong.tistory.com/entry/STS에서-Spring-legacy-project와-github-연동시-ignore-목록-및-적용방법 [주관적인 블로그:티스토리]
