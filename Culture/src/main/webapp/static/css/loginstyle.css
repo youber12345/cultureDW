@@ -5,7 +5,7 @@ body {
     font-size: 15px;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #FFF5F5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,7 +54,7 @@ body {
 
 .login-btn {
     padding: 10px;
-    background-color: #6200ea;
+    background-color: #FF7F7F;
     color: white;
     border: none;
     border-radius: 5px;
