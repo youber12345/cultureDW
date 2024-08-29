@@ -1,26 +1,20 @@
 let slideIndex = 0;
 let hcount = 0;
-function showSlides() {
-    const slides = document.querySelectorAll('.slide');
-    slides.forEach((slide, index) => {
-        slide.style.display = 'none';
-    });
-    slideIndex++;
-    if (slideIndex > slides.length) { slideIndex = 1 }
-    slides[slideIndex - 1].style.display = 'block';
-}
 
-function prevSlide() {
-    slideIndex -= 2;
-    if (slideIndex < 0) { slideIndex = document.querySelectorAll('.slide').length - 1; }
-    showSlides();
-}
 
-function nextSlide() {
-    showSlides();
+// 로그인 여부 확인 함수
+function checkLogin(action) {
+    if (isLoggedIn) {
+        return true; // 로그인 되어있으면 true 반환
+    } else {
+        alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+        window.location.href = "/login";  // 로그인 페이지로 이동
+        return false; // 로그인 안되어있으면 false 반환
+    }
 }
 
 function toggleHeart() {
+    if (!checkLogin('like')) return;  // 로그인 체크
     const heartIcon = document.querySelector('.icons img:first-child');
     if (hcount === 0) {
         heartIcon.src = 'static/icon/heart.png';
@@ -31,8 +25,8 @@ function toggleHeart() {
     }
 }
 
-
 function openCommentSection() {
+    if (!checkLogin('comment')) return;  // 로그인 체크
     const darkOverlay = document.getElementById('darkOverlay');
     const commentSection = document.getElementById('commentSection');
 
@@ -45,6 +39,9 @@ function openCommentSection() {
         commentSection.classList.add('active');
     }, 10); // 10ms 후에 클래스 추가
 }
+
+
+
 
 function closeCommentSection() {
     const darkOverlay = document.getElementById('darkOverlay');
@@ -61,6 +58,7 @@ function closeCommentSection() {
 }
 
 function addComment() {
+    if (!checkLogin('comment')) return;  // 로그인 체크
     const commentInput = document.getElementById('commentInput');
     const commentList = document.getElementById('commentList');
     if (commentInput.value.trim() !== "") {
@@ -83,9 +81,8 @@ document.getElementById('commentInput').addEventListener('keydown', function(eve
     }
 });
 
-
-    
 function share() {
+    if (!checkLogin('share')) return;  // 로그인 체크
     const url = window.location.href;  // 현재 페이지의 URL
     const text = "Check out this event: 강릉 문화유산 야행!";  // 공유할 텍스트
 
@@ -106,9 +103,6 @@ function share() {
         window.open(shareUrl, '_blank', 'width=600,height=400');
     }
 }
-
-
-
 function more(button) {
     const moreContent = button.closest('.container').querySelector('.more-content');
 

@@ -17,7 +17,11 @@
     <script src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=8e480e67209fc1cea057758a6f85f8c4"></script>
     <script src="<%= request.getContextPath() %>/static/js/kakaomap.js" defer></script>
     <script src="<%= request.getContextPath() %>/static/js/imgslide.js" defer ></script>
-     <script>const username = "${username}";</script>
+    <script>
+    const username = "${username}"; // 세션에서 가져온 사용자 이름
+    const isLoggedIn = Boolean("${sessionScope.userId}");  // 로그인 여부 확인
+	</script>
+
 </head>
 <body>
     <header>
@@ -31,18 +35,19 @@
             <a href="<%= request.getContextPath() %>/mypage">마이페이지</a>
         </nav>
         <div class="search-bar">
-            <c:choose>
-                <c:when test="${not empty sessionScope.userId}">
-                    <a href="<%= request.getContextPath() %>/mypage">
-                        <img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px">
-                    </a>
-                </c:when>
-                <c:otherwise>
-                    <a href="<%= request.getContextPath() %>/login">
-                        <img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px">
-                    </a>
-                </c:otherwise>
-            </c:choose>
+		<c:choose>
+		    <c:when test="${not empty sessionScope.userId}">
+		        <a href="<%= request.getContextPath() %>/mypage">
+		            <img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px">
+		        </a>
+		    </c:when>
+		    <c:otherwise>
+		        <a href="<%= request.getContextPath() %>/login">
+		            <img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px">
+		        </a>
+		    </c:otherwise>
+		</c:choose>
+
         </div>
     </header>
 
