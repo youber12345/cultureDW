@@ -36,11 +36,11 @@
         <section class="event-list">
 <c:forEach var="event" items="${top3Events}">
     <div class="event-item" onclick="location.href='<%= request.getContextPath() %>/view?eventNum=${event.event_num}'">
-        <img src="${event.event_poster}" alt="event_poster" width="200px" height="300px">
-        
+        <img src="${event.event_poster}" alt="event_poster">
     </div>
-    
 </c:forEach>
+
+   
 
 
 

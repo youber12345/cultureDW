@@ -9,6 +9,8 @@ html, body {
     padding: 0;
     display: flex;
     flex-direction: column;
+    overflow:hidden;
+    height : 100%;
 }
 
 header {
@@ -82,11 +84,11 @@ header .search-bar button {
 }
 
 .left-arrow {
-    left: 10%;
+    left: 15%;
 }
 
 .right-arrow {
-    right: 10%;
+    right: 15%;
 }
 
 .arrow:hover {
@@ -95,15 +97,21 @@ header .search-bar button {
 
 .event-list {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
     perspective: 1000px;
 }
 
 .event-item {
     position: relative;
+    /* 포스터와 이벤트 디테일을 함께 움직이기 위해 필요 */
     cursor: pointer;
     transform-style: preserve-3d;
-    overflow: hidden;
+    transition: transform 0.3s ease;
+    /* 3D 변환 적용을 위해 필요 */
+
+    /* 높이를 고정 */
 }
 
 .event-item img {
