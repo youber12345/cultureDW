@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -20,7 +22,7 @@
             <img src="<%= request.getContextPath() %>/static/logo/logo.png" alt="Logo" width="100px" height="100px">
         </div>
         <nav class="nav">
-            <a href="<%= request.getContextPath() %>/top3" class="active">TOP3</a>
+            <a href="<%= request.getContextPath() %>/top3" class="a1">TOP3</a>
             <a href="<%= request.getContextPath() %>/index">행사정보</a>
             <a href="<%= request.getContextPath() %>/board">게시판</a>
             <a href="<%= request.getContextPath() %>/mypage">마이페이지</a>
@@ -35,17 +37,9 @@
 <c:forEach var="event" items="${top3Events}">
     <div class="event-item" onclick="location.href='<%= request.getContextPath() %>/view?eventNum=${event.event_num}'">
         <img src="${event.event_poster}" alt="event_poster" width="200px" height="300px">
-        <div class="event-details">
-            <h3>${event.event_name}</h3>
-            <p>${event.event_sdate} - ${event.event_edate}</p>
-            <p>${event.event_homepage}</p>
-        </div>
+        
     </div>
-    <div>
-        <p>Event Number: ${event.event_num}</p>
-        <p>Event Name: ${event.event_name}</p>
-        <p>Event Poster: ${event.event_poster}</p>
-    </div>
+    
 </c:forEach>
 
 

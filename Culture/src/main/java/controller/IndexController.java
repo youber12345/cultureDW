@@ -57,39 +57,20 @@ public class IndexController {
     }
     
     @GetMapping("/top3")
-    public String top3(@RequestParam(value = "eventNum", required = false) Integer eventNum, Model model) {
+    public String top3(Model model, HttpSession session) {
         // 상위 3개의 이벤트를 가져옴
         List<Event> top3Events = eventService.getTop3Events();
-        
+        model.addAttribute("top3Events", top3Events);
         // null 체크하여 빈 리스트로 초기화
         if (top3Events == null || top3Events.isEmpty()) {
             model.addAttribute("top3Events", new ArrayList<Event>());
             model.addAttribute("message", "이벤트가 존재하지 않습니다.");  // Optional: 메시지 추가
-            return "top3"; // top3.jsp로 이동
-        }
+        } 
 
-        // 만약 eventNum이 null이라면 첫 번째 이벤트를 기본으로 선택
-        if (eventNum == null) {
-            eventNum = top3Events.get(0).getEvent_num();
-        }
-
-        // 이벤트 정보 가져오기
-        Event selectedEvent = eventService.getEventById(eventNum);
-        if (selectedEvent == null) {
-            // 이벤트가 존재하지 않는 경우 처리 (이 경우도 첫 번째 이벤트를 선택)
-            selectedEvent = top3Events.get(0);
-            model.addAttribute("message", "선택한 이벤트가 존재하지 않아 첫 번째 이벤트를 표시합니다.");
-        }
-
-        // 모델에 이벤트 리스트 및 선택된 이벤트 추가
-        model.addAttribute("top3Events", top3Events);
-        model.addAttribute("selectedEvent", selectedEvent);
-
-        //데이터 확인 
-        System.out.println("Selected Event: " + selectedEvent);
+        //데이터확인 
+        System.out.println(top3Events);
         return "top3"; // top3.jsp로 이동
     }
-
 
 
 
