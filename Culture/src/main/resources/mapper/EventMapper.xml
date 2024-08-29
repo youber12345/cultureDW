@@ -36,13 +36,13 @@
         event_num, event_name, event_sdate, event_edate, 
         event_description, event_ph, event_price, 
         event_homepage, event_poster, event_address, 
-        event_tag, event_guName
+        event_tag, event_guName,event_lat, event_lot
     )
     VALUES (
         event_seq.NEXTVAL, #{event_name}, #{event_sdate}, #{event_edate}, 
         #{event_description}, #{event_ph}, #{event_price}, 
         #{event_homepage}, #{event_poster}, #{event_address}, 
-        #{event_tag}, #{event_guName}
+        #{event_tag}, #{event_guName}, #{event_lat}, #{event_lot}
     )
     </insert>
 

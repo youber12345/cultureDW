@@ -67,8 +67,6 @@ public class IndexController {
             model.addAttribute("message", "이벤트가 존재하지 않습니다.");  // Optional: 메시지 추가
         } 
 
-        //데이터확인 
-        System.out.println(top3Events);
         return "top3"; // top3.jsp로 이동
     }
 
@@ -203,6 +201,8 @@ public class IndexController {
             @RequestParam(value = "event_poster") String event_poster,
             @RequestParam(value = "event_description") String event_description,
             @RequestParam(value = "event_ph") String event_ph,
+            @RequestParam(value = "event_lat") String event_lat,
+            @RequestParam(value = "event_lot") String event_lot,
             HttpServletRequest request, 
             Model model) {
 
@@ -225,6 +225,8 @@ public class IndexController {
             event.setEvent_poster(event_poster);
             event.setEvent_description(event_description);
             event.setEvent_ph(event_ph);
+            event.setEvent_lat(event_lat);
+            event.setEvent_lot(event_lot);
 
             // 이벤트 데이터베이스에 삽입
             boolean isSuccess = eventService.createEvent(event);
