@@ -11,10 +11,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
     <!-- CSS 파일 링크 -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/mypage.css">
-    <!-- External JS 파일 링크 -->
-    <script src="<%= request.getContextPath() %>/static/js/calendar.js" defer></script>
+
 </head>
 <body>
     <header>
@@ -93,5 +93,6 @@
             </div>
         </div>
     </div>
+    <script src="<%= request.getContextPath() %>/static/js/calendar.js"></script>
 </body>
 </html>

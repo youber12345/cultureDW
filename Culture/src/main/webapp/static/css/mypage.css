@@ -146,6 +146,11 @@ header .search-bar {
     font-size: 45px;
     cursor: pointer;
 }
+.selected-date {
+    border: 2px solid blue;
+    border-radius: 5px;
+    background-color: #e0f7fa; /* 선택된 날짜를 강조할 배경색 */
+}
 
 .calendar table {
     width: 100%;
