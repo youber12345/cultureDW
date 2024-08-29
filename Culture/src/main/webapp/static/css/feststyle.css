@@ -78,6 +78,9 @@ header .search-bar img {
     margin-top: 20px;
     padding-left: 50px;
 }
+.description a{
+    color: #FF7F7F;
+}
 
 .h2 {
     font-size: 35px;
@@ -206,7 +209,7 @@ header .search-bar img {
 .comment-input button {
     padding: 10px 15px;
     border: none;
-    background-color: #6200ea;
+    background-color: #FF7F7F;
     color: white;
     margin-left: 10px;
     border-radius: 5px;

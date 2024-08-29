@@ -1,7 +1,6 @@
 package mapper;
 
 import java.util.List;
-
 import DTO.Event;
 
 public interface EventMapper {
@@ -14,4 +13,7 @@ public interface EventMapper {
 
     // 새로운 이벤트를 삽입하는 메서드
     int insertEvent(Event event);
+
+    // 상위 3개의 이벤트를 조회하는 메서드
+    List<Event> selectTop3Events();
 }

@@ -159,9 +159,13 @@ public class Event {
 
 	@Override
 	public String toString() {
-		return "Event [event_num=" + event_num + ", event_name=" + event_name + ", event_lat=" + event_lat
-				+ ", event_lot=" + event_lot + "]";
+		return "Event [event_num=" + event_num + ", event_name=" + event_name + ", event_sdate=" + event_sdate
+				+ ", event_edate=" + event_edate + ", event_description=" + event_description + ", event_ph=" + event_ph
+				+ ", event_price=" + event_price + ", event_homepage=" + event_homepage + ", event_poster="
+				+ event_poster + ", event_address=" + event_address + ", event_tag=" + event_tag + ", event_guName="
+				+ event_guName + ", event_lat=" + event_lat + ", event_lot=" + event_lot + "]";
 	}
-    
+
+
     
 }

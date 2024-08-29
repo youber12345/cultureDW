@@ -1,14 +1,17 @@
 package Service;
 
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import DAO.EventDAO;
 import DTO.Event;
 
+@Service
 public class EventService {
+    
     private final EventDAO eventDAO;
 
-    // 생성자에서 EventDAO를 전달받음
+    @Autowired
     public EventService(EventDAO eventDAO) {
         this.eventDAO = eventDAO;
     }
@@ -23,11 +26,13 @@ public class EventService {
         return eventDAO.getEventById(eventNum);
     }
 
+    // 상위 3개의 이벤트를 조회하는 메서드
+    public List<Event> getTop3Events() {
+        return eventDAO.getTop3Events();
+    }
+    
     // 새로운 이벤트를 등록하는 메서드
     public boolean createEvent(Event event) {
         return eventDAO.insertEvent(event);
     }
-
-
-
 }

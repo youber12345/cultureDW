@@ -18,6 +18,17 @@
         FROM eventDB
         ORDER BY event_sdate
     </select>
+    
+    
+ 	<!-- 상위 3개의 이벤트를 선택하는 쿼리 -->
+    <select id="selectTop3Events" resultType="DTO.Event">
+    SELECT event_num, event_name, event_sdate, event_edate, event_description, event_ph, 
+           event_price, event_homepage, event_poster, event_lat, event_lot, event_tag, event_address
+    FROM eventDB 
+    ORDER BY event_num DESC
+    FETCH FIRST 3 ROWS ONLY
+	</select>
+
 
     <!-- 새로운 이벤트를 데이터베이스에 삽입하는 쿼리 -->
    <insert id="insertEvent" parameterType="DTO.Event">
@@ -33,8 +44,8 @@
         #{event_homepage}, #{event_poster}, #{event_address}, 
         #{event_tag}, #{event_guName}
     )
-</insert>
+    </insert>
 
-
+   
 
 </mapper>

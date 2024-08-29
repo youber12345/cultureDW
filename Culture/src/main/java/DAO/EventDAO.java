@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import DTO.Event;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventDAO {
@@ -28,6 +29,23 @@ public class EventDAO {
         }
     }
 
+    public List<Event> getTop3Events() {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            List<Event> events = session.selectList("mapper.EventMapper.selectTop3Events");
+            return (events != null) ? events : new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to retrieve top 3 events", e);
+        }
+    }
+    
+//    public List<Event> getTop3Events() {
+//        try (SqlSession session = sqlSessionFactory.openSession()) {
+//            return session.selectList("mapper.EventMapper.selectTop3Events");
+//        } 
+//    }
+
+    
     // 새로운 이벤트를 데이터베이스에 삽입하는 메서드
     public boolean insertEvent(Event event) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
