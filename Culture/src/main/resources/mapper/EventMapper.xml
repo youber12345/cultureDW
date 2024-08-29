@@ -45,6 +45,7 @@
         #{event_tag}, #{event_guName}, #{event_lot}, #{event_lat}
     )
     </insert>
+    
 
    
 

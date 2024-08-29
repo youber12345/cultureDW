@@ -108,7 +108,7 @@ header .search-bar button {
     /* 포스터와 이벤트 디테일을 함께 움직이기 위해 필요 */
     cursor: pointer;
     transform-style: preserve-3d;
-    transition: transform 0.3s ease;
+    transition: transform 1.5s ease;
     /* 3D 변환 적용을 위해 필요 */
 
     /* 높이를 고정 */
