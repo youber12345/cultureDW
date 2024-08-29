@@ -28,8 +28,15 @@
             <a href="<%= request.getContextPath() %>/mypage">마이페이지</a>
         </nav>
         <div class="search-bar">
-            <a href="<%= request.getContextPath() %>/loginpage"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px"></a>
-        </div>
+            <c:choose>
+        <c:when test="${not empty sessionScope.userId}">
+            <a href="<%= request.getContextPath() %>/mypage"><img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px"></a>
+        </c:when>
+        <c:otherwise>
+            <a href="<%= request.getContextPath() %>/login"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px"></a>
+        </c:otherwise>
+    </c:choose>
+             </div>
     </header>
     <main class="main-content">
         <button id="left-button" class="arrow left-arrow">&#9664;</button>

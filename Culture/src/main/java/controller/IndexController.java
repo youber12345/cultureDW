@@ -58,14 +58,23 @@ public class IndexController {
     
     @GetMapping("/top3")
     public String top3(Model model, HttpSession session) {
+    	
         // 상위 3개의 이벤트를 가져옴
         List<Event> top3Events = eventService.getTop3Events();
+        User user = (User) session.getAttribute("user");
+        
         model.addAttribute("top3Events", top3Events);
         // null 체크하여 빈 리스트로 초기화
         if (top3Events == null || top3Events.isEmpty()) {
             model.addAttribute("top3Events", new ArrayList<Event>());
             model.addAttribute("message", "이벤트가 존재하지 않습니다.");  // Optional: 메시지 추가
         } 
+        if (user != null) {
+            model.addAttribute("isLoggedIn", true);
+            model.addAttribute("username", user.getId());
+        } else {
+            model.addAttribute("isLoggedIn", false);
+        }
 
         return "top3"; // top3.jsp로 이동
     }
