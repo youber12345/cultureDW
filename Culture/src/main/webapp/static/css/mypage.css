@@ -32,9 +32,10 @@ header .logo {
 }
 
 header .nav {
+	width:1200px;
     display: flex;
-    gap: 20px;
-    justify-content: center;
+    gap: 15px;
+    justify-content: space-around;
 }
 
 header .nav a {

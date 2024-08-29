@@ -1,6 +1,5 @@
 let slideIndex = 0;
 let hcount = 0;
-
 function showSlides() {
     const slides = document.querySelectorAll('.slide');
     slides.forEach((slide, index) => {
@@ -31,6 +30,7 @@ function toggleHeart() {
         hcount = 0;
     }
 }
+
 
 function openCommentSection() {
     const darkOverlay = document.getElementById('darkOverlay');
@@ -63,7 +63,6 @@ function closeCommentSection() {
 function addComment() {
     const commentInput = document.getElementById('commentInput');
     const commentList = document.getElementById('commentList');
-
     if (commentInput.value.trim() !== "") {
         const newComment = document.createElement('div');
         newComment.classList.add('comment-item'); // 새롭게 추가된 클래스
@@ -83,7 +82,6 @@ document.getElementById('commentInput').addEventListener('keydown', function(eve
         addComment();
     }
 });
-
 
 
     
