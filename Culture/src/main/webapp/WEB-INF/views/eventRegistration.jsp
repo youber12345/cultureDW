@@ -162,12 +162,12 @@
                     
                     <div class="input-group">
                         <label for="event_lat">위도</label>
-                        <input type="text" id="event_lat" name="event_lat" class="form-control" placeholder="위도 값을 입력하세요...">
+                        <input type="text" id="event_lot" name="event_lot" class="form-control" placeholder="위도 값을 입력하세요...">
                     </div>
                     
                     <div class="input-group">
                         <label for="event_lot">경도</label>
-                        <input type="text" id="event_lot" name="event_lot" class="form-control" placeholder="경도 값을 입력하세요...">
+                        <input type="text" id="event_lat" name="event_lat" class="form-control" placeholder="경도 값을 입력하세요...">
                     </div>
                     
                 </div>
