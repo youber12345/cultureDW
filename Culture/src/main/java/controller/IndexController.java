@@ -1,33 +1,38 @@
 package controller;
 
 import mybatis.MyBatisConfig;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import DAO.EventDAO;
 import DTO.Event;
 import DTO.User;
 import Service.EventService;
+import Service.LikeService;  // LikeService 임포트 추가
 import Service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 @Controller
 public class IndexController {
 
     private final EventService eventService;
     private final UserService userService;
+    private final LikeService likeService;  // LikeService 필드 추가
 
     public IndexController() {
         // SqlSessionFactory를 MyBatisConfig를 통해 생성
@@ -36,6 +41,9 @@ public class IndexController {
 
         // UserService 인스턴스 생성
         this.userService = new UserService(MyBatisConfig.getSqlSessionFactory());
+
+        // LikeService 인스턴스 생성
+        this.likeService = new LikeService(MyBatisConfig.getSqlSessionFactory());
     }
 
     @GetMapping("/index")
@@ -49,26 +57,26 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("isLoggedIn", true);
             model.addAttribute("username", user.getId());
+            model.addAttribute("userNum", user.getUserNum());  // userNum 추가
         } else {
             model.addAttribute("isLoggedIn", false);
         }
 
         return "index"; // index.jsp로 이동
     }
-    
+
     @GetMapping("/top3")
     public String top3(Model model, HttpSession session) {
-    	
         // 상위 3개의 이벤트를 가져옴
         List<Event> top3Events = eventService.getTop3Events();
         User user = (User) session.getAttribute("user");
-        
+
         model.addAttribute("top3Events", top3Events);
         // null 체크하여 빈 리스트로 초기화
         if (top3Events == null || top3Events.isEmpty()) {
             model.addAttribute("top3Events", new ArrayList<Event>());
             model.addAttribute("message", "이벤트가 존재하지 않습니다.");  // Optional: 메시지 추가
-        } 
+        }
         if (user != null) {
             model.addAttribute("isLoggedIn", true);
             model.addAttribute("username", user.getId());
@@ -79,10 +87,6 @@ public class IndexController {
         return "top3"; // top3.jsp로 이동
     }
 
-
-
-
-    
     @GetMapping("/view")
     public String view(@RequestParam("eventNum") int eventNum, HttpSession session, Model model) {
         // 세션에서 사용자 정보 가져오기
@@ -93,15 +97,15 @@ public class IndexController {
             model.addAttribute("username", user.getId());
             model.addAttribute("email", user.getEmail());
             model.addAttribute("admin", user.getAdmin()); // admin 값을 직접 사용
+            model.addAttribute("userNum", user.getUserNum());  // userNum 추가
         }
 
         // 이벤트 정보 가져오기
         Event event = eventService.getEventById(eventNum);
         model.addAttribute("event", event);
-
+        System.out.println("user " + (user != null ? user.getUserNum() : "null") + ", event " + event.getEvent_num());
         return "view"; // view.jsp로 이동
     }
-
 
     @GetMapping("/login")
     public String loginForm() {
@@ -109,9 +113,9 @@ public class IndexController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("id") String id, 
-                        @RequestParam("password") String password, 
-                        HttpServletRequest request, 
+    public String login(@RequestParam("id") String id,
+                        @RequestParam("password") String password,
+                        HttpServletRequest request,
                         Model model) {
 
         User user = userService.login(id, password);
@@ -135,8 +139,6 @@ public class IndexController {
         return "redirect:/index"; // 로그아웃 후 index 페이지로 리다이렉트
     }
 
-
-
     @GetMapping("/mypage")
     public String mypage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
@@ -156,7 +158,7 @@ public class IndexController {
     public String signupForm() {
         return "signup"; // signup.jsp로 이동
     }
-    
+
     @PostMapping("/signupProcess")
     public String signupProcess(@RequestParam("username") String username,
                                 @RequestParam("password") String password,
@@ -166,7 +168,7 @@ public class IndexController {
                                 @RequestParam("phone") String phone,
                                 @RequestParam("admin") int admin,  // int로 그대로 받음
                                 Model model) {
-        
+
         // User 객체 생성 및 데이터 설정
         User user = new User();
         user.setId(username);
@@ -188,7 +190,6 @@ public class IndexController {
         }
     }
 
-    // 새로운 이벤트 등록을 위한 메서드 추가
     @GetMapping("/eventRegistration")
     public String eventRegistrationForm(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
@@ -212,7 +213,7 @@ public class IndexController {
             @RequestParam(value = "event_ph") String event_ph,
             @RequestParam(value = "event_lat") String event_lat,
             @RequestParam(value = "event_lot") String event_lot,
-            HttpServletRequest request, 
+            HttpServletRequest request,
             Model model) {
 
         // 날짜 형식을 위한 SimpleDateFormat
@@ -222,11 +223,11 @@ public class IndexController {
             // 새로운 Event 객체 생성 및 데이터 설정
             Event event = new Event();
             event.setEvent_name(event_name);
-            
+
             // String으로 받은 날짜를 Date로 변환
             event.setEvent_sdate(dateFormat.parse(event_sdate));
             event.setEvent_edate(dateFormat.parse(event_edate));
-            
+
             event.setEvent_price(event_price);
             event.setEvent_address(event_address);
             event.setEvent_tag(event_tag);
@@ -241,17 +242,44 @@ public class IndexController {
             boolean isSuccess = eventService.createEvent(event);
 
             if (isSuccess) {
-                return "redirect:/index"; 
+                return "redirect:/index";
             } else {
                 model.addAttribute("error", "이벤트 등록에 실패했습니다. 다시 시도해주세요.");
-                return "eventRegistration"; 
+                return "eventRegistration";
             }
         } catch (ParseException e) {
             // 날짜 파싱 중 오류 발생 시 처리
             model.addAttribute("error", "잘못된 날짜 형식입니다. yyyy-MM-dd 형식으로 입력해주세요.");
-            return "eventRegistration"; 
+            return "eventRegistration";
         }
     }
 
-   }
+    @PostMapping("/likeEvent")
+    public ResponseEntity<Map<String, Object>> likeEvent(@RequestParam("userNum") int userNum,
+                                                         @RequestParam("eventNum") int eventNum) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            // 유저와 이벤트의 num 값 출력
+            System.out.println("Received like request - User Num: " + userNum + ", Event Num: " + eventNum);
 
+            // 좋아요 삽입 또는 삭제 로직 처리
+            boolean result = likeService.likeEvent(userNum, eventNum);
+            response.put("success", result);
+
+            if (result) {
+                System.out.println("Like successfully inserted for User Num: " + userNum + ", Event Num: " + eventNum);
+                response.put("message", "Like successfully inserted.");
+            } else {
+                System.out.println("Failed to insert like for User Num: " + userNum + ", Event Num: " + eventNum);
+                response.put("message", "Failed to insert like.");
+            }
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("success", false);
+            response.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+}

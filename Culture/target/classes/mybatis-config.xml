@@ -21,5 +21,6 @@
     <mappers>
         <mapper resource="mapper/EventMapper.xml"/>
         <mapper resource="mapper/UserMapper.xml"/>  <!-- UserMapper.xml 파일 추가 -->
+        <mapper resource="mapper/LikeMapper.xml"/>
     </mappers>
 </configuration>

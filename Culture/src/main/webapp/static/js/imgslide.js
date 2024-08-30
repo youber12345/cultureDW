@@ -13,17 +13,47 @@ function checkLogin(action) {
     }
 }
 
-function toggleHeart() {
-    if (!checkLogin('like')) return;  // 로그인 체크
+function toggleHeart(eventNum) {
     const heartIcon = document.querySelector('.icons img:first-child');
-    if (hcount === 0) {
-        heartIcon.src = 'static/icon/heart.png';
-        hcount = 1;
-    } else {
-        heartIcon.src = 'static/icon/blackfav.png';
-        hcount = 0;
+    const userNumElement = document.getElementById('userNum');
+
+    if (!userNumElement || !userNumElement.value) {
+        alert("User is not logged in or userNum is missing.");
+        return;
     }
+
+    const userNum = userNumElement.value;
+
+    console.log("User Num: " + userNum + ", Event Num: " + eventNum);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/likeEvent", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    console.log("Like action successful.");
+                    if (heartIcon.src.includes("blackfav.png")) {
+                        heartIcon.src = "static/icon/heart.png";
+                    } else {
+                        heartIcon.src = "static/icon/blackfav.png";
+                    }
+                } else {
+                    console.error("Failed to toggle like:", response.error);
+                }
+            } else {
+                console.error("Error: " + xhr.status);
+            }
+        }
+    };
+
+    xhr.send("userNum=" + encodeURIComponent(userNum) + "&eventNum=" + encodeURIComponent(eventNum));
 }
+
+
 
 function openCommentSection() {
     if (!checkLogin('comment')) return;  // 로그인 체크

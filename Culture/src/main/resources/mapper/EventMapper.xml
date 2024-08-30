@@ -7,7 +7,7 @@
 
     <!-- ID로 특정 이벤트를 선택하는 쿼리 -->
     <select id="selectEventById" parameterType="int" resultType="DTO.Event">
-        SELECT event_name, event_sdate, event_edate, event_description, event_ph, event_price, event_homepage, event_poster, event_lat, event_lot, event_tag, event_address
+        SELECT event_num, event_name, event_sdate, event_edate, event_description, event_ph, event_price, event_homepage, event_poster, event_lat, event_lot, event_tag, event_address
         FROM eventDB
         WHERE event_num = #{event_num}	
     </select>

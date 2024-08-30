@@ -6,7 +6,7 @@
 <mapper namespace="mapper.UserMapper">
     <!-- 사용자 ID로 사용자 정보를 조회하는 쿼리 -->
     <select id="getUserById" resultType="DTO.User">
-        SELECT id, password, email, name, gender, phone, admin
+        SELECT user_num AS userNum, id, password, email, name, gender, phone, admin
         FROM userDB
         WHERE id = #{id}
     </select>
