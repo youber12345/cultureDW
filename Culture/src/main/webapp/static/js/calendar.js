@@ -120,7 +120,6 @@ function renderTodoList(dateString) {
 
     if (todoContent) {
         todoContent.innerHTML = `
-            <h3>${dateString}의 TO DO LIST</h3>
             <form onsubmit="return addTodoItem(event)">
                 <label for="todo">할 일:</label>
                 <input type="text" id="todo" name="todo" required>
