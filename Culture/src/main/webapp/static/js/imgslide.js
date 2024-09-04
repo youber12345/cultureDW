@@ -1,25 +1,57 @@
 let slideIndex = 0;
 let hcount = 0;
+// 세션에서 가져온 사용자 이름
+const username = document.getElementById('username').value;
 
+// 세션에서 사용자의 로그인 여부를 확인
+const isLoggedIn = Boolean(document.getElementById('sessionUserId').value);
 
 // 로그인 여부 확인 함수
-function checkLogin(action) {
-    if (isLoggedIn) {
-        return true; // 로그인 되어있으면 true 반환
-    } else {
-        alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+// 좋아요 상태를 확인하고 하트를 초기화하는 함수
+function loadHeartStatus(eventNum) {
+    const heartIcon = document.querySelector('.icons img:first-child');
+    const userNumElement = document.getElementById('userNum');
+
+    if (!userNumElement || !userNumElement.value) {
+       	alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
         window.location.href = "/login";  // 로그인 페이지로 이동
         return false; // 로그인 안되어있으면 false 반환
     }
+
+    const userNum = userNumElement.value;
+
+    // 서버에서 좋아요 상태를 확인
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", `/checkLikeStatus?userNum=${encodeURIComponent(userNum)}&eventNum=${encodeURIComponent(eventNum)}`, true);
+    xhr.setRequestHeader("Accept", "application/json");
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                if (response.liked) {
+                    heartIcon.src = "static/icon/heart.png";  // 좋아요가 되어있다면 채워진 하트
+                } else {
+                    heartIcon.src = "static/icon/blackfav.png";  // 좋아요가 안되어있다면 빈 하트
+                }
+            } else {
+                console.error("Error checking like status: " + xhr.status);
+            }
+        }
+    };
+
+    xhr.send();
 }
 
+// 좋아요 토글 함수
 function toggleHeart(eventNum) {
     const heartIcon = document.querySelector('.icons img:first-child');
     const userNumElement = document.getElementById('userNum');
 
     if (!userNumElement || !userNumElement.value) {
-        alert("User is not logged in or userNum is missing.");
-        return;
+        alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+        window.location.href = "/login";  // 로그인 페이지로 이동
+        return false; // 로그인 안되어있으면 false 반환
     }
 
     const userNum = userNumElement.value;
@@ -29,7 +61,7 @@ function toggleHeart(eventNum) {
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "/likeEvent", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Accept", "application/json"); // 이 줄을 추가하세요.
+    xhr.setRequestHeader("Accept", "application/json");
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -37,10 +69,11 @@ function toggleHeart(eventNum) {
                 const response = JSON.parse(xhr.responseText);
                 if (response.success) {
                     console.log("Like action successful.");
+                    // 좋아요 상태에 맞게 하트 아이콘 변경
                     if (heartIcon.src.includes("blackfav.png")) {
-                        heartIcon.src = "static/icon/heart.png";
+                        heartIcon.src = "static/icon/heart.png";  // 빈 하트 -> 채워진 하트
                     } else {
-                        heartIcon.src = "static/icon/blackfav.png";
+                        heartIcon.src = "static/icon/blackfav.png";  // 채워진 하트 -> 빈 하트
                     }
                 } else {
                     console.error("Failed to toggle like:", response.error);
@@ -54,6 +87,13 @@ function toggleHeart(eventNum) {
     xhr.send("userNum=" + encodeURIComponent(userNum) + "&eventNum=" + encodeURIComponent(eventNum));
 }
 
+// 페이지 로드 시 좋아요 상태를 확인하고 하트를 업데이트
+document.addEventListener('DOMContentLoaded', function() {
+    const eventNum = getEventNumFromURL();  // URL 또는 HTML에서 eventNum을 가져오는 함수
+    if (eventNum) {
+        loadHeartStatus(eventNum);  // 좋아요 상태 동기화
+    }
+});
 
 
 

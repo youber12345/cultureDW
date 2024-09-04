@@ -15,10 +15,7 @@
     <script src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=8e480e67209fc1cea057758a6f85f8c4"></script>
     <script src="<%= request.getContextPath() %>/static/js/kakaomap.js" defer></script>
     <script src="<%= request.getContextPath() %>/static/js/imgslide.js" defer></script>
-    
-    <!-- 자바스크립트 파일 불러오기 -->
-    <script src="<%= request.getContextPath() %>/static/js/userScript.js" defer></script>
-</head>
+    </head>
 <body>
     <!-- 세션에서 사용자 이름과 userId를 전달하기 위한 숨겨진 input 필드 -->
     <input type="hidden" id="username" value="${username}">
