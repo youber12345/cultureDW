@@ -1,0 +1,253 @@
+/* 전체 페이지 스타일 */
+html, body {
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #FFF5F5;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 헤더 스타일 */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 20px 0px;
+    background-color: #FFE4E1;
+    width: 100%;
+}
+header .logo {
+	margin-left : 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header .nav {
+	width:1200px;
+    display: flex;
+    gap: 15px;
+    justify-content: space-around;
+}
+
+header .nav a {
+    margin: 0 15px;
+    font-size: 35px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+header .nav > .a1 {
+    padding-bottom: 5px;
+    border-bottom: 2px solid #FF7F7F;
+    color: #FF7F7F;
+}
+
+header .search-bar a {
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+header .search-bar {
+	margin-right : 10px;
+	}
+
+/* 컨테이너 스타일 */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px 0px;
+    flex: 1; /* 컨테이너가 화면 전체를 채우도록 설정 */
+    width: 100%;
+}
+
+/* 메인 콘텐츠 스타일 */
+.main {
+    width: 50%; /* 절반 너비 */
+}
+
+/* 사이드 패널 스타일 */
+.main, .side-panel {
+    flex: 1;
+    height: 100%; /* 컨텐츠 높이가 페이지 높이에 맞춰지도록 설정 */
+}
+
+/* 사용자 정보 스타일 */
+.user-info {
+	margin-top : 20px;
+    padding: 20px;
+    background-color: #f2f2f2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.user-info p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.user-info .button-group {
+    margin-top: 20px;
+}
+
+.user-info button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #FF7F7F;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* 캘린더 스타일 */
+.calendar {
+    width: 100%;
+    max-width: 100%; /* 전체 너비 설정 */
+    margin: 20px 0; /* 중앙 정렬 */
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.calendar .header span {
+    font-size: 30px; /* 월 표시 크기 조정 */
+    font-weight: bold;
+    color: #000; /* 텍스트 색상 */
+    display: inline; /* 요소가 화면에 나타나는지 확인 */
+    text-align: center; /* 중앙 정렬 */
+}
+
+.calendar .header button {
+    background-color: transparent;
+    border: none;
+    font-size: 45px;
+    cursor: pointer;
+}
+.selected-date {
+    border: 2px solid blue;
+    border-radius: 5px;
+    background-color: #e0f7fa; /* 선택된 날짜를 강조할 배경색 */
+}
+
+.calendar table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.calendar th, .calendar td {
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: top;
+    font-size: 18px; /* 수정된 크기 */
+}
+
+.calendar th {
+    background-color: #333;
+    color: white;
+}
+
+.calendar .sunday, .calendar .holiday {
+    color: red;
+}
+
+.calendar .saturday {
+    color: #0080ff;
+}
+
+.calendar td {
+    height: 100px; /* 조정된 높이 */
+    position: relative;
+}
+
+.calendar .holiday-name {
+    font-size: 14px; /* 수정된 크기 */
+    color: red;
+    display: block;
+    margin-top: 5px; /* 수정된 여백 */
+}
+
+.selected-date {
+    font-size: 24px; /* 수정된 크기 */
+    margin-top: 20px;
+    text-align: left;
+}
+
+.current-day {
+    background-color: #FFE4E1; 
+    color: #000;
+    border: 2px solid red;
+    border-radius: 4px; /* 추가된 둥근 테두리 */
+}
+
+/* TO DO LIST 스타일 */
+.todo-list {
+	margin-top:100px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1; /* 할 일 목록이 페이지 높이에 맞춰지도록 설정 */
+}
+.todo-list h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.todo-list form {
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-list label {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.todo-list input {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.todo-list button {
+    padding: 10px;
+    background-color: #FF7F7F;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* 선택된 날짜 스타일 */
+#selectedDate h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
