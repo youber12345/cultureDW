@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="org.apache.ibatis.session.SqlSessionFactory, org.apache.ibatis.session.SqlSession"%>
-<%@ page import="DTO.Event,DAO.EventDAO, mybatis.MyBatisConfig"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
@@ -17,57 +15,15 @@
     <script src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=8e480e67209fc1cea057758a6f85f8c4"></script>
     <script src="<%= request.getContextPath() %>/static/js/kakaomap.js" defer></script>
     <script src="<%= request.getContextPath() %>/static/js/imgslide.js" defer></script>
-    <script>
-    const username = "${username}"; // 세션에서 가져온 사용자 이름
-    const isLoggedIn = Boolean("${sessionScope.userId}");  // 로그인 여부 확인
-
-    function toggleHeart(eventNum) {
-        const heartIcon = document.querySelector('.icons img:first-child');
-        const userNumElement = document.getElementById('userNum');
-
-        if (!userNumElement || !userNumElement.value) {
-            alert("User is not logged in or userNum is missing.");
-            return;
-        }
-
-        const userNum = userNumElement.value;
-
-        console.log("User Num: " + userNum + ", Event Num: " + eventNum);
-
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "/likeEvent", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    const response = JSON.parse(xhr.responseText);
-                    if (response.success) {
-                        if (heartIcon.src.includes("blackfav.png")) {
-                            heartIcon.src = "static/icon/heart.png";
-                        } else {
-                            heartIcon.src = "static/icon/blackfav.png";
-                        }
-                    } else {
-                        console.error("Failed to toggle like:", response.error);
-                    }
-                } else {
-                    console.error("Error: " + xhr.status);
-                }
-            }
-        };
-
-        xhr.send("userNum=" + encodeURIComponent(userNum) + "&eventNum=" + encodeURIComponent(eventNum));
-    }
-
-    </script>
-
+    
+    <!-- 자바스크립트 파일 불러오기 -->
+    <script src="<%= request.getContextPath() %>/static/js/userScript.js" defer></script>
 </head>
 <body>
-    <!-- 로그인한 사용자에 대한 userNum 값을 전달하기 위한 숨겨진 input 필드 -->
-    <c:if test="${not empty userNum}">
-        <input type="hidden" id="userNum" value="${userNum}">
-    </c:if>
+    <!-- 세션에서 사용자 이름과 userId를 전달하기 위한 숨겨진 input 필드 -->
+    <input type="hidden" id="username" value="${username}">
+    <input type="hidden" id="sessionUserId" value="${sessionScope.userId}">
+    <input type="hidden" id="userNum" value="${userNum}">
 
     <header>
         <div class="logo">
@@ -80,18 +36,18 @@
             <a href="<%= request.getContextPath() %>/mypage">마이페이지</a>
         </nav>
         <div class="search-bar">
-        <c:choose>
-            <c:when test="${not empty sessionScope.userId}">
-                <a href="<%= request.getContextPath() %>/mypage">
-                    <img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px">
-                </a>
-            </c:when>
-            <c:otherwise>
-                <a href="<%= request.getContextPath() %>/login">
-                    <img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px">
-                </a>
-            </c:otherwise>
-        </c:choose>
+            <c:choose>
+                <c:when test="${not empty sessionScope.userId}">
+                    <a href="<%= request.getContextPath() %>/mypage">
+                        <img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px">
+                    </a>
+                </c:when>
+                <c:otherwise>
+                    <a href="<%= request.getContextPath() %>/login">
+                        <img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px">
+                    </a>
+                </c:otherwise>
+            </c:choose>
         </div>
     </header>
 
@@ -105,47 +61,48 @@
                     <div><img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="50px" height="50px" onclick="share()"></div>
                     <div><img src="<%= request.getContextPath() %>/static/icon/blackchat.png" width="50px" height="50px" onclick="openCommentSection()"></div>
                 </div>
-                
+
                 <div class="event-info">
-                <!-- 어두운 배경 레이어 -->
-                <div id="darkOverlay" class="dark-overlay"></div>
-                
-                <!-- 댓글 창 -->
-                <div id="commentSection" class="comment-section">
-                    <div class="comment-header">
-                        <span>댓글</span>
-                        <button onclick="closeCommentSection()" class="close-btn">X</button>
-                    </div>
-                    <div class="comment-list" id="commentList">
-                        <!-- 댓글 목록이 여기에 추가됩니다 -->
-                    </div>
-                    <div class="comment-input">
-                        <input type="text" id="commentInput" placeholder="댓글을 입력하세요...">
-                        <button onclick="addComment()">게시</button>
-                    </div>
-                </div>
+                    <!-- 어두운 배경 레이어 -->
+                    <div id="darkOverlay" class="dark-overlay"></div>
 
-                <div class="event-dates">
-                    <h2>행사 및 축제 기간</h2>
-                    <fmt:formatDate value="${event.event_sdate}" pattern="yyyy.MM.dd" /> ~
-                    <fmt:formatDate value="${event.event_edate}" pattern="yyyy.MM.dd" />
-                    <br>행사 분류: ${event.event_tag}
-                </div>
-
-                <div class="more-content">
-                    <p class="t1">[행사내용]</p>
-                    <div class="t2">
-                        <div>연락처: ${event.event_ph}</div>
-                        <div>금액: ${event.event_price}</div>
-                        <div>사이트 주소: <a href="${event.event_homepage}">${event.event_homepage}</a></div>
-                        <div>행사 주소: ${event.event_address}</div>
+                    <!-- 댓글 창 -->
+                    <div id="commentSection" class="comment-section">
+                        <div class="comment-header">
+                            <span>댓글</span>
+                            <button onclick="closeCommentSection()" class="close-btn">X</button>
+                        </div>
+                        <div class="comment-list" id="commentList">
+                            <!-- 댓글 목록이 여기에 추가됩니다 -->
+                        </div>
+                        <div class="comment-input">
+                            <input type="text" id="commentInput" placeholder="댓글을 입력하세요...">
+                            <button onclick="addComment()">게시</button>
+                        </div>
                     </div>
-                      <!-- 문의하기 버튼 추가 -->
-				    <div class="inquiry-button">
-				        <button onclick="location.href='<%= request.getContextPath() %>/contactForm?eventId=${event.event_num}'">문의하기</button>
-				    </div>
-                    <p class="t1">위치</p>
-                    <div id="map" data-lat="${event.event_lot}" data-lng="${event.event_lat}"></div>
+
+                    <div class="event-dates">
+                        <h2>행사 및 축제 기간</h2>
+                        <fmt:formatDate value="${event.event_sdate}" pattern="yyyy.MM.dd" /> ~
+                        <fmt:formatDate value="${event.event_edate}" pattern="yyyy.MM.dd" />
+                        <br>행사 분류: ${event.event_tag}
+                    </div>
+
+                    <div class="more-content">
+                        <p class="t1">[행사내용]</p>
+                        <div class="t2">
+                            <div>연락처: ${event.event_ph}</div>
+                            <div>금액: ${event.event_price}</div>
+                            <div>사이트 주소: <a href="${event.event_homepage}">${event.event_homepage}</a></div>
+                            <div>행사 주소: ${event.event_address}</div>
+                        </div>
+                        <!-- 문의하기 버튼 추가 -->
+                        <div class="inquiry-button">
+                            <button onclick="location.href='<%= request.getContextPath() %>/contactForm?eventId=${event.event_num}'">문의하기</button>
+                        </div>
+                        <p class="t1">위치</p>
+                        <div id="map" data-lat="${event.event_lot}" data-lng="${event.event_lat}"></div>
+                    </div>
                 </div>
             </div>
         </div>
