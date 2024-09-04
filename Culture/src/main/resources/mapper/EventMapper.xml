@@ -20,14 +20,21 @@
         </select>
     
     
- 	<!-- 상위 3개의 이벤트를 선택하는 쿼리 -->
-    <select id="selectTop3Events" resultType="DTO.Event">
-    SELECT event_num, event_name, event_sdate, event_edate, event_description, event_ph, 
-           event_price, event_homepage, event_poster, event_lat, event_lot, event_tag, event_address
-    FROM eventDB 
-    ORDER BY event_num DESC
+<!-- 상위 3개의 이벤트를 선택하는 쿼리 -->
+<select id="selectTop3Events" resultType="DTO.Event">
+    SELECT e.event_num, e.event_name, e.event_sdate, e.event_edate, e.event_description, e.event_ph, 
+           e.event_price, e.event_homepage, e.event_poster, e.event_lat, e.event_lot, e.event_tag, e.event_address
+    FROM eventDB e
+    LEFT JOIN (
+        SELECT event_num, COUNT(*) as like_count
+        FROM likes
+        GROUP BY event_num
+    ) l ON e.event_num = l.event_num
+    ORDER BY l.like_count DESC NULLS LAST -- 좋아요 수가 없는 경우도 고려
     FETCH FIRST 3 ROWS ONLY
-	</select>
+</select>
+
+	
 
 
     <!-- 새로운 이벤트를 데이터베이스에 삽입하는 쿼리 -->
