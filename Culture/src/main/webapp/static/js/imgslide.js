@@ -29,6 +29,7 @@ function toggleHeart(eventNum) {
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "/likeEvent", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Accept", "application/json"); // 이 줄을 추가하세요.
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -52,6 +53,7 @@ function toggleHeart(eventNum) {
 
     xhr.send("userNum=" + encodeURIComponent(userNum) + "&eventNum=" + encodeURIComponent(eventNum));
 }
+
 
 
 

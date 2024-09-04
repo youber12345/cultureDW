@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import DAO.EventDAO;
 import DTO.Event;
@@ -264,25 +265,26 @@ public class IndexController {
         }
     }
 
-    @PostMapping("/likeEvent")
+    @PostMapping(value = "/likeEvent", produces = "application/json")
+    @ResponseBody
     public ResponseEntity<Map<String, Object>> likeEvent(@RequestParam("userNum") int userNum,
                                                          @RequestParam("eventNum") int eventNum) {
         Map<String, Object> response = new HashMap<>();
         try {
-            // 유저와 이벤트의 num 값 출력
             System.out.println("Received like request - User Num: " + userNum + ", Event Num: " + eventNum);
-
-            // 좋아요 삽입 또는 삭제 로직 처리
-            boolean result = likeService.likeEvent(userNum, eventNum);
+            
+            // 좋아요 토글 처리
+            boolean result = likeService.toggleLike(userNum, eventNum);
             response.put("success", result);
 
             if (result) {
-                System.out.println("Like successfully inserted for User Num: " + userNum + ", Event Num: " + eventNum);
-                response.put("message", "Like successfully inserted.");
+                System.out.println("Like successfully toggled for User Num: " + userNum + ", Event Num: " + eventNum);
+                response.put("message", "Like toggled successfully.");
             } else {
-                System.out.println("Failed to insert like for User Num: " + userNum + ", Event Num: " + eventNum);
-                response.put("message", "Failed to insert like.");
+                System.out.println("Failed to toggle like for User Num: " + userNum + ", Event Num: " + eventNum);
+                response.put("message", "Failed to toggle like.");
             }
+
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
@@ -291,5 +293,8 @@ public class IndexController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
+
+
 
 }
