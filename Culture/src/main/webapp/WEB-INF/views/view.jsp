@@ -13,9 +13,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&display=swap" rel="stylesheet">
     <script src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=8e480e67209fc1cea057758a6f85f8c4"></script>
-    <script src="<%= request.getContextPath() %>/static/js/kakaomap.js" defer></script>
+    <script src="<%= request.getContextPath() %>/static/js/kakaomap.js" defer></script>  
     <script src="<%= request.getContextPath() %>/static/js/imgslide.js" defer></script>
     </head>
+    
 <body>
     <!-- 세션에서 사용자 이름과 userId를 전달하기 위한 숨겨진 input 필드 -->
     <input type="hidden" id="username" value="${username}">
@@ -34,17 +35,18 @@
         </nav>
         <div class="search-bar">
             <c:choose>
-                <c:when test="${not empty sessionScope.userId}">
-                    <a href="<%= request.getContextPath() %>/mypage">
-                        <img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px">
-                    </a>
-                </c:when>
-                <c:otherwise>
-                    <a href="<%= request.getContextPath() %>/login">
-                        <img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px">
-                    </a>
-                </c:otherwise>
-            </c:choose>
+			    <c:when test="${not empty sessionScope.userId}">
+			        <a href="<%= request.getContextPath() %>/mypage">
+			            <img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px">
+			        </a>
+			    </c:when>
+			    <c:otherwise>
+			        <a href="<%= request.getContextPath() %>/login">
+			            <img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px">
+			        </a>
+			    </c:otherwise>
+			</c:choose>
+
         </div>
     </header>
 
@@ -54,7 +56,11 @@
                 <h2 class="h2">${event.event_name}</h2>
                 <img class="event-poster" src="${event.event_poster}" alt="Event Poster">
                 <div class="icons">
-                    <img src="<%= request.getContextPath() %>/static/icon/blackfav.png" width="50px" height="50px" onclick="toggleHeart(${event.event_num})">
+				<!-- 좋아요 아이콘 -->
+				<img src="<%= request.getContextPath() %>/static/icon/blackfav.png" width="50px" height="50px"
+				     onclick="toggleHeart(${event.event_num})" 
+				     style="filter: ${isLiked ? 'grayscale(0%)' : 'grayscale(100%)'};"> ${likeCount}
+
                     <div><img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="50px" height="50px" onclick="share()"></div>
                     <div><img src="<%= request.getContextPath() %>/static/icon/blackchat.png" width="50px" height="50px" onclick="openCommentSection()"></div>
                 </div>
@@ -80,9 +86,17 @@
 
                     <div class="event-dates">
                         <h2>행사 및 축제 기간</h2>
-                        <fmt:formatDate value="${event.event_sdate}" pattern="yyyy.MM.dd" /> ~
-                        <fmt:formatDate value="${event.event_edate}" pattern="yyyy.MM.dd" />
-                        <br>행사 분류: ${event.event_tag}
+                        <div class="event-dates">
+					    <h2>행사 및 축제 기간</h2>
+					    <c:if test="${not empty event.event_sdate}">
+					        <fmt:formatDate value="${event.event_sdate}" pattern="yyyy.MM.dd" /> ~
+					    </c:if>
+					    <c:if test="${not empty event.event_edate}">
+					        <fmt:formatDate value="${event.event_edate}" pattern="yyyy.MM.dd" />
+					    </c:if>
+					    <br>행사 분류: ${event.event_tag}
+						</div>
+
                     </div>
 
                     <div class="more-content">

@@ -1,90 +1,75 @@
 let slideIndex = 0;
 let hcount = 0;
+
 // 세션에서 가져온 사용자 이름
 const username = document.getElementById('username').value;
 
 // 세션에서 사용자의 로그인 여부를 확인
 const isLoggedIn = Boolean(document.getElementById('sessionUserId').value);
 
-// 로그인 여부 확인 함수
 // 좋아요 상태를 확인하고 하트를 초기화하는 함수
 function loadHeartStatus(eventNum) {
-    const heartIcon = document.querySelector('.icons img:first-child');
-    const userNumElement = document.getElementById('userNum');
+    const heartIcon = document.querySelector(`.icons img[onclick="toggleHeart(${eventNum})"]`);
 
-    if (!userNumElement || !userNumElement.value) {
-       	alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
-        window.location.href = "/login";  // 로그인 페이지로 이동
-        return false; // 로그인 안되어있으면 false 반환
+    if (!isLoggedIn) {
+        alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+        window.location.href = "/login";
+        return;
     }
 
-    const userNum = userNumElement.value;
+    // Optional chaining 대신 기본적인 null 체크로 변경
+    const userNum = document.getElementById('userNum');
+    if (!userNum) {
+        console.error('User number not found.');
+        return;
+    }
 
-    // 서버에서 좋아요 상태를 확인
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `/checkLikeStatus?userNum=${encodeURIComponent(userNum)}&eventNum=${encodeURIComponent(eventNum)}`, true);
-    xhr.setRequestHeader("Accept", "application/json");
-
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                if (response.liked) {
-                    heartIcon.src = "static/icon/heart.png";  // 좋아요가 되어있다면 채워진 하트
-                } else {
-                    heartIcon.src = "static/icon/blackfav.png";  // 좋아요가 안되어있다면 빈 하트
-                }
+    fetch(`/checkLikeStatus?userNum=${userNum.value}&eventNum=${eventNum}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.liked) {
+                heartIcon.src = "static/icon/heart.png";  // 좋아요가 되어있다면 채워진 하트
             } else {
-                console.error("Error checking like status: " + xhr.status);
+                heartIcon.src = "static/icon/blackfav.png";  // 좋아요가 안되어있다면 빈 하트
             }
-        }
-    };
-
-    xhr.send();
+        })
+        .catch(error => console.error("Error checking like status:", error));
 }
 
 // 좋아요 토글 함수
 function toggleHeart(eventNum) {
-    const heartIcon = document.querySelector('.icons img:first-child');
-    const userNumElement = document.getElementById('userNum');
+    const heartIcon = document.querySelector(`.icons img[onclick="toggleHeart(${eventNum})"]`);
+    const userNum = document.getElementById('userNum');
+    
+   
 
-    if (!userNumElement || !userNumElement.value) {
-        alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
-        window.location.href = "/login";  // 로그인 페이지로 이동
-        return false; // 로그인 안되어있으면 false 반환
-    }
-
-    const userNum = userNumElement.value;
-
-    console.log("User Num: " + userNum + ", Event Num: " + eventNum);
-
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/likeEvent", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Accept", "application/json");
-
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                if (response.success) {
-                    console.log("Like action successful.");
-                    // 좋아요 상태에 맞게 하트 아이콘 변경
-                    if (heartIcon.src.includes("blackfav.png")) {
-                        heartIcon.src = "static/icon/heart.png";  // 빈 하트 -> 채워진 하트
-                    } else {
-                        heartIcon.src = "static/icon/blackfav.png";  // 채워진 하트 -> 빈 하트
-                    }
-                } else {
-                    console.error("Failed to toggle like:", response.error);
-                }
-            } else {
-                console.error("Error: " + xhr.status);
+    fetch('/toggleLike', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            userNum: userNum.value,
+            eventNum: eventNum
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // 좋아요 개수 업데이트
+            const likeCountElem = heartIcon.nextSibling;
+            if (likeCountElem) {
+                likeCountElem.textContent = ` ${data.likeCount}`;
             }
+            // 버튼 스타일 변경 (좋아요 상태 반영)
+            heartIcon.src = data.isLiked ? "static/icon/heart.png" : "static/icon/blackfav.png";
+        } else {
+            alert("로그인이 필요합니다.");
+	        window.location.href = "/login";
+	        return;
         }
-    };
-
-    xhr.send("userNum=" + encodeURIComponent(userNum) + "&eventNum=" + encodeURIComponent(eventNum));
+    })
+    .catch(error => console.error('Error:', error));
 }
 
 // 페이지 로드 시 좋아요 상태를 확인하고 하트를 업데이트
@@ -94,8 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
         loadHeartStatus(eventNum);  // 좋아요 상태 동기화
     }
 });
-
-
 
 function openCommentSection() {
     if (!checkLogin('comment')) return;  // 로그인 체크
@@ -111,9 +94,6 @@ function openCommentSection() {
         commentSection.classList.add('active');
     }, 10); // 10ms 후에 클래스 추가
 }
-
-
-
 
 function closeCommentSection() {
     const darkOverlay = document.getElementById('darkOverlay');
@@ -171,10 +151,11 @@ function share() {
         });
     } else {
         // Web Share API를 지원하지 않는 브라우저에서는 소셜 미디어 링크로 공유
-        const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
+        const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
         window.open(shareUrl, '_blank', 'width=600,height=400');
     }
 }
+
 function more(button) {
     const moreContent = button.closest('.container').querySelector('.more-content');
 

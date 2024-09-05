@@ -1,6 +1,6 @@
 
         let currentYear = 2024;
-        let currentMonth = 8; // 시작 월 (8월)
+        let currentMonth = 9; // 시작 월 (8월)
         const today = new Date(); // 오늘 날짜
         let selectedDateElement = null; // 현재 선택된 날짜 셀을 저장
 

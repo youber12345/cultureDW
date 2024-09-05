@@ -88,6 +88,29 @@ public class IndexController {
         return "top3"; // top3.jsp로 이동
     }
 
+ // 좋아요 토글 요청을 처리하는 컨트롤러 메서드 추가
+    @PostMapping("/toggleLike")
+    @ResponseBody
+    public Map<String, Object> toggleLike(@RequestParam("eventNum") int eventNum, HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        User user = (User) session.getAttribute("user");
+
+        if (user != null) {
+            boolean result = likeService.toggleLike(user.getUserNum(), eventNum);
+            int likeCount = likeService.getLikeCountByEventNum(eventNum);
+            response.put("success", result);
+            response.put("likeCount", likeCount);
+            response.put("isLiked", likeService.isUserLikedEvent(user.getUserNum(), eventNum));
+        } else {
+            response.put("success", false);
+        }
+
+        return response;
+    }
+
+    
+    
+    
     @GetMapping("/view")
     public String view(@RequestParam("eventNum") int eventNum, HttpSession session, Model model) {
         // 세션에서 사용자 정보 가져오기
@@ -104,9 +127,19 @@ public class IndexController {
         // 이벤트 정보 가져오기
         Event event = eventService.getEventById(eventNum);
         model.addAttribute("event", event);
+
+        // 좋아요 개수 가져오기
+        int likeCount = likeService.getLikeCountByEventNum(eventNum);
+        model.addAttribute("likeCount", likeCount); // 좋아요 개수 추가
+
+        // 현재 사용자가 해당 이벤트에 좋아요를 눌렀는지 여부 확인
+        boolean isLiked = user != null && likeService.isUserLikedEvent(user.getUserNum(), eventNum);
+        model.addAttribute("isLiked", isLiked); // 좋아요 여부 추가
+
         System.out.println("user " + (user != null ? user.getUserNum() : "null") + ", event " + event.getEvent_num());
         return "view"; // view.jsp로 이동
     }
+
 
     @GetMapping("/login")
     public String loginForm() {

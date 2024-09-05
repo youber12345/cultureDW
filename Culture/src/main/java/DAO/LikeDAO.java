@@ -1,58 +1,47 @@
 package DAO;
 
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import DTO.Like;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class LikeDAO {
+
     private final SqlSessionFactory sqlSessionFactory;
 
     public LikeDAO(SqlSessionFactory sqlSessionFactory) {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
+    // 사용자가 해당 이벤트에 좋아요를 눌렀는지 확인
+    public boolean isLiked(int userNum, int eventNum) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            Boolean result = session.selectOne("mapper.LikeMapper.existsByUserNumAndEventNum", Map.of("userNum", userNum, "eventNum", eventNum));
+            return result != null && result;  // Boolean 값을 처리
+        }
+    }
+
     // 좋아요 추가
     public boolean insertLike(int userNum, int eventNum) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            Like like = new Like(userNum, eventNum);
-            int result = session.insert("mapper.LikeMapper.insertLike", like);
-            session.commit();
+            int result = session.insert("mapper.LikeMapper.insertLike", Map.of("userNum", userNum, "eventNum", eventNum));
+            session.commit(); // 트랜잭션 커밋
             return result > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
     }
 
     // 좋아요 삭제
     public boolean removeLike(int userNum, int eventNum) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            Map<String, Integer> params = new HashMap<>();
-            params.put("userNum", userNum);
-            params.put("eventNum", eventNum);
-            int result = session.delete("mapper.LikeMapper.deleteLike", params);
-            session.commit();
+            int result = session.delete("mapper.LikeMapper.deleteLike", Map.of("userNum", userNum, "eventNum", eventNum));
+            session.commit(); // 트랜잭션 커밋
             return result > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
     }
 
-    // 좋아요 확인
-    public boolean isLiked(int userNum, int eventNum) {
+    // 해당 이벤트의 좋아요 개수 가져오기
+    public int countByEventNum(int eventNum) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            Map<String, Integer> params = new HashMap<>();
-            params.put("userNum", userNum);
-            params.put("eventNum", eventNum);
-            int count = session.selectOne("mapper.LikeMapper.isLiked", params);
-            return count > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            return session.selectOne("mapper.LikeMapper.countByEventNum", eventNum);
         }
     }
 }
