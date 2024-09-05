@@ -24,7 +24,7 @@
         <nav class="nav">
             <a href="<%= request.getContextPath() %>/top3" class="a1">TOP3</a>
             <a href="<%= request.getContextPath() %>/index">행사정보</a>
-            <a href="<%= request.getContextPath() %>/board">게시판</a>
+            <a href="<%= request.getContextPath() %>/board">맛집추천</a>
             <a href="<%= request.getContextPath() %>/mypage">마이페이지</a>
         </nav>
         <div class="search-bar">

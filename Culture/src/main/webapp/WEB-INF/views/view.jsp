@@ -30,7 +30,7 @@
         <nav class="nav">
             <a href="<%= request.getContextPath() %>/top3">TOP3</a>
             <a href="<%= request.getContextPath() %>/index" class="a1">행사정보</a>
-            <a href="<%= request.getContextPath() %>/board">게시판</a>
+            <a href="<%= request.getContextPath() %>/board">맛집추천</a>
             <a href="<%= request.getContextPath() %>/mypage">마이페이지</a>
         </nav>
         <div class="search-bar">
@@ -57,9 +57,9 @@
                 <img class="event-poster" src="${event.event_poster}" alt="Event Poster">
                 <div class="icons">
 				<!-- 좋아요 아이콘 -->
-				<img src="<%= request.getContextPath() %>/static/icon/blackfav.png" width="50px" height="50px"
+				<img src="<%= request.getContextPath() %>/static/icon/heart.png" width="50px" height="50px"
 				     onclick="toggleHeart(${event.event_num})" 
-				     style="filter: ${isLiked ? 'grayscale(0%)' : 'grayscale(100%)'};"> ${likeCount}
+				     > ${likeCount}
 
                     <div><img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="50px" height="50px" onclick="share()"></div>
                     <div><img src="<%= request.getContextPath() %>/static/icon/blackchat.png" width="50px" height="50px" onclick="openCommentSection()"></div>

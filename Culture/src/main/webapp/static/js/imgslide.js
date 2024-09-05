@@ -30,7 +30,7 @@ function loadHeartStatus(eventNum) {
             if (data.liked) {
                 heartIcon.src = "static/icon/heart.png";  // 좋아요가 되어있다면 채워진 하트
             } else {
-                heartIcon.src = "static/icon/blackfav.png";  // 좋아요가 안되어있다면 빈 하트
+                heartIcon.src = "static/icon/heart.png";  // 좋아요가 안되어있다면 빈 하트
             }
         })
         .catch(error => console.error("Error checking like status:", error));
@@ -62,7 +62,7 @@ function toggleHeart(eventNum) {
                 likeCountElem.textContent = ` ${data.likeCount}`;
             }
             // 버튼 스타일 변경 (좋아요 상태 반영)
-            heartIcon.src = data.isLiked ? "static/icon/heart.png" : "static/icon/blackfav.png";
+            heartIcon.src = data.isLiked ? "static/icon/heart.png" : "static/icon/heart.png";
         } else {
             alert("로그인이 필요합니다.");
 	        window.location.href = "/login";
