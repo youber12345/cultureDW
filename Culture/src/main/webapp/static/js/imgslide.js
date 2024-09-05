@@ -81,50 +81,58 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function openCommentSection() {
-    if (!checkLogin('comment')) return;  // 로그인 체크
     const darkOverlay = document.getElementById('darkOverlay');
     const commentSection = document.getElementById('commentSection');
 
+    // 어두운 배경 레이어 활성화
     darkOverlay.style.display = 'block';
-    darkOverlay.classList.add('active');
-    
+    darkOverlay.classList.add('active');  // 배경을 활성화
+
+    // 댓글 섹션 활성화
     commentSection.style.display = 'block';
-    // 애니메이션 효과를 위한 약간의 지연
+    
+    // 애니메이션을 적용하여 댓글 섹션을 위로 올림
     setTimeout(() => {
         commentSection.classList.add('active');
-    }, 10); // 10ms 후에 클래스 추가
+    }, 10);  // 10ms의 딜레이 후에 active 클래스를 추가
 }
+
 
 function closeCommentSection() {
     const darkOverlay = document.getElementById('darkOverlay');
     const commentSection = document.getElementById('commentSection');
 
-    // 애니메이션 종료 후 요소 숨기기
+    // 어두운 배경 레이어 비활성화
     darkOverlay.classList.remove('active');
-    commentSection.classList.remove('active');
-
     setTimeout(() => {
         darkOverlay.style.display = 'none';
+    }, 500);  // 애니메이션이 끝난 후 배경을 숨김
+
+    // 댓글 섹션 비활성화
+    commentSection.classList.remove('active');
+    setTimeout(() => {
         commentSection.style.display = 'none';
-    }, 500); // 500ms 후에 요소 숨기기 (애니메이션 시간과 일치시킴)
+    }, 500);  // 500ms 후에 댓글 섹션을 숨김 (애니메이션 시간과 일치)
 }
 
+
 function addComment() {
-    if (!checkLogin('comment')) return;  // 로그인 체크
     const commentInput = document.getElementById('commentInput');
     const commentList = document.getElementById('commentList');
+
     if (commentInput.value.trim() !== "") {
         const newComment = document.createElement('div');
-        newComment.classList.add('comment-item'); // 새롭게 추가된 클래스
+        newComment.classList.add('comment-item');  // 새롭게 추가된 클래스
 
         newComment.innerHTML = `
             <span class="comment-author">${username}</span>
             <span class="comment-content">${commentInput.value}</span>
         `;
         commentList.appendChild(newComment);
-        commentInput.value = "";
+        commentInput.value = "";  // 입력 필드 초기화
     }
 }
+
 
 document.getElementById('commentInput').addEventListener('keydown', function(event) {
     if (event.key === "Enter") {

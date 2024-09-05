@@ -127,7 +127,9 @@ header .search-bar img {
 }
 
 /* 어두운 배경 레이어 스타일 */
+/* 어두운 배경 레이어 스타일 */
 .dark-overlay {
+    opacity: 0;  /* 초기 투명도 설정 */
     display: none;
     position: fixed;
     top: 0;
@@ -154,7 +156,7 @@ header .search-bar img {
     transform: translateX(-50%);
     width: 95%; /* 크기 확장 */
     max-width: 500px; /* 최대 너비 설정 */
-    height: 20%; /* 높이 확장 */
+    height: 300px; /* 높이 설정 */
     background-color: #ffffff;
     border-radius: 15px;
     z-index: 1000;
@@ -165,7 +167,7 @@ header .search-bar img {
 
 /* 댓글 창이 활성화된 상태에서의 위치 */
 .comment-section.active {
-    bottom: 5%; /* 화면 아래에서 5% 위치로 올라오게 설정 */
+    bottom: 10%; /* 화면 아래에서 올라오게 설정 */
 }
 
 /* 댓글 창 헤더 스타일 */

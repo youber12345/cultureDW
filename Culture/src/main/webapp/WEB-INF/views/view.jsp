@@ -86,8 +86,6 @@
 
                     <div class="event-dates">
                         <h2>행사 및 축제 기간</h2>
-                        <div class="event-dates">
-					    <h2>행사 및 축제 기간</h2>
 					    <c:if test="${not empty event.event_sdate}">
 					        <fmt:formatDate value="${event.event_sdate}" pattern="yyyy.MM.dd" /> ~
 					    </c:if>
