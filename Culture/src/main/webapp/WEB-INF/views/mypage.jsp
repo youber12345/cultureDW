@@ -11,10 +11,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
     <!-- CSS 파일 링크 -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/mypage.css">
-
+    
 </head>
 <body>
     <header>
@@ -28,15 +29,15 @@
             <a href="<%= request.getContextPath() %>/mypage" class="a1">마이페이지</a>
         </nav>
         <div class="search-bar">
-    <c:choose>
-        <c:when test="${not empty sessionScope.userId}">
-            <a href="<%= request.getContextPath() %>/mypage"><img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px"></a>
-        </c:when>
-        <c:otherwise>
-            <a href="<%= request.getContextPath() %>/login"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px"></a>
-        </c:otherwise>
-    </c:choose>
-</div>
+            <c:choose>
+                <c:when test="${not empty sessionScope.userId}">
+                    <a href="<%= request.getContextPath() %>/mypage"><img src="<%= request.getContextPath() %>/static/icon/mypage.png" alt="MyPage" width="50px" height="50px"></a>
+                </c:when>
+                <c:otherwise>
+                    <a href="<%= request.getContextPath() %>/login"><img src="<%= request.getContextPath() %>/static/icon/login.png" alt="Login" width="50px" height="50px"></a>
+                </c:otherwise>
+            </c:choose>
+        </div>
     </header>
 
     <div class="container">
@@ -77,9 +78,8 @@
                 </p>
                 <div class="button-group">
                     <c:if test="${admin == 1}">
-					    <button onclick="location.href='<%= request.getContextPath() %>/eventRegistration'">행사 등록하기</button>
-					    <button onclick="location.href='<%= request.getContextPath() %>/contactSupport'">실시간 문의</button>
-					</c:if>
+                        <button onclick="location.href='<%= request.getContextPath() %>/eventRegistration'">행사 등록하기</button>
+                    </c:if>
 
                     <form action="<%= request.getContextPath() %>/logout" method="post">
                         <button type="submit">로그아웃</button>
@@ -88,13 +88,24 @@
             </div>
             <div class="todo-list">
                 <div id="selectedDate"></div>
-                <h2>TO DO LIST</h2>
                 <div id="todoContent">
-                    <!-- 선택된 날짜의 TO DO LIST 내용이 동적으로 생성됩니다 -->
+                    <!-- 선택된 날짜의 이벤트 내용이 동적으로 생성됩니다 -->
                 </div>
             </div>
         </div>
     </div>
+
+<script type="text/javascript">
+    // JSP에서 likedEvents 데이터를 바로 JavaScript로 넘김
+    const likedEvents = [
+        <c:forEach var="event" items="${likedEvents}">
+            { eventName: '${event.EVENT_NAME}', eventSdate: '${event.EVENT_SDATE}' }
+            <c:if test="${!status.last}">,</c:if>
+        </c:forEach>
+    ];
+</script>
+
+    <!-- 외부 JS 파일 불러오기 -->
     <script src="<%= request.getContextPath() %>/static/js/calendar.js"></script>
 </body>
 </html>

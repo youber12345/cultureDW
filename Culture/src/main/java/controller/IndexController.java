@@ -97,10 +97,10 @@ public class IndexController {
 
         if (user != null) {
             boolean result = likeService.toggleLike(user.getUserNum(), eventNum);
-            int likeCount = likeService.getLikeCountByEventNum(eventNum);
+            int likeCount = likeService.countByEventNum(eventNum);
             response.put("success", result);
             response.put("likeCount", likeCount);
-            response.put("isLiked", likeService.isUserLikedEvent(user.getUserNum(), eventNum));
+            response.put("isLiked", likeService.isLiked(user.getUserNum(), eventNum));
         } else {
             response.put("success", false);
         }
@@ -129,11 +129,11 @@ public class IndexController {
         model.addAttribute("event", event);
 
         // 좋아요 개수 가져오기
-        int likeCount = likeService.getLikeCountByEventNum(eventNum);
+        int likeCount = likeService.countByEventNum(eventNum);
         model.addAttribute("likeCount", likeCount); // 좋아요 개수 추가
 
         // 현재 사용자가 해당 이벤트에 좋아요를 눌렀는지 여부 확인
-        boolean isLiked = user != null && likeService.isUserLikedEvent(user.getUserNum(), eventNum);
+        boolean isLiked = user != null && likeService.isLiked(user.getUserNum(), eventNum);
         model.addAttribute("isLiked", isLiked); // 좋아요 여부 추가
 
         System.out.println("user " + (user != null ? user.getUserNum() : "null") + ", event " + event.getEvent_num());
@@ -174,11 +174,15 @@ public class IndexController {
     }
 
     @GetMapping("/mypage")
-    public String mypage(HttpSession session, Model model) {
+    public String myPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             return "redirect:/login"; // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
         }
+
+        // 사용자가 좋아요한 이벤트의 이름과 날짜만 가져옴
+        List<Map<String, Object>> likedEvents = likeService.getLikedEventNamesAndDates(user.getUserNum());
+        model.addAttribute("likedEvents", likedEvents); // JSP에 전달
 
         // 모델에 사용자 정보 추가
         model.addAttribute("username", user.getId());

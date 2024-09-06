@@ -1,8 +1,12 @@
 package DAO;
 
-import java.util.Map;
+import DTO.Event;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class LikeDAO {
 
@@ -42,6 +46,13 @@ public class LikeDAO {
     public int countByEventNum(int eventNum) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             return session.selectOne("mapper.LikeMapper.countByEventNum", eventNum);
+        }
+    }
+
+ // 사용자 번호로 좋아요 누른 이벤트 이름과 날짜만 가져오는 메서드
+    public List<Map<String, Object>> getLikedEventNamesAndDates(int userNum) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectList("mapper.LikeMapper.getLikedEventNamesAndDates", userNum);
         }
     }
 }
