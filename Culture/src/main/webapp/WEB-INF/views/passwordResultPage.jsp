@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비밀번호 찾기 결과</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/loginstyle.css">
 </head>
 <body>
-    <h2>비밀번호 찾기 결과</h2>
+ <div class="login-container">
+    <h2>비밀번호 찾기 결과</h2><br>
 
-    <p>회원님의 비밀번호는 <strong><%= request.getAttribute("foundPassword") %></strong> 입니다.</p>
+    <p>회원님의 비밀번호는 <strong><%= request.getAttribute("foundPassword") %></strong> 입니다.</p><br>
     
     <a href="<%= request.getContextPath() %>/login">로그인 페이지로 이동</a>
+	</div>
 </body>
 </html>

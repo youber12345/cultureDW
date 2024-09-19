@@ -5,52 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아이디 찾기</title>
-    <style>
-        .form-container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-        }
-        .form-container input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .form-container button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .form-container button:hover {
-            background-color: #45a049;
-        }
-        .error-message {
-            color: red;
-            margin-top: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/loginstyle.css">
 </head>
 <body>
-    <div class="form-container">
+	<div class="logo-container">
+            <img src="<%= request.getContextPath() %>/static/logo/logo.png" alt="Logo" width="100px" height="100px">
+        </div>
+    <div class="login-container">
         <h2>아이디 찾기</h2>
         <!-- 아이디 찾기 폼 -->
-        <form action="<%= request.getContextPath() %>/findId" method="post">
-            <label for="email">이메일</label>
-            <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
+        <form class="login-form" action="<%= request.getContextPath() %>/findId" method="post">
+            <label for="email">이메일</label><br>
+            <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required><br>
 
-            <label for="phone">휴대폰 번호</label>
-            <input type="text" id="phone" name="phone" placeholder="휴대폰 번호를 입력하세요" required>
-
-            <button type="submit">아이디 찾기</button>
+            <label for="phone">휴대폰 번호</label><br>
+            <input type="text" id="phone" name="phone" placeholder="휴대폰 번호를 입력하세요" required><br>
+			<br>
+            <button type="submit" class="login-btn">아이디 찾기</button>
         </form>
 
         <!-- 에러 메시지 표시 -->
