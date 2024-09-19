@@ -391,6 +391,71 @@ public class IndexController {
     }
 
 
+    @PostMapping("/findId")
+    public String findId(HttpServletRequest request, Model model) {
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
 
+        // 수정된 부분: UserService의 findIdByEmailOrPhone 호출
+        String foundId = userService.findIdByEmailOrPhone(email, phone);
 
+        if (foundId != null) {
+            model.addAttribute("foundId", foundId);
+            return "idResultPage"; // 아이디를 보여주는 페이지
+        } else {
+            model.addAttribute("error", "입력한 정보와 일치하는 아이디가 없습니다.");
+            return "findIdPage"; // 다시 입력받는 페이지
+        }
+    }
+
+    @GetMapping("/findIdPage")
+    public String findIdPage() {
+        return "findIdPage"; // 아이디 찾기 페이지로 이동
+    }
+    
+    // 비밀번호 찾기 페이지로 이동
+    @GetMapping("/findPasswordPage")
+    public String findPasswordPage() {
+        return "findPasswordPage"; // 비밀번호 찾기 페이지로 이동
+    }
+
+    // 비밀번호 찾기 로직 처리
+    @PostMapping("/findPassword")
+    public String findPassword(HttpServletRequest request, Model model) {
+        String id = request.getParameter("id");
+        String email = request.getParameter("email");
+
+        // 비밀번호 찾기
+        String foundPassword = userService.findPasswordByIdAndEmail(id, email);
+
+        if (foundPassword != null) {
+            model.addAttribute("foundPassword", foundPassword); // 비밀번호를 직접 보여주는 경우
+            return "passwordResultPage"; // 비밀번호 결과 페이지로 이동
+        } else {
+            model.addAttribute("error", "입력한 정보와 일치하는 비밀번호가 없습니다.");
+            return "findPasswordPage"; // 다시 입력받는 페이지로 이동
+        }
+    }
+
+    // 비밀번호 재설정 페이지로 이동
+    @GetMapping("/resetPasswordPage")
+    public String resetPasswordPage() {
+        return "resetPasswordPage"; // 비밀번호 재설정 페이지로 이동
+    }
+
+    // 비밀번호 재설정 로직 처리
+    @PostMapping("/resetPassword")
+    public String resetPassword(@RequestParam("id") String id,
+                                @RequestParam("newPassword") String newPassword,
+                                Model model) {
+
+        boolean isSuccess = userService.updatePassword(id, newPassword);
+
+        if (isSuccess) {
+            return "redirect:/login"; // 비밀번호 재설정 성공 후 로그인 페이지로 리다이렉트
+        } else {
+            model.addAttribute("error", "비밀번호 재설정에 실패했습니다. 다시 시도해주세요.");
+            return "resetPasswordPage"; // 실패 시 다시 재설정 페이지로 이동
+        }
+    }
 }

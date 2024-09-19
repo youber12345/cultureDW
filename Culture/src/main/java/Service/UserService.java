@@ -75,4 +75,39 @@ public class UserService {
             return false;
         }
     }
+    
+    /**
+     * 이메일 또는 휴대폰 번호를 이용해 사용자 아이디를 찾는 메서드.
+     *
+     * @param email 사용자 이메일
+     * @param phone 사용자 휴대폰 번호
+     * @return 사용자의 아이디
+     */
+    public String findIdByEmailOrPhone(String email, String phone) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            UserMapper userMapper = session.getMapper(UserMapper.class);
+            return userMapper.findIdByEmailOrPhone(email, phone);
+        }
+    }
+    
+    // 비밀번호 찾기 메서드: 아이디와 이메일로 비밀번호를 조회
+    public String findPasswordByIdAndEmail(String id, String email) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            UserMapper userMapper = session.getMapper(UserMapper.class);
+            return userMapper.findPasswordByIdAndEmail(id, email);
+        }
+    }
+
+    // 비밀번호 재설정 메서드
+    public boolean updatePassword(String id, String newPassword) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            UserMapper userMapper = session.getMapper(UserMapper.class);
+            int updatedRows = userMapper.updatePassword(id, newPassword);
+            session.commit();
+            return updatedRows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
