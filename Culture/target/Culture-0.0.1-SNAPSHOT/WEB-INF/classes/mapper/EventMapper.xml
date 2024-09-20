@@ -7,7 +7,7 @@
 
     <!-- ID로 특정 이벤트를 선택하는 쿼리 -->
     <select id="selectEventById" parameterType="int" resultType="DTO.Event">
-        SELECT event_name, event_sdate, event_edate, event_description, event_ph, event_price, event_homepage, event_poster, event_lat, event_lot, event_tag, event_address
+        SELECT event_num, event_name, event_sdate, event_edate, event_description, event_ph, event_price, event_homepage, event_poster, event_lat, event_lot, event_tag, event_address
         FROM eventDB
         WHERE event_num = #{event_num}	
     </select>
@@ -16,8 +16,26 @@
     <select id="selectAllEvents" resultType="DTO.Event">
         SELECT *
         FROM eventDB
-        ORDER BY event_sdate
-    </select>
+        ORDER BY event_num DESC
+        </select>
+    
+    
+<!-- 상위 3개의 이벤트를 선택하는 쿼리 -->
+<select id="selectTop3Events" resultType="DTO.Event">
+    SELECT e.event_num, e.event_name, e.event_sdate, e.event_edate, e.event_description, e.event_ph, 
+           e.event_price, e.event_homepage, e.event_poster, e.event_lat, e.event_lot, e.event_tag, e.event_address
+    FROM eventDB e
+    LEFT JOIN (
+        SELECT event_num, COUNT(*) as like_count
+        FROM likes
+        GROUP BY event_num
+    ) l ON e.event_num = l.event_num
+    ORDER BY l.like_count DESC NULLS LAST -- 좋아요 수가 없는 경우도 고려
+    FETCH FIRST 3 ROWS ONLY
+</select>
+
+	
+
 
     <!-- 새로운 이벤트를 데이터베이스에 삽입하는 쿼리 -->
    <insert id="insertEvent" parameterType="DTO.Event">
@@ -25,15 +43,32 @@
         event_num, event_name, event_sdate, event_edate, 
         event_description, event_ph, event_price, 
         event_homepage, event_poster, event_address, 
-        event_tag, event_guName
+        event_tag, event_guName,event_lat, event_lot
     )
     VALUES (
         event_seq.NEXTVAL, #{event_name}, #{event_sdate}, #{event_edate}, 
         #{event_description}, #{event_ph}, #{event_price}, 
         #{event_homepage}, #{event_poster}, #{event_address}, 
-        #{event_tag}, #{event_guName}
+        #{event_tag}, #{event_guName}, #{event_lot}, #{event_lat}
     )
-</insert>
+    </insert>
+    
+
+   <!-- 카테고리를 이용한 검색 -->
+<select id="searchEvent" parameterType="string" resultType="DTO.Event">
+    SELECT * 
+    FROM eventDB
+    WHERE 
+      CASE 
+        WHEN event_tag IN ('클래식', '독주/독창회', '콘서트', '국악', '뮤지컬/오페라', '연극', '무용') THEN '공연/콘서트'
+        WHEN event_tag = '교육/체험' THEN '교육/체험'
+        WHEN event_tag = '전시/미술' THEN '전시/미술'
+        WHEN event_tag IN ('축제-문화/예술', '축제-기타', '축제-시민화합', '축제-전통/역사') THEN '축제'
+        WHEN event_tag IN ('영화', '기타') THEN '기타'
+        ELSE '기타'
+      END = #{event_tag}
+</select>
+
 
 
 

@@ -1,6 +1,6 @@
 body {
     font-family: 'Do Hyeon', sans-serif;
-    background-color: #f4f4f9;
+    background-color: #FFF5F5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,7 +20,7 @@ body {
 
 .logo-container {
     position: absolute;
-    top: 250px; /* 로고를 하단으로 내리기 위해 top 값을 조정 */
+    top: 150px; /* 로고를 하단으로 내리기 위해 top 값을 조정 */
     left: 50%;
     transform: translateX(-50%);
 }

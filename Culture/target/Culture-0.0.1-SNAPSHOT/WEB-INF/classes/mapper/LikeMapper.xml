@@ -4,19 +4,37 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.LikeMapper">
-    <insert id="insertLike" parameterType="DTO.Like">
+    <!-- 좋아요 추가 -->
+    <insert id="insertLike" parameterType="map">
         INSERT INTO likes (like_num, user_num, event_num)
         VALUES (likes_seq.NEXTVAL, #{userNum}, #{eventNum})
     </insert>
 
-    <select id="checkUserLike" parameterType="map" resultType="int">
-        SELECT COUNT(*)
+    <!-- 사용자가 특정 이벤트에 좋아요를 눌렀는지 확인 -->
+    <select id="existsByUserNumAndEventNum" parameterType="map" resultType="boolean">
+        SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END
         FROM likes
         WHERE user_num = #{userNum} AND event_num = #{eventNum}
     </select>
 
-    <delete id="deleteLike" parameterType="int">
+    <!-- 좋아요 삭제 -->
+    <delete id="deleteLike" parameterType="map">
         DELETE FROM likes
-        WHERE like_num = #{likeNum}
+        WHERE user_num = #{userNum} AND event_num = #{eventNum}
     </delete>
+
+    <!-- 이벤트에 대한 좋아요 개수 가져오기 -->
+    <select id="countByEventNum" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM likes
+        WHERE event_num = #{eventNum}
+    </select>
+
+     <!-- 사용자 번호로 좋아요한 이벤트의 이름과 시작 날짜 가져오기 -->
+    <select id="getLikedEventNamesAndDates" parameterType="int" resultType="map">
+        SELECT event_name, event_sdate
+        FROM eventDB
+        JOIN likes ON eventdb.event_num = likes.event_num
+        WHERE likes.user_num = #{userNum}
+    </select>
 </mapper>

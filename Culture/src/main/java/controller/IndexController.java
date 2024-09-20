@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
@@ -458,4 +460,17 @@ public class IndexController {
             return "resetPasswordPage"; // 실패 시 다시 재설정 페이지로 이동
         }
     }
+    
+    @RequestMapping(value = "/searchEvent", method = RequestMethod.GET)
+    public String searchEvent(@RequestParam("event_tag") String eventTag, Model model) {
+        System.out.println("Search Event Tag: " + eventTag);  // 디버깅 라인
+        List<Event> events = eventService.searchEvent(eventTag);
+        model.addAttribute("list", events);
+        return "index"; 
+       }
+
+
+
+    
+    
 }

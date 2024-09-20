@@ -4,11 +4,13 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" 
          id="WebApp_ID" 
          version="4.0">
-         
+
   <display-name>Culture</display-name>
 
   <!-- 웰컴 파일 리스트: 기본적으로 로드할 파일들 -->
   <welcome-file-list>
+    <!-- JSP 파일도 웰컴 파일 리스트에 추가 -->
+    <welcome-file>index.jsp</welcome-file>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
     <welcome-file>default.html</welcome-file>
@@ -31,13 +33,14 @@
   <servlet>
     <servlet-name>dispatcher</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- 서버 시작 시 DispatcherServlet을 로드하여 JSP 파일을 찾지 못하는 문제 방지 -->
+    <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>dispatcher</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
-  <!-- 새로운 서블릿 매핑: eventDetails와 displayImage 서블릿 추가 -->
   <!-- EventDetailsServlet 서블릿 매핑: /eventDetails 경로에 매핑 -->
   <servlet>
     <servlet-name>EventDetailsServlet</servlet-name>
@@ -48,20 +51,24 @@
     <url-pattern>/eventDetails</url-pattern>
   </servlet-mapping>
 
-
+  <!-- 필터 설정: UTF-8 인코딩 설정을 모든 요청에 적용 -->
   <filter>
-  	<filter-name>SetCharacterEncoding</filter-name>
-  	<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
-        <!-- utf-8로 인코딩 값 설정 -->
-  		<init-param>
-  			<param-name>encoding</param-name>
-  			<param-value>utf-8</param-value>
-  		</init-param>
-</filter>
-  
-<!-- 모든 url에 필터를 적용시키겠다 -->
-<filter-mapping>
-  	<filter-name>SetCharacterEncoding</filter-name>
-  	<url-pattern>/*</url-pattern>
-</filter-mapping>
+    <filter-name>SetCharacterEncoding</filter-name>
+    <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>utf-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+
+  <!-- 모든 url에 UTF-8 인코딩 필터 적용 -->
+  <filter-mapping>
+    <filter-name>SetCharacterEncoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
 </web-app>

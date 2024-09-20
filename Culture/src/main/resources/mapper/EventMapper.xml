@@ -54,6 +54,22 @@
     </insert>
     
 
-   
+   <!-- 카테고리를 이용한 검색 -->
+<select id="searchEvent" parameterType="string" resultType="DTO.Event">
+    SELECT * 
+    FROM eventDB
+    WHERE 
+      CASE 
+        WHEN event_tag IN ('클래식', '독주/독창회', '콘서트', '국악', '뮤지컬/오페라', '연극', '무용') THEN '공연/콘서트'
+        WHEN event_tag = '교육/체험' THEN '교육/체험'
+        WHEN event_tag = '전시/미술' THEN '전시/미술'
+        WHEN event_tag IN ('축제-문화/예술', '축제-기타', '축제-시민화합', '축제-전통/역사') THEN '축제'
+        WHEN event_tag IN ('영화', '기타') THEN '기타'
+        ELSE '기타'
+      END = #{event_tag}
+</select>
+
+
+
 
 </mapper>

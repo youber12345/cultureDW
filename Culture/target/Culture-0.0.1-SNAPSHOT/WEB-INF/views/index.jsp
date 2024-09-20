@@ -25,7 +25,7 @@
         <nav class="nav">
             <a href="<%= request.getContextPath() %>/top3">TOP3</a>
             <a href="<%= request.getContextPath() %>/index" class="a1">행사정보</a>
-            <a href="<%= request.getContextPath() %>/board">게시판</a>
+            <a href="<%= request.getContextPath() %>/place">맛집추천</a>
             <a href="<%= request.getContextPath() %>/mypage">마이페이지</a>
         </nav>
     <div class="search-bar">
@@ -41,27 +41,28 @@
 
     </header>
     <main class="main-content">
+    <form action="${pageContext.request.contextPath}/searchEvent" method="get">
     <div class="filter-bar">
-        <select>
-            <option>카테고리</option>
-            <option>문화</option>
-            <option>예술</option>
-            <option>공연</option>
-            <option>전시</option>
+        <select name="event_tag">
+            <option value="">카테고리</option>
+            <option value="공연/콘서트">공연/콘서트</option>
+            <option value="교육/체험">교육/체험</option>
+            <option value="전시/미술">전시/미술</option>
+            <option value="축제">축제</option>
+            <option value="기타">기타</option>
         </select>
-        <select>
-            <option>지역</option>
-            <option>서울</option>
-            <option>경기</option>
-            <option>강원</option>
-            <option>충청</option>
-            <option>전라</option>
-            <option>경상</option>
-            <option>제주</option>
+        <select name="region">
+            <option value="">지역</option>
+            <option value="서울">서울</option>
+            <option value="경기">경기</option>
+            <option value="강원">강원</option>
+            <!-- 지역 옵션 추가 -->
         </select>
-        <input class="search-time" type="datetime-local" placeholder="시기">
-        <button class="search-btn">검색</button>
+        <input class="search-time" type="datetime-local" name="search_time" placeholder="시기">
+        <button class="search-btn" type="submit">검색</button>
     </div>
+	</form>
+
 
     <div class="event-list">
         <c:forEach var="ce" items="${list}">

@@ -16,4 +16,7 @@ public interface EventMapper {
 
     // 상위 3개의 이벤트를 조회하는 메서드
     List<Event> selectTop3Events();
+    
+    // 카테고리를 이용한 검색 메서드
+    List<Event> searchEvent();
 }

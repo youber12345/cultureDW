@@ -30,8 +30,8 @@
         </form>
         <div class="links">
             <a href="<%= request.getContextPath() %>/signup">회원가입</a>
-            <a href="#">아이디 찾기</a>
-            <a href="#">비밀번호 찾기</a>
+            <a href="<%= request.getContextPath() %>/findIdPage">아이디 찾기</a>
+            <a href="<%= request.getContextPath() %>/findPasswordPage">비밀번호 찾기</a>
         </div>
         <div class="slider">
             <div class="slides">

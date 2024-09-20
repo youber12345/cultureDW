@@ -1,94 +1,120 @@
 let slideIndex = 0;
 let hcount = 0;
 
-function showSlides() {
-    const slides = document.querySelectorAll('.slide');
-    slides.forEach((slide, index) => {
-        slide.style.display = 'none';
-    });
-    slideIndex++;
-    if (slideIndex > slides.length) { slideIndex = 1 }
-    slides[slideIndex - 1].style.display = 'block';
-}
+// 세션에서 가져온 사용자 이름
+const username = document.getElementById('username').value;
 
-function prevSlide() {
-    slideIndex -= 2;
-    if (slideIndex < 0) { slideIndex = document.querySelectorAll('.slide').length - 1; }
-    showSlides();
-}
+// 세션에서 사용자의 로그인 여부를 확인
+const isLoggedIn = Boolean(document.getElementById('sessionUserId').value);
 
-function nextSlide() {
-    showSlides();
-}
+// 좋아요 상태를 확인하고 하트를 초기화하는 함수
+function loadHeartStatus(eventNum) {
+    const heartIcon = document.querySelector(`.icons img[onclick="toggleHeart(${eventNum})"]`);
 
-// 좋아요 버튼 클릭 시 서버에 좋아요 요청을 보내는 함수
-function toggleHeart(eventNum) {
-    const heartIcon = document.querySelector('.icons img:first-child');
-    const userNumElement = document.getElementById('userNum');
-
-    // userNum이 null인지 확인하고 경고 메시지를 출력
-    if (!userNumElement) {
-        alert("User is not logged in or userNum is missing.");
-        return; // 함수 실행 중단
+    if (!isLoggedIn) {
+        alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+        window.location.href = "/login";
+        return;
     }
 
-    const userNum = userNumElement.value;
+    // Optional chaining 대신 기본적인 null 체크로 변경
+    const userNum = document.getElementById('userNum');
+    if (!userNum) {
+        console.error('User number not found.');
+        return;
+    }
 
-    console.log("User Num: " + userNum + ", Event Num: " + eventNum);
-
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/likeEvent", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                if (response.success) {
-                    if (heartIcon.src.includes("blackfav.png")) {
-                        heartIcon.src = "static/icon/heart.png";
-                        hcount = 1;
-                    } else {
-                        heartIcon.src = "static/icon/blackfav.png";
-                        hcount = 0;
-                    }
-                } else {
-                    console.error("Failed to toggle like:", response.error);
-                }
+    fetch(`/checkLikeStatus?userNum=${userNum.value}&eventNum=${eventNum}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.liked) {
+                heartIcon.src = "static/icon/heart.png";  // 좋아요가 되어있다면 채워진 하트
             } else {
-                console.error("Error: " + xhr.status);
+                heartIcon.src = "static/icon/heart.png";  // 좋아요가 안되어있다면 빈 하트
             }
-        }
-    };
-
-    xhr.send("userNum=" + encodeURIComponent(userNum) + "&eventNum=" + encodeURIComponent(eventNum));
+        })
+        .catch(error => console.error("Error checking like status:", error));
 }
+
+// 좋아요 토글 함수
+function toggleHeart(eventNum) {
+    const heartIcon = document.querySelector(`.icons img[onclick="toggleHeart(${eventNum})"]`);
+    const userNum = document.getElementById('userNum');
+    
+   
+
+    fetch('/toggleLike', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            userNum: userNum.value,
+            eventNum: eventNum
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // 좋아요 개수 업데이트
+            const likeCountElem = heartIcon.nextSibling;
+            if (likeCountElem) {
+                likeCountElem.textContent = ` ${data.likeCount}`;
+            }
+            // 버튼 스타일 변경 (좋아요 상태 반영)
+            heartIcon.src = data.isLiked ? "static/icon/heart.png" : "static/icon/heart.png";
+        } else {
+            alert("로그인이 필요합니다.");
+	        window.location.href = "/login";
+	        return;
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// 페이지 로드 시 좋아요 상태를 확인하고 하트를 업데이트
+document.addEventListener('DOMContentLoaded', function() {
+    const eventNum = getEventNumFromURL();  // URL 또는 HTML에서 eventNum을 가져오는 함수
+    if (eventNum) {
+        loadHeartStatus(eventNum);  // 좋아요 상태 동기화
+    }
+});
 
 function openCommentSection() {
     const darkOverlay = document.getElementById('darkOverlay');
     const commentSection = document.getElementById('commentSection');
 
+    // 어두운 배경 레이어 활성화
     darkOverlay.style.display = 'block';
-    darkOverlay.classList.add('active');
-    
+    darkOverlay.classList.add('active');  // 배경을 활성화
+
+    // 댓글 섹션 활성화
     commentSection.style.display = 'block';
+    
+    // 애니메이션을 적용하여 댓글 섹션을 위로 올림
     setTimeout(() => {
         commentSection.classList.add('active');
-    }, 10);
+    }, 10);  // 10ms의 딜레이 후에 active 클래스를 추가
 }
+
 
 function closeCommentSection() {
     const darkOverlay = document.getElementById('darkOverlay');
     const commentSection = document.getElementById('commentSection');
 
+    // 어두운 배경 레이어 비활성화
     darkOverlay.classList.remove('active');
-    commentSection.classList.remove('active');
-
     setTimeout(() => {
         darkOverlay.style.display = 'none';
+    }, 500);  // 애니메이션이 끝난 후 배경을 숨김
+
+    // 댓글 섹션 비활성화
+    commentSection.classList.remove('active');
+    setTimeout(() => {
         commentSection.style.display = 'none';
-    }, 500);
+    }, 500);  // 500ms 후에 댓글 섹션을 숨김 (애니메이션 시간과 일치)
 }
+
 
 function addComment() {
     const commentInput = document.getElementById('commentInput');
@@ -96,16 +122,17 @@ function addComment() {
 
     if (commentInput.value.trim() !== "") {
         const newComment = document.createElement('div');
-        newComment.classList.add('comment-item');
+        newComment.classList.add('comment-item');  // 새롭게 추가된 클래스
 
         newComment.innerHTML = `
             <span class="comment-author">${username}</span>
             <span class="comment-content">${commentInput.value}</span>
         `;
         commentList.appendChild(newComment);
-        commentInput.value = "";
+        commentInput.value = "";  // 입력 필드 초기화
     }
 }
+
 
 document.getElementById('commentInput').addEventListener('keydown', function(event) {
     if (event.key === "Enter") {
@@ -115,10 +142,12 @@ document.getElementById('commentInput').addEventListener('keydown', function(eve
 });
 
 function share() {
-    const url = window.location.href;
-    const text = "Check out this event: 강릉 문화유산 야행!";
+    if (!checkLogin('share')) return;  // 로그인 체크
+    const url = window.location.href;  // 현재 페이지의 URL
+    const text = "Check out this event: 강릉 문화유산 야행!";  // 공유할 텍스트
 
     if (navigator.share) {
+        // Web Share API를 사용하여 공유 (모바일 브라우저에서 주로 사용 가능)
         navigator.share({
             title: document.title,
             text: text,
@@ -129,7 +158,8 @@ function share() {
             console.error('Error sharing:', error);
         });
     } else {
-        const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
+        // Web Share API를 지원하지 않는 브라우저에서는 소셜 미디어 링크로 공유
+        const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
         window.open(shareUrl, '_blank', 'width=600,height=400');
     }
 }

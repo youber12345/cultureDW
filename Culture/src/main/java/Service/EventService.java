@@ -35,4 +35,9 @@ public class EventService {
     public boolean createEvent(Event event) {
         return eventDAO.insertEvent(event);
     }
+    
+    // 카테고리 검색 메서드
+    public List<Event> searchEvent(String eventTag) {
+        return eventDAO.searchEvent(eventTag);
+    }
 }

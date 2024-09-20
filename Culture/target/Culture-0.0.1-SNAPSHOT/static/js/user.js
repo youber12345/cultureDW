@@ -14,5 +14,5 @@ function openLoginPopup() {
     var popupOptions = `width=${width},height=${height},top=${top},left=${left},scrollbars=no,resizable=no`;
     
     // 팝업창 열기
-    window.open(contextPath + '/loginpage', '로그인', popupOptions);
+    window.open(contextPath + '/login', '로그인', popupOptions);
 }

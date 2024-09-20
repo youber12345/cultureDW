@@ -6,7 +6,7 @@
 <mapper namespace="mapper.UserMapper">
     <!-- 사용자 ID로 사용자 정보를 조회하는 쿼리 -->
     <select id="getUserById" resultType="DTO.User">
-        SELECT id, password, email, name, gender, phone, admin
+        SELECT user_num AS userNum, id, password, email, name, gender, phone, admin
         FROM userDB
         WHERE id = #{id}
     </select>
@@ -22,4 +22,24 @@
     VALUES (#{userNum}, #{id}, #{password}, #{email}, #{name}, #{gender}, #{phone}, #{admin})
 </insert>
 
+    <!-- 이메일 또는 휴대폰 번호로 사용자 아이디를 조회하는 쿼리 -->
+    <select id="findIdByEmailOrPhone" resultType="string">
+        SELECT id
+        FROM userDB
+        WHERE email = #{email} OR phone = #{phone}
+    </select>
+
+    <!-- 아이디와 이메일로 비밀번호 조회 -->
+    <select id="findPasswordByIdAndEmail" resultType="string">
+        SELECT password
+        FROM userDB
+        WHERE id = #{id} AND email = #{email}
+    </select>
+
+    <!-- 비밀번호 재설정 쿼리 -->
+    <update id="updatePassword">
+        UPDATE userDB
+        SET password = #{password}
+        WHERE id = #{id}
+    </update>
 </mapper>

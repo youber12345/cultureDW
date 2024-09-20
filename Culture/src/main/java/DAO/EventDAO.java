@@ -58,4 +58,16 @@ public class EventDAO {
         }
     }
 
+    public List<Event> searchEvent(String eventTag) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectList("mapper.EventMapper.searchEvent", eventTag);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();  // 오류 발생 시 빈 리스트 반환
+        }
+    }
+
+
+	
+
 }

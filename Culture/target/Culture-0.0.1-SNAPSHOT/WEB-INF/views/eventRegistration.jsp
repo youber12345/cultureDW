@@ -119,15 +119,15 @@
                         <label for="event_price">이벤트 가격</label>
                         <input type="number" id="event_price" name="event_price" class="form-control" placeholder="이벤트 가격" required>
                     </div>
+                     <div class="input-group">
+                        <label for="event_guName">이벤트 구명</label>
+                        <input type="text" id="event_guName" name="event_guName" class="form-control" placeholder="이벤트 구명" required>
+                    </div>
                 </div>
 
                 <!-- 두 번째 단계 -->
                 <div class="form-step">
-                    <div class="input-group">
-                        <label for="event_guName">이벤트 구명</label>
-                        <input type="text" id="event_guName" name="event_guName" class="form-control" placeholder="이벤트 구명" required>
-                    </div>
-
+                   
                     <div class="input-group">
                         <label for="event_address">이벤트 주소</label>
                         <input type="text" id="event_address" name="event_address" class="form-control" placeholder="이벤트 주소" required>
@@ -142,15 +142,14 @@
                         <label for="event_homepage">이벤트 홈페이지</label>
                         <input type="url" id="event_homepage" name="event_homepage" class="form-control" placeholder="이벤트 홈페이지" required>
                     </div>
-                </div>
-
-                <!-- 세 번째 단계 -->
-                <div class="form-step">
                     <div class="input-group">
                         <label for="event_poster">이벤트 포스터 업로드</label>
                         <input type="url" id="event_poster" name="event_poster" class="form-control" required>
                     </div>
+                </div>
 
+                <!-- 세 번째 단계 -->
+                <div class="form-step">
                     <div class="input-group">
                         <label for="event_description">이벤트 설명</label>
                         <textarea id="event_description" name="event_description" class="form-control" placeholder="이벤트에 대한 설명을 입력하세요..." rows="5"></textarea>
@@ -160,6 +159,17 @@
                         <label for="event_ph">이벤트 전화번호</label>
                         <input type="text" id="event_ph" name="event_ph" class="form-control" placeholder="이벤트 전화번호">
                     </div>
+                    
+                    <div class="input-group">
+                        <label for="event_lat">위도</label>
+                        <input type="text" id="event_lot" name="event_lot" class="form-control" placeholder="위도 값을 입력하세요...">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="event_lot">경도</label>
+                        <input type="text" id="event_lat" name="event_lat" class="form-control" placeholder="경도 값을 입력하세요...">
+                    </div>
+                    
                 </div>
 
                 <button id="prevButton" type="button" class="btn btn-secondary" onclick="prevStep()">이전</button>
