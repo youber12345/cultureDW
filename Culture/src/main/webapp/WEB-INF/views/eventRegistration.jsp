@@ -134,9 +134,17 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="event_tag">이벤트 태그</label>
-                        <input type="text" id="event_tag" name="event_tag" class="form-control" placeholder="이벤트 태그" required>
-                    </div>
+					    <label for="event_tag">이벤트 태그</label>
+					    <select id="event_tag" name="event_tag" class="form-control" required>
+					        <option value="">이벤트 태그 선택</option> <!-- 기본 선택 옵션 -->
+					        <option value="공연/콘서트">공연/콘서트</option>
+					        <option value="교육/체험">교육/체험</option>
+					        <option value="전시/미술">전시/미술</option>
+					        <option value="축제">축제</option>
+					        <option value="기타">기타</option>
+					    </select>
+					</div>
+
 
                     <div class="input-group">
                         <label for="event_homepage">이벤트 홈페이지</label>

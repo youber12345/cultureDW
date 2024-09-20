@@ -51,70 +51,91 @@
     </header>
 
     <div class="container">
-        <div class="content">
-            <div class="description">
-                <h2 class="h2">${event.event_name}</h2>
-                <img class="event-poster" src="${event.event_poster}" alt="Event Poster">
-                <div class="icons">
-				<!-- 좋아요 아이콘 -->
-				<img src="<%= request.getContextPath() %>/static/icon/heart.png" width="50px" height="50px"
-				     onclick="toggleHeart(${event.event_num})" 
-				     > ${likeCount}
-
-                    <div><img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="50px" height="50px" onclick="share()"></div>
-                    <div><img src="<%= request.getContextPath() %>/static/icon/blackchat.png" width="50px" height="50px" onclick="openCommentSection()"></div>
+    <div class="content">
+        <div class="description">
+            <h2 class="h2">${event.event_name}</h2>
+            <img class="event-poster" src="${event.event_poster}" alt="Event Poster">
+            
+            <div class="icons">
+                <!-- 좋아요 아이콘 -->
+                <img src="<%= request.getContextPath() %>/static/icon/heart.png" width="50px" height="50px"
+                     onclick="toggleHeart(${event.event_num})"> ${likeCount}
+                <div>
+                    <img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="50px" height="50px" onclick="share()">
                 </div>
+                <div>
+                    <img src="<%= request.getContextPath() %>/static/icon/blackchat.png" width="50px" height="50px" onclick="openCommentSection()">
+                </div>
+            </div>
 
-                <div class="event-info">
-                    <!-- 어두운 배경 레이어 -->
-                    <div id="darkOverlay" class="dark-overlay"></div>
+            <div class="event-info">
+                <div id="darkOverlay" class="dark-overlay"></div>
 
-                    <!-- 댓글 창 -->
-                    <div id="commentSection" class="comment-section">
-                        <div class="comment-header">
-                            <span>댓글</span>
-                            <button onclick="closeCommentSection()" class="close-btn">X</button>
-                        </div>
-                        <div class="comment-list" id="commentList">
-                            <!-- 댓글 목록이 여기에 추가됩니다 -->
-                        </div>
-                        <div class="comment-input">
-                            <input type="text" id="commentInput" placeholder="댓글을 입력하세요...">
-                            <button onclick="addComment()">게시</button>
-                        </div>
+                <!-- 댓글 창 -->
+                <div id="commentSection" class="comment-section">
+                    <div class="comment-header">
+                        <span>댓글</span>
+                        <button onclick="closeCommentSection()" class="close-btn">X</button>
                     </div>
 
-                    <div class="event-dates">
-                        <h2>행사 및 축제 기간</h2>
-					    <c:if test="${not empty event.event_sdate}">
-					        <fmt:formatDate value="${event.event_sdate}" pattern="yyyy.MM.dd" /> ~
-					    </c:if>
-					    <c:if test="${not empty event.event_edate}">
-					        <fmt:formatDate value="${event.event_edate}" pattern="yyyy.MM.dd" />
-					    </c:if>
-					    <br>행사 분류: ${event.event_tag}
-						</div>
-
+                    <!-- 댓글 목록 -->
+                    <div class="comment-list" id="commentList">
+                        <c:forEach var="comment" items="${comments}">
+                            <div class="comment-item" id="comment-${comment.commentId}">
+                                <p>${comment.comm}</p>
+                                <span>작성자: ${comment.userNum}</span>
+                                <span>작성일: <fmt:formatDate value="${comment.createdAt}" pattern="yyyy.MM.dd HH:mm:ss" /></span>
+                                
+                                <!-- 댓글 수정 및 삭제 버튼, 본인만 삭제 가능 -->
+                                <c:if test="${comment.userNum == sessionScope.userId}">
+                                    <button onclick="editComment(${comment.commentId})">수정</button>
+                                    <button onclick="deleteComment(${comment.commentId})">삭제</button>
+                                </c:if>
+                            </div>
+                        </c:forEach>
                     </div>
 
-                    <div class="more-content">
-                        <p class="t1">[행사내용]</p>
-                        <div class="t2">
-                            <div>연락처: ${event.event_ph}</div>
-                            <div>금액: ${event.event_price}</div>
-                            <div>사이트 주소: <a href="${event.event_homepage}">${event.event_homepage}</a></div>
-                            <div>행사 주소: ${event.event_address}</div>
-                        </div>
-                        <!-- 문의하기 버튼 추가 -->
-                        <div class="inquiry-button">
-                            <button onclick="location.href='<%= request.getContextPath() %>/contactForm?eventId=${event.event_num}'">문의하기</button>
-                        </div>
-                        <p class="t1">위치</p>
-                        <div id="map" data-lat="${event.event_lot}" data-lng="${event.event_lat}"></div>
+                    <!-- 댓글 입력 -->
+                    <div class="comment-input">
+                        <input type="text" id="commentInput" placeholder="댓글을 입력하세요...">
+                        <button onclick="addComment(${event.event_num})">게시</button>
                     </div>
                 </div>
             </div>
+
+            <div class="event-dates">
+                <h2>행사 및 축제 기간</h2>
+                <c:if test="${not empty event.event_sdate}">
+                    <fmt:formatDate value="${event.event_sdate}" pattern="yyyy.MM.dd" /> ~
+                </c:if>
+                <c:if test="${not empty event.event_edate}">
+                    <fmt:formatDate value="${event.event_edate}" pattern="yyyy.MM.dd" />
+                </c:if>
+                <br>행사 분류: ${event.event_tag}
+            </div>
+
+            <div class="more-content">
+                <p class="t1">[행사내용]</p>
+                <div>연락처: ${event.event_description}</div>
+                <div class="t2">
+                    <div>연락처: ${event.event_ph}</div>
+                    <div>금액: ${event.event_price}</div>
+                    <div>사이트 주소: <a href="${event.event_homepage}">${event.event_homepage}</a></div>
+                    <div>행사 주소: ${event.event_address}</div>
+                </div>
+
+                <!-- 문의하기 버튼 추가 -->
+                <div class="inquiry-button">
+                    <button onclick="location.href='<%= request.getContextPath() %>/contactForm?eventId=${event.event_num}'">문의하기</button>
+                </div>
+
+                <p class="t1">위치</p>
+                <div id="map" data-lat="${event.event_lot}" data-lng="${event.event_lat}"></div>
+            </div>
         </div>
+    </div>
+</div>
+
     
 </body>
 </html>
