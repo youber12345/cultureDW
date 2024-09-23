@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>축제 페이지</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/main.css">
     <link rel="icon" type="image/x-icon" href="<%= request.getContextPath() %>/static/logo/logo.png">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/feststyle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -116,7 +117,7 @@
 
             <div class="more-content">
                 <p class="t1">[행사내용]</p>
-                <div>연락처: ${event.event_description}</div>
+                <div>행사 분류: ${event.event_description}</div>
                 <div class="t2">
                     <div>연락처: ${event.event_ph}</div>
                     <div>금액: ${event.event_price}</div>
@@ -124,10 +125,8 @@
                     <div>행사 주소: ${event.event_address}</div>
                 </div>
 
-                <!-- 문의하기 버튼 추가 -->
-                <div class="inquiry-button">
-                    <button onclick="location.href='<%= request.getContextPath() %>/contactForm?eventId=${event.event_num}'">문의하기</button>
-                </div>
+         
+
 
                 <p class="t1">위치</p>
                 <div id="map" data-lat="${event.event_lot}" data-lng="${event.event_lat}"></div>

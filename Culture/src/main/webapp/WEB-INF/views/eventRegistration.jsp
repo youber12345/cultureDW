@@ -11,6 +11,7 @@
     <!-- Bootstrap CSS를 먼저 로드 -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- 사용자 정의 CSS를 나중에 로드 -->
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/main.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/regev.css">
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <style>

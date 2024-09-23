@@ -15,6 +15,7 @@
     <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
     <!-- CSS 파일 링크 -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/mypage.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/main.css">
     
 </head>
 <body>

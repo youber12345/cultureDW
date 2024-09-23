@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>서울 이벤트 & 맛집 탐방</title>
     <link rel="icon" type="image/x-icon" href="<%= request.getContextPath() %>/static/logo/logo.png">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/main.css">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,9 +70,11 @@
             <div class="event-item" onclick="location.href='<%= request.getContextPath() %>/view?eventNum=${ce.event_num}'">
                 <img src="${ce.event_poster}" alt="Event Poster">
                 <h3>${ce.event_name}</h3>
-	        <fmt:formatDate value="${ce.event_sdate}" pattern="yyyy.MM.dd" /> ~
-	        <fmt:formatDate value="${ce.event_edate}" pattern="yyyy.MM.dd" /> 
-            </div>
+	        	<span class="event-date">
+    				<fmt:formatDate value="${ce.event_sdate}" pattern="yyyy.MM.dd" /> ~
+    				<fmt:formatDate value="${ce.event_edate}" pattern="yyyy.MM.dd" />
+				</span>
+ 			</div>
         </c:forEach>
     </div>
 </main>

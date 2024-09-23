@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>맛집 추천</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/restaurant.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/main.css">
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=dee41a720006637a3ef43799720ec190&autoload=false&libraries=clusterer,services"></script>
     <script src="<%= request.getContextPath() %>/static/js/restaurant.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">

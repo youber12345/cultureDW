@@ -10,6 +10,7 @@
     <title>TOP3 축제</title>
     <link rel="icon" type="image/x-icon" href="<%= request.getContextPath() %>/static/logo/logo.png">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/topst.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
