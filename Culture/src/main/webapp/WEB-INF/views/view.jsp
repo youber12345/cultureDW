@@ -62,12 +62,30 @@
                 <img src="<%= request.getContextPath() %>/static/icon/heart.png" width="50px" height="50px"
                      onclick="toggleHeart(${event.event_num})"> ${likeCount}
                 <div>
-                    <img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="50px" height="50px" onclick="share()">
+                    <!-- 공유 버튼 -->
+					<img src="<%= request.getContextPath() %>/static/icon/blackshare.png" width="50px" height="50px" onclick="share(event)">
+
                 </div>
                 <div>
                     <img src="<%= request.getContextPath() %>/static/icon/blackchat.png" width="50px" height="50px" onclick="openCommentSection()">
                 </div>
             </div>
+
+			<!-- 팝업 백그라운드 오버레이 -->
+			<div id="shareOverlay"></div>
+			
+			<!-- 공유 팝업 -->
+			<div id="sharePopup">
+			    <span class="close-btn" onclick="closeShare()">×</span>
+			    <img src="<%= request.getContextPath() %>/static/icon/share/facebook.png" alt="Facebook" onclick="shareToPlatform('facebook')">
+			    <img src="<%= request.getContextPath() %>/static/icon/share/tw.png" alt="Twitter" onclick="shareToPlatform('twitter')">
+			    <img src="<%= request.getContextPath() %>/static/icon/share/kakao.png" alt="KakaoTalk" onclick="shareToPlatform('kakao')">
+			    <img src="<%= request.getContextPath() %>/static/icon/share/naver.png" alt="Naver" onclick="shareToPlatform('naver')">
+			    <img src="<%= request.getContextPath() %>/static/icon/share/band.png" alt="Band" onclick="shareToPlatform('band')">
+			    <img src="<%= request.getContextPath() %>/static/icon/share/link.png" alt="Link" onclick="copyLink()">
+			</div>
+
+
 
             <div class="event-info">
                 <div id="darkOverlay" class="dark-overlay"></div>
