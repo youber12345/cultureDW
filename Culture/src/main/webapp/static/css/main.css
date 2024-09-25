@@ -52,3 +52,52 @@ header .nav a:hover::before {
 header .nav a:hover {
     color: #FFFFFF; /* 호버 시 글자 색상 변경 */
 }
+
+
+
+/* 푸터 전체 스타일 */
+.footer {
+    background-color: #FF7F7F; /* 메인 핑크 배경색 */
+    color: #fff; /* 흰색 글자 */
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: 'Do Hyeon', sans-serif; /* 폰트 설정 */
+}
+
+/* 상단 링크 스타일 */
+.footer-top {
+    margin-bottom: 20px;
+}
+
+.footer-top a {
+    color: #fff; /* 링크 글자는 흰색 */
+    text-decoration: none;
+    font-size: 16px;
+    margin-right: 15px; /* 링크 간 간격 */
+}
+
+.footer-top a:hover {
+    color: #FFCCCB; /* 링크에 마우스를 올리면 연핑크 색상 */
+}
+
+/* 하단 카피라이트 스타일 */
+.footer-bottom {
+    border-top: 1px solid #FFCCCB; /* 얇은 상단 경계선 (연핑크) */
+    padding-top: 10px;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+    color: #fff; /* 카피라이트 글자 흰색 */
+}
+
+.footer-bottom a {
+    color: #fff; /* 링크는 흰색으로 */
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    color: #FFCCCB; /* 링크에 마우스를 올리면 연핑크 색상 */
+}

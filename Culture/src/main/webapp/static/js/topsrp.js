@@ -2,52 +2,35 @@ function navigateToEvent(eventPage) {
     window.location.href = eventPage;
 }
 
-function updateDetailsClass() {
-    const eventItems = document.querySelectorAll('.event-item');
-    eventItems.forEach((item, index) => {
-        const details = item.querySelector('.event-details, .event-details2');
-        if (index === 1) {
-            // 중앙에 있는 포스터에 event-details2 적용
-            if (!details.classList.contains('event-details2')) {
-                details.classList.remove('event-details');
-                details.classList.add('event-details2');
-            }
-        } else {
-            // 좌우에 있는 포스터에 event-details 적용
-            if (!details.classList.contains('event-details')) {
-                details.classList.remove('event-details2');
-                details.classList.add('event-details');
-            }
-        }
-    });
-}
-
-
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const rightButton = document.getElementById('right-button');
     const leftButton = document.getElementById('left-button');
-    
- if (rightButton) {
-    rightButton.addEventListener('click', function() {
-        const eventList = document.querySelector('.event-list');
-        if (eventList.children.length > 1) {
-            eventList.insertBefore(eventList.lastElementChild, eventList.firstElementChild);
-            updateDetailsClass();
-        }
+    const eventList = document.querySelector('.event-list');
+    const eventItems = Array.from(document.querySelectorAll('.event-item'));
+    let currentIndex = 1; // 중앙에 표시될 아이템 인덱스
+
+    function updateSlider() {
+        eventItems.forEach((item, index) => {
+            item.classList.remove('left', 'right', 'active');
+            if (index === currentIndex) {
+                item.classList.add('active'); // 중앙 아이템
+            } else if (index === (currentIndex - 1 + eventItems.length) % eventItems.length) {
+                item.classList.add('left'); // 왼쪽 아이템
+            } else if (index === (currentIndex + 1) % eventItems.length) {
+                item.classList.add('right'); // 오른쪽 아이템
+            }
+        });
+    }
+
+    rightButton.addEventListener('click', function () {
+        currentIndex = (currentIndex + 1) % eventItems.length;
+        updateSlider();
     });
-}
 
-if (leftButton) {
-    leftButton.addEventListener('click', function() {
-        const eventList = document.querySelector('.event-list');
-        if (eventList.children.length > 1) {
-            eventList.appendChild(eventList.firstElementChild);
-            updateDetailsClass();
-        }
+    leftButton.addEventListener('click', function () {
+        currentIndex = (currentIndex - 1 + eventItems.length) % eventItems.length;
+        updateSlider();
     });
-}
 
-
-    // 페이지 로드 시 처음 실행하여 클래스 설정
-    updateDetailsClass();
+    updateSlider(); // 초기 로드 시 첫 번째 슬라이더 업데이트
 });
