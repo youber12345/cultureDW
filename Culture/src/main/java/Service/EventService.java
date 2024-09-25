@@ -1,10 +1,12 @@
 package Service;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import DAO.EventDAO;
 import DTO.Event;
+import DTO.SearchEvent;
 
 @Service
 public class EventService {
@@ -40,4 +42,8 @@ public class EventService {
     public List<Event> searchEvent(String eventTag) {
         return eventDAO.searchEvent(eventTag);
     }
+
+	public List<Event> searchselectEvent(SearchEvent sevent) {	
+		return eventDAO.searchselectEvent(sevent);
+	}
 }

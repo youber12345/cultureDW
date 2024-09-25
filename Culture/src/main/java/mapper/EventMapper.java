@@ -2,6 +2,7 @@ package mapper;
 
 import java.util.List;
 import DTO.Event;
+import DTO.SearchEvent;
 
 public interface EventMapper {
 
@@ -19,4 +20,6 @@ public interface EventMapper {
     
     // 카테고리를 이용한 검색 메서드
     List<Event> searchEvent();
+    
+    List<Event> searchselectEvent(SearchEvent searchEvent);
 }
