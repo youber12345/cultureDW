@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.CommentMapper">
+
+    <!-- 댓글 추가 -->
+    <insert id="insertComment" parameterType="DTO.Comment">
+    INSERT INTO COMMENTDB (COMMENT_ID, comm, USER_NUM, EVENT_NUM, PARENT_COMMENT_ID, CREATED_AT)
+    VALUES (comment_seq.NEXTVAL, #{comm}, #{userNum}, #{eventNum}, #{parentCommentId, jdbcType=INTEGER}, CURRENT_TIMESTAMP)
+	</insert>
+
+
+    <!-- 댓글 수정 -->
+    <update id="updateComment" parameterType="map">
+        UPDATE COMMENTDB 
+        SET comm = #{comm}
+        WHERE comment_id = #{commentId}
+    </update>
+
+    <!-- 댓글 삭제 -->
+    <delete id="deleteComment" parameterType="int">
+        DELETE FROM COMMENTDB 
+        WHERE comment_id = #{commentId}
+    </delete>
+
+    <!-- 이벤트별 댓글 목록 조회 -->
+    <select id="getCommentsByEvent" parameterType="int" resultMap="commentWithUserResultMap">
+    SELECT c.*, u.name AS username
+    FROM COMMENTDB c
+    JOIN USERDB u ON c.USER_NUM = u.USER_NUM
+    WHERE c.event_num = #{eventNum}
+	</select>
+	
+	<resultMap id="commentWithUserResultMap" type="DTO.Comment">
+    <id property="commentId" column="COMMENT_ID"/>
+    <result property="comm" column="COMM"/>
+    <result property="userNum" column="USER_NUM"/>
+    <result property="eventNum" column="EVENT_NUM"/>
+    <result property="createdAt" column="CREATED_AT"/>
+    <result property="parentCommentId" column="PARENT_COMMENT_ID"/>
+    <result property="username" column="username"/> <!-- New property for the username -->
+	</resultMap>
+
+
+</mapper>
