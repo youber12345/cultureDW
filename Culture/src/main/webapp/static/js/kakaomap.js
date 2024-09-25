@@ -53,20 +53,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
 
-
-			// Kakao Maps SDK를 수동으로 초기화
-			window.onload = function() {
-			    kakao.maps.load(function() {
-			        var container = document.getElementById('map'); // 지도를 표시할 div
-			        var options = {
-			            center: new kakao.maps.LatLng(33.450701, 126.570667),
-			            level: 3
-			        };
-			
-			        var map = new kakao.maps.Map(container, options); // 지도를 생성
-			    });
-			};
-						
             // 지도에 맛집 마커를 표시하는 함수입니다
             function displayMarker(place) {
                 // 맛집 마커의 이미지 설정 (예: 다른 마커)
