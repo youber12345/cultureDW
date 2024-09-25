@@ -1,12 +1,36 @@
+/* 헤더 및 네비게이션 바 스타일 */
+header {
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 20px;
+    background-color: #FFE4E1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .nav {
+    display: flex;
+    justify-content: space-around; /* 메뉴 항목 사이에 균등 간격 배치 */
+    flex-wrap: nowrap; /* 줄 바꿈 방지 */
+    width: 100%; /* 전체 너비로 설정 */
+    max-width: 1200px; /* 최대 너비 제한 (필요에 따라 조정) */
+}
+
 header .nav a {
     position: relative;
-    margin: 0 15px;
-    font-size: 35px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    padding: 5px 10px;
-    transition: all 0.3s ease;
+    flex: 1; /* 각 항목이 가능한 공간을 균등하게 차지하도록 설정 */
+    min-width: 120px; /* 최소 너비 설정 */
+    max-width: 150px; /* 최대 너비 설정 */
+    font-size: 35px; /* 글자 크기 */
+    text-decoration: none; /* 밑줄 제거 */
+    color: #333; /* 기본 글자 색상 */
+    font-weight: bold; /* 글자 두껍게 */
+    padding: 5px 10px; /* 패딩 설정 */
+    transition: color 0.3s ease; /* 색상 변화 전환 */
+    text-align: center; /* 텍스트 중앙 정렬 */
 }
 
 header .nav a::before {
@@ -16,15 +40,15 @@ header .nav a::before {
     bottom: 0;
     width: 100%;
     height: 0%;
-    background-color: #FF7F7F;
+    background-color: #FF7F7F; /* 배경 색상 */
     z-index: -1;
     transition: height 0.3s ease;
 }
 
 header .nav a:hover::before {
-    height: 100%;
+    height: 100%; /* 호버 시 배경 높이 변경 */
 }
 
 header .nav a:hover {
-    color: #fff;
+    color: #FFFFFF; /* 호버 시 글자 색상 변경 */
 }

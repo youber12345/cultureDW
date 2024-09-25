@@ -105,8 +105,11 @@
             </div>
 
             <div class="event-dates">
-                <h2>행사 및 축제 기간</h2>
-                <c:if test="${not empty event.event_sdate}">
+             <h2>
+        	<img src="<%=request.getContextPath() %>/static/icon/calender.png" alt="cal" width="40px" height="40px" style="vertical-align: middle; margin-right: 8px;">
+       			 행사 및 축제 기간
+    		</h2>  
+     		<c:if test="${not empty event.event_sdate}">
                     <fmt:formatDate value="${event.event_sdate}" pattern="yyyy.MM.dd" /> ~
                 </c:if>
                 <c:if test="${not empty event.event_edate}">
@@ -117,12 +120,27 @@
 
             <div class="more-content">
                 <p class="t1">[행사내용]</p>
-                <div>행사 분류: ${event.event_description}</div>
+                <div>
+                <img src="<%=request.getContextPath() %>/static/icon/content.png" alt="content" width="30px" height="30px" style="vertical-align: middle; margin-right: 8px;">
+                행사 소개: ${event.event_description}
+                </div>
                 <div class="t2">
-                    <div>연락처: ${event.event_ph}</div>
-                    <div>금액: ${event.event_price}</div>
-                    <div>사이트 주소: <a href="${event.event_homepage}">${event.event_homepage}</a></div>
-                    <div>행사 주소: ${event.event_address}</div>
+                    <div>
+                    <img src="<%=request.getContextPath() %>/static/icon/phone.png" alt="phone" width="40px" height="40px" style="vertical-align: middle; margin-right: 8px;">
+                    연락처: ${event.event_ph}
+                    </div>
+                    <div>
+                    <img src="<%=request.getContextPath() %>/static/icon/coin.png" alt="coin" width="40px" height="40px" style="vertical-align: middle; margin-right: 8px;">
+                    금액: ${event.event_price}
+                    </div>
+                    <div> 
+                    <img src="<%=request.getContextPath() %>/static/icon/browser.png" alt="coin" width="40px" height="40px" style="vertical-align: middle; margin-right: 8px;">
+                    사이트 주소: <a href="${event.event_homepage}">${event.event_homepage}</a>
+                    </div>
+                    <div>
+                     <img src="<%=request.getContextPath() %>/static/icon/mark.png" alt="mark" width="40px" height="40px" style="vertical-align: middle; margin-right: 8px;">
+                     행사 주소: ${event.event_address}
+                    </div>
                 </div>
 
          
