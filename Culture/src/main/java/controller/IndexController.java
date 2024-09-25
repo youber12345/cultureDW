@@ -1,50 +1,51 @@
 package controller;
 
-import mybatis.MyBatisConfig;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import DAO.EventDAO;
+import DTO.Comment;
 import DTO.Event;
 import DTO.User;
+import Service.CommentService;
 import Service.EventService;
 import Service.LikeService;  // LikeService 임포트 추가
 import Service.UserService;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import mybatis.MyBatisConfig;
 
 @Controller
 public class IndexController {
 
     private final EventService eventService;
     private final UserService userService;
-    private final LikeService likeService;  // LikeService 필드 추가
+    private final LikeService likeService; 
+    // 댓글 추가
+    private final CommentService commentService;
 
     public IndexController() {
         // SqlSessionFactory를 MyBatisConfig를 통해 생성
@@ -56,6 +57,9 @@ public class IndexController {
 
         // LikeService 인스턴스 생성
         this.likeService = new LikeService(MyBatisConfig.getSqlSessionFactory());
+        
+        // 댓글 추가
+        this.commentService = new CommentService(MyBatisConfig.getSqlSessionFactory());
     }
 
     @GetMapping("/index")
@@ -461,15 +465,49 @@ public class IndexController {
         }
     }
     
-    @RequestMapping(value = "/searchEvent", method = RequestMethod.GET)
-    public String searchEvent(@RequestParam("event_tag") String eventTag, Model model) {
-        System.out.println("Search Event Tag: " + eventTag);  // 디버깅 라인
-        List<Event> events = eventService.searchEvent(eventTag);
-        model.addAttribute("list", events);
-        return "index"; 
-       }
+ // 댓글 등록
+    @PostMapping("/add")
+    @ResponseBody
+    public ResponseEntity<Comment> insertComment(@RequestParam("comm") String comm, @RequestParam("eventNum") int eventNum, @RequestParam("userNum") int userNum) {
+        Comment comment = new Comment();
+        comment.setComm(comm);
+        comment.setEventNum(eventNum);
+        comment.setUserNum(userNum);
+        
+        commentService.insertComment(comment);
+        
+        return ResponseEntity.ok(comment); // 추가된 댓글 정보 반환
+    }
 
+ // 댓글 수정
+    @PostMapping("/update/{commentId}")
+    @ResponseBody
+    public ResponseEntity<?> updateComment(@PathVariable int commentId, @RequestParam("comm") String comm) {
+        boolean updated = commentService.updateComment(commentId, comm);
+        
+        // 수정 성공 시 200 OK, 실패 시 404 Not Found
+        return updated ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
 
+    // 댓글 삭제
+    @PostMapping("/delete/{commentId}")
+    @ResponseBody
+    public ResponseEntity<?> deleteComment(@PathVariable int commentId) {
+        boolean deleted = commentService.deleteComment(commentId);
+        
+        // 삭제 성공 시 200 OK, 실패 시 404 Not Found
+        return deleted ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
+
+    // 이벤트별 댓글 목록 보기
+    @GetMapping("/event/{eventNum}")
+    @ResponseBody
+    public ResponseEntity<List<Comment>> getCommentsByEvent(@PathVariable int eventNum) {
+        List<Comment> comments = commentService.getCommentsByEvent(eventNum);
+        
+        // 댓글 목록을 JSON 형식으로 반환
+        return ResponseEntity.ok(comments);
+    }
 
     
     

@@ -80,27 +80,29 @@
                     </div>
 
                     <!-- 댓글 목록 -->
-                    <div class="comment-list" id="commentList">
-                        <c:forEach var="comment" items="${comments}">
-                            <div class="comment-item" id="comment-${comment.commentId}">
-                                <p>${comment.comm}</p>
-                                <span>작성자: ${comment.userNum}</span>
-                                <span>작성일: <fmt:formatDate value="${comment.createdAt}" pattern="yyyy.MM.dd HH:mm:ss" /></span>
-                                
-                                <!-- 댓글 수정 및 삭제 버튼, 본인만 삭제 가능 -->
-                                <c:if test="${comment.userNum == sessionScope.userId}">
-                                    <button onclick="editComment(${comment.commentId})">수정</button>
-                                    <button onclick="deleteComment(${comment.commentId})">삭제</button>
-                                </c:if>
-                            </div>
-                        </c:forEach>
-                    </div>
+                 <div class="comment-list" id="commentList">
+					    <c:forEach var="comment" items="${comments}">
+					        <div class="comment-item" id="comment-${comment.commentId}" style="margin-left: <c:out value="${comment.parentCommentId != null ? 20 : 0}"/>px;">
+					            <p>${comment.comm}</p>
+					            <span>작성자: ${comment.username}</span>
+					            <c:if test="${not empty comment.createdAt}">
+					                <span>작성일: <fmt:formatDate value="${comment.createdAt}" pattern="yy.MM.dd HH:mm:ss" /></span>
+					            </c:if>
+					            <c:if test="${comment.parentCommentId == null}"> <!-- Only show reply button for parent comments -->
+					                <button onclick="reply(${comment.commentId})">답글 달기</button>
+					            </c:if>
+					        </div>
+					    </c:forEach>
+					</div>
+
+
 
                     <!-- 댓글 입력 -->
-                    <div class="comment-input">
-                        <input type="text" id="commentInput" placeholder="댓글을 입력하세요...">
-                        <button onclick="addComment(${event.event_num})">게시</button>
-                    </div>
+					<div class="comment-input">
+					    <input type="text" id="commentInput" placeholder="댓글을 입력하세요...">
+					    <button onclick="addComment(${event.event_num})">게시</button>
+					</div>
+
                 </div>
             </div>
 
