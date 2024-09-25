@@ -3,6 +3,7 @@ package controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
@@ -31,6 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import DAO.EventDAO;
 import DTO.Comment;
 import DTO.Event;
+import DTO.SearchEvent;
 import DTO.User;
 import Service.CommentService;
 import Service.EventService;
@@ -508,6 +512,32 @@ public class IndexController {
         // 댓글 목록을 JSON 형식으로 반환
         return ResponseEntity.ok(comments);
     }
+
+    @RequestMapping(value = "/searchEvent", method = RequestMethod.GET)
+    public String searchEvent(@RequestParam("event_tag") String eventTag, String region, String search_time, Model model) {
+        
+        SearchEvent sevent=new SearchEvent();
+		sevent.setEvent_tag(eventTag);
+		sevent.setEvent_address(region);
+		try {
+			System.out.println(search_time); //2024-10-31T20:09
+			 // SimpleDateFormat 패턴 설정
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+	        
+	        // 문자열을 Date 객체로 변환
+	        Date date = sdf.parse(search_time);
+	        sdf = new SimpleDateFormat("yyyyMMdd");
+	        sevent.setSearchdate(sdf.format(date));  
+			
+		} catch (Exception e) {e.printStackTrace();}
+		
+		System.out.println("contorller date:"+sevent);
+        List<Event> events = eventService.searchselectEvent(sevent);
+        model.addAttribute("list", events);
+        System.out.println(events);
+        
+        return "index"; 
+       }
 
     
     
