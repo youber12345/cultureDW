@@ -109,40 +109,20 @@ public class IndexController {
     
     @GetMapping("/place")
     public String getRestaurantPage(Model model, HttpSession session) {
-        // Kakao Local API 호출을 위한 준비
-        String url = "https://dapi.kakao.com/v2/local/search/keyword.json?query=맛집&category_group_code=FD6&x=126.9780&y=37.5665&radius=5000";
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "KakaoAK dee41a720006637a3ef43799720ec190"); // Kakao API 키 입력
-        HttpEntity<String> entity = new HttpEntity<>(headers);
+        // 상위 3개의 이벤트를 가져옴
+        List<Event> top3Events = eventService.getTop3Events();
+        List<Map<String, Object>> simplifiedEvents = new ArrayList<>();
 
-        try {
-            // Kakao API 호출
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-
-            // 응답 데이터를 JSON으로 변환
-            ObjectMapper mapper = new ObjectMapper();
-            Map<String, Object> result = mapper.readValue(response.getBody(), Map.class);
-            List<Map<String, Object>> documents = (List<Map<String, Object>>) result.get("documents");
-
-            // 맛집 정보를 모델에 추가
-            List<Map<String, Object>> restaurants = new ArrayList<>();
-            for (Map<String, Object> document : documents) {
-                Map<String, Object> restaurant = new HashMap<>();
-                restaurant.put("name", document.get("place_name"));
-                restaurant.put("address", document.get("road_address_name"));
-                restaurants.add(restaurant);
-            }
-
-            model.addAttribute("restaurants", restaurants);
-
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-            model.addAttribute("error", "데이터를 처리하는 중 오류가 발생했습니다.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("error", "서버 요청 중 문제가 발생했습니다.");
+        for (Event event : top3Events) {
+            Map<String, Object> eventData = new HashMap<>();
+            eventData.put("event_num", event.getEvent_num());
+            eventData.put("event_name", event.getEvent_name());
+            eventData.put("event_lat", event.getEvent_lat());
+            eventData.put("event_lot", event.getEvent_lot());
+            simplifiedEvents.add(eventData);
         }
+
+        model.addAttribute("top3Events", simplifiedEvents); // 모델에 간소화된 Top 3 이벤트 추가
 
         // 로그인 상태 확인
         User user = (User) session.getAttribute("user");

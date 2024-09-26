@@ -215,3 +215,62 @@ function getEventNumFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('eventNum');
 }
+
+// 팝업 열기 시 오버레이 표시
+function share(event) {
+    document.getElementById('sharePopup').style.display = 'block';
+    document.getElementById('shareOverlay').style.display = 'block';
+}
+
+// 팝업 닫기 시 오버레이 숨기기
+function closeShare() {
+    document.getElementById('sharePopup').style.display = 'none';
+    document.getElementById('shareOverlay').style.display = 'none';
+}
+
+// 팝업 외부를 클릭하면 팝업 닫기
+document.getElementById('shareOverlay').addEventListener('click', function() {
+    closeShare();
+});
+
+
+// 링크 복사 기능
+function copyLink() {
+    const link = window.location.href;
+    navigator.clipboard.writeText(link)
+        .then(() => {
+            alert('링크가 복사되었습니다.');
+        })
+        .catch(err => {
+            console.error('링크 복사 실패:', err);
+        });
+}
+
+// 각 소셜 미디어 공유 링크 생성
+function shareToPlatform(platform) {
+    const url = encodeURIComponent(window.location.href); // 현재 페이지의 URL
+    const title = encodeURIComponent(document.querySelector('h2.h2').textContent); // 이벤트 이름
+    let shareUrl = '';
+
+    switch(platform) {
+        case 'facebook':
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            break;
+        case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+            break;
+        case 'kakao':
+            shareUrl = `https://kakao.com/share?url=${url}`;
+            break;
+        case 'naver':
+            shareUrl = `https://share.naver.com/web/shareView.nhn?url=${url}&title=${title}`;
+            break;
+        case 'band':
+            shareUrl = `https://band.us/plugin/share?url=${url}&title=${title}`;
+            break;
+        default:
+            return;
+    }
+
+    window.open(shareUrl, '_blank');
+}

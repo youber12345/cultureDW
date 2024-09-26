@@ -178,6 +178,62 @@ html, body {
     border-radius: 5px;
     cursor: pointer;
 }
+/* 공유 팝업을 중앙에 배치 */
+#sharePopup {
+    display: none; /* 기본적으로 팝업은 숨김 */
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+    text-align: center;
+}
+
+/* 닫기 버튼 */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+/* 공유 아이콘 스타일 */
+#sharePopup img {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+#sharePopup img:hover {
+    transform: scale(1.1); /* 아이콘을 마우스 오버 시 확대 */
+}
+
+/* 팝업 백그라운드 (팝업 바깥 클릭 시 닫히는 배경) */
+#shareOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none; /* 기본적으로 숨김 */
+}
+
 
 /* 위치 섹션 */
 #map {

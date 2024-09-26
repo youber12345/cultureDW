@@ -1,54 +1,4 @@
-/* 기본 설정 */
-body {
-    font-family: 'Do Hyeon', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    padding: 10px 20px;
-    background-color: #FFE4E1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-header .logo img {
-    display: block;
-}
-
-header .nav {
-	width:1200px;
-    display: flex;
-    gap: 20px;
-    justify-content: space-around;
-}
-
-header .nav a {
-    font-size: 35px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
-
-header .nav > .a1 {
-    border-bottom: 2px solid #FF7F7F;
-    color: #FF7F7F;
-}
-
-header .search-bar img {
-    display: block;
-}
-
-h1 {
-    margin: 0;
-    font-size: 2em;
-}
-
+/* 메인 콘텐츠 및 레이아웃 */
 main {
     display: flex;
     flex-direction: column;
@@ -56,53 +6,111 @@ main {
     padding: 20px;
 }
 
-/* 맛집 리스트 스타일 */
-.restaurant-list {
+/* 지도 리스트를 카드 형식으로 나열 */
+.map-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
     margin-bottom: 20px;
+    max-width: 1500px; /* 전체 최대 너비 설정 */
 }
 
-.restaurant-item {
+/* 각 지도를 카드 형태로 스타일링 */
+.map-item {
     background: white;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
-    width: 300px;
+    flex: 1 1 calc(33.333% - 40px); /* 기본 상태에서 한 줄에 3개 */
+    min-width: 400px; /* 최소 너비 */
+    height: 400px; /* 기본 높이 */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-}
-
-.restaurant-item:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.restaurant-item h2 {
-    margin-top: 0;
-    font-size: 1.5em;
-    color: #333;
-}
-
-.restaurant-item p {
-    margin: 5px 0;
-    color: #666;
-}
-
-/* 지도 스타일 */
-#map {
-    width: 90%;
-    height: 400px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-footer {
-    background-color: #333;
-    color: white;
+    transition: all 0.3s ease; /* 카드 크기 변화 트랜지션 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: 10px 0;
-    margin-top: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 지도의 기본 크기 */
+.map-item .map {
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: height 0.3s ease; /* 지도 크기 변화 트랜지션 */
+}
+
+/* 카드 클릭 시 커지는 스타일 */
+.map-item.expanded {
+    flex: 1 1 100%; /* 카드가 전체 너비로 확장 */
+    height: 600px; /* 높이 확장 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10; /* 카드가 다른 카드 위로 올라오도록 */
+}
+
+/* 카드 확장 시 지도의 크기도 확대 */
+.map-item.expanded .map {
+    height: 500px; /* 지도 크기 확대 */
+}
+
+/* 반응형 레이아웃 - 화면 크기에 따라 카드 개수 조정 */
+@media (max-width: 900px) {
+    .map-item {
+        flex: 1 1 calc(50% - 40px); /* 화면이 작아지면 한 줄에 2개 */
+    }
+}
+
+@media (max-width: 600px) {
+    .map-item {
+        flex: 1 1 calc(100% - 40px); /* 모바일에서는 한 줄에 1개 */
+    }
+}
+
+/* 푸터 스타일 */
+.footer {
+    background-color: #FF7F7F;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.footer-top {
+    margin-bottom: 20px;
+}
+
+.footer-top a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+.footer-top a:hover {
+    color: #FFCCCB;
+}
+
+.footer-bottom {
+    border-top: 1px solid #FFCCCB;
+    padding-top: 10px;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+    color: #fff;
+}
+
+.footer-bottom a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    color: #FFCCCB;
 }
