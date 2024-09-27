@@ -69,7 +69,11 @@ header .nav a:hover::before {
 header .nav a:hover {
     color: #FFFFFF; /* 호버 시 글자 색상 변경 */
 }
-
+header .nav > .a1 {
+    padding-bottom: 8px;
+    border-bottom: 2px solid #FF7F7F;
+    color: #FF7F7F;
+}
 
 
 /* 푸터 전체 스타일 */
