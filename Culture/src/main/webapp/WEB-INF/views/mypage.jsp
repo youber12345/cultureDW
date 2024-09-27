@@ -14,8 +14,9 @@
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
     <!-- CSS 파일 링크 -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/mypage.css">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/main.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/mypage.css">
+
     
 </head>
 <body>
@@ -109,20 +110,20 @@
     <!-- 외부 JS 파일 불러오기 -->
     <script src="<%= request.getContextPath() %>/static/js/calendar.js"></script>
 </body>
-<footer class="footer">
-    <div class="footer-top">
-        <a href="#">서비스 이용 약관</a>
-        <a href="#">개인정보 처리방침</a>
-        <a href="#">고객센터</a>
-        <a href="#">마케팅 수신 동의</a>
-    </div>
-    <div class="footer-bottom">
-        <p>Copyright 2024. All rights reserved.</p>
-        <p>이 사이트의 모든 콘텐츠는 저작권법의 보호를 받습니다. 무단 복제, 배포를 금지합니다.</p>
-        <p><a href="#">이용약관</a> 및 <a href="#">정책</a></p>
-    </div>
-</footer>
 
+
+<footer class="footer">
+        <div class="footer-top">
+            <a href="#">서비스 이용 약관</a>
+            <a href="#">개인정보 처리방침</a>
+            <a href="#">고객센터</a>
+            <a href="#">마케팅 수신 동의</a>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright 2024. All rights reserved.</p>
+            <p>이 사이트의 모든 콘텐츠는 저작권법의 보호를 받습니다. 무단 복제, 배포를 금지합니다.</p>
+        </div>
+ </footer>
 
 
 </html>

@@ -68,57 +68,103 @@ header .nav a:hover::before {
 
 header .nav a:hover {
     color: #FFFFFF; /* 호버 시 글자 색상 변경 */
+   
 }
-header .nav > .a1 {
-    padding-bottom: 8px;
+
+header .nav> .a1 {
+    padding-bottom:8px;
     border-bottom: 2px solid #FF7F7F;
-    color: #FF7F7F;
+    color : #FF7F7F;
+   
 }
 
 
-/* 푸터 전체 스타일 */
-.footer {
-    background-color: #FF7F7F; /* 메인 핑크 배경색 */
-    color: #fff; /* 흰색 글자 */
+.main {
+    flex: 2;
+    max-width: 70%;
+    margin-top: 20px; /* Adjusted to match the user-info */
+}
+
+/* 푸터 스타일 */
+/* Sticky footer */
+footer {
+    margin-top: auto; /* Ensures footer is pushed to the bottom */
+    background-color: #FF7F7F;
     padding: 20px;
+    color: white;
     text-align: center;
-    font-size: 14px;
-    line-height: 1.5;
-    font-family: 'Do Hyeon', sans-serif; /* 폰트 설정 */
+    width: 100%;
 }
 
-/* 상단 링크 스타일 */
 .footer-top {
     margin-bottom: 20px;
 }
 
 .footer-top a {
-    color: #fff; /* 링크 글자는 흰색 */
+    color: #fff;
     text-decoration: none;
     font-size: 16px;
-    margin-right: 15px; /* 링크 간 간격 */
+    margin-right: 15px;
 }
 
 .footer-top a:hover {
-    color: #FFCCCB; /* 링크에 마우스를 올리면 연핑크 색상 */
+    color: #FFCCCB;
 }
 
-/* 하단 카피라이트 스타일 */
 .footer-bottom {
-    border-top: 1px solid #FFCCCB; /* 얇은 상단 경계선 (연핑크) */
+    border-top: 1px solid #FFCCCB;
     padding-top: 10px;
 }
 
 .footer-bottom p {
     margin: 5px 0;
-    color: #fff; /* 카피라이트 글자 흰색 */
+    color: #fff;
 }
 
 .footer-bottom a {
-    color: #fff; /* 링크는 흰색으로 */
+    color: #fff;
     text-decoration: none;
 }
 
 .footer-bottom a:hover {
-    color: #FFCCCB; /* 링크에 마우스를 올리면 연핑크 색상 */
+    color: #FFCCCB;
 }
+
+/* body에 전체 페이지 레이아웃 적용 */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 화면 높이 전체를 채움 */
+    margin: 0;
+}
+
+main {
+    flex: 1; /* main 콘텐츠가 남은 공간을 차지 */
+}
+::-webkit-scrollbar {
+    width: 12px; / 스크롤바 너비 /
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(230, 224, 212, 0.2); / 트랙 배경색, 약간의 투명도를 추가하여 페이지 배경과 자연스럽게 조화 /
+    border-radius: 10px; / 트랙의 모서리를 부드럽게 둥글게 설정 /
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(74, 59, 44, 0.6); / 스크롤 핸들 색상, 약간의 투명도를 추가하여 페이지 색상과 조화롭게 설정 /
+    border-radius: 10px; / 핸들의 모서리를 부드럽게 둥글게 설정 /
+    border: 2px solid rgba(245, 242, 230, 0.8); / 핸들 외곽선, 페이지 배경색과 통일감 있게 설정 /
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(74, 59, 44, 0.8);/ 핸들에 마우스를 올렸을 때의 색상, 약간의 투명도를 추가하여 페이지와 자연스럽게 어우러짐 /
+}
+
+/ Firefox 및 기타 브라우저용 스크롤바 스타일 /
+.index_scrollable-content {
+    scrollbar-color: #b8a388 #e6e0d4; / 핸들 및 트랙 색상, 투명도 적용 안됨 /
+    scrollbar-width: thin; / 스크롤바 너비를 얇게 설정 */
+}
+
+
+

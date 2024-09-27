@@ -56,7 +56,10 @@
         </div>
     </main>
 
-    <footer class="footer">
+ 
+</body>
+
+   <footer class="footer">
         <div class="footer-top">
             <a href="#">서비스 이용 약관</a>
             <a href="#">개인정보 처리방침</a>
@@ -68,5 +71,4 @@
             <p>이 사이트의 모든 콘텐츠는 저작권법의 보호를 받습니다. 무단 복제, 배포를 금지합니다.</p>
         </div>
     </footer>
-</body>
 </html>

@@ -1,43 +1,117 @@
-
-
-header .search-bar a {
-    display: inline-block;
-    padding: 5px 10px;
+/* 전체 페이지 스타일 */
+html, body {
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #FFF5F5;
+    display: flex;
+    flex-direction: column;
+}
+body {
+    /* Ensure that the main content takes up remaining space, pushing the footer down */
+    flex: 1;
+}
+/* 헤더 스타일 */
+header {
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 20px;
+    background-color: #FFE4E1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-header .search-bar {
-    margin-right: 10px;
+header .nav {
+    display: flex;
+    justify-content: space-around; /* 메뉴 항목 사이에 균등 간격 배치 */
+    flex-wrap: nowrap; /* 줄 바꿈 방지 */
+    width: 100%; /* 전체 너비로 설정 */
+    max-width: 1200px; /* 최대 너비 제한 (필요에 따라 조정) */
 }
 
-/* 컨테이너 스타일 */
+header .nav a {
+    position: relative;
+    flex: 1; /* 각 항목이 가능한 공간을 균등하게 차지하도록 설정 */
+    min-width: 120px; /* 최소 너비 설정 */
+    max-width: 150px; /* 최대 너비 설정 */
+    font-size: 35px; /* 글자 크기 */
+    text-decoration: none; /* 밑줄 제거 */
+    color: #333; /* 기본 글자 색상 */
+    font-weight: bold; /* 글자 두껍게 */
+    padding: 5px 10px; /* 패딩 설정 */
+    transition: color 0.3s ease; /* 색상 변화 전환 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+header .nav a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0%;
+    background-color: #FF7F7F; /* 배경 색상 */
+    z-index: -1;
+    transition: height 0.3s ease;
+}
+
+header .nav a:hover::before {
+    height: 100%; /* 호버 시 배경 높이 변경 */
+}
+
+header .nav a:hover {
+    color: #FFFFFF; /* 호버 시 글자 색상 변경 */
+}
+
+
+/* 컨테이너 수정 */
 .container {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 20px 0px;
-    flex: 1;
+    justify-content: space-between;
+    align-items: flex-start; /* 수직으로 정렬 */
+    gap: 30px;
+    padding: 0 20px;
     width: 100%;
+    flex-grow: 1;
+    margin-top: 30px; /* 전체 섹션의 상단 여백 추가 */
 }
 
-/* 메인 콘텐츠 스타일 */
+/* 메인 콘텐츠 */
 .main {
-    width: 50%;
+    flex: 2;
+    max-width: 70%;
+    margin-top: 0px; /* 상단 여백 0으로 설정 */
+    padding-top: 10px; /* 캘린더 내부의 여백을 조정하여 맞춤 */
 }
+
+
 
 /* 사이드 패널 스타일 */
-.main, .side-panel {
-    flex: 1;
-    height: 100%;
+.side-panel {
+    flex: 1; /* 사이드 패널의 공간을 적게 할당 */
+    max-width: 30%; /* 최대 너비 설정 */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* user-info와 todo-list 간 간격 추가 */
 }
 
-/* 사용자 정보 스타일 */
+/* 사용자 정보 섹션 */
 .user-info {
-    margin-top: 20px;
+    margin-top: 10px; /* 상단 여백을 0으로 설정 */
+    padding-top: 10px; /* 내부 여백 추가로 조정 */
     padding: 20px;
     background-color: #f2f2f2;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 .user-info h2 {
     font-size: 24px;
@@ -66,10 +140,12 @@ header .search-bar {
 }
 
 /* 캘린더 스타일 */
+/* 캘린더 */
 .calendar {
     width: 100%;
     max-width: 100%;
-    margin: 20px 0;
+    margin-top: 0; /* 캘린더의 상단 여백 제거 */
+    padding-left: 20px;
     background-color: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -81,6 +157,7 @@ header .search-bar {
     background-color: #f2f2f2;
     padding: 20px;
 }
+
 
 .calendar .header span {
     font-size: 30px;
@@ -99,8 +176,9 @@ header .search-bar {
 .calendar table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 10px; /* 테이블과 캘린더 상단의 여백을 줄임 */
 }
+
 
 .calendar th, .calendar td {
     text-align: center;
@@ -173,11 +251,9 @@ header .search-bar {
 
 /* TO DO LIST 스타일 */
 .todo-list {
-    margin-top: 100px;
     padding: 20px;
     background-color: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex: 1;
 }
 
 .todo-list h2 {
@@ -218,9 +294,80 @@ header .search-bar {
     font-size: 16px;
 }
 
+
 /* 선택된 날짜 스타일 */
 #selectedDate h1 {
     font-size: 24px;
     margin-bottom: 10px;
     color: black; /* 날짜는 검은색 */
 }
+/* 푸터 스타일 */
+/* Sticky footer */
+footer {
+    margin-top: auto; /* Ensures footer is pushed to the bottom */
+    background-color: #FF7F7F;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+.footer-top {
+    margin-bottom: 20px;
+}
+
+.footer-top a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+.footer-top a:hover {
+    color: #FFCCCB;
+}
+
+.footer-bottom {
+    border-top: 1px solid #FFCCCB;
+    padding-top: 10px;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+    color: #fff;
+}
+
+.footer-bottom a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    color: #FFCCCB;
+}
+
+::-webkit-scrollbar {
+    width: 12px; / 스크롤바 너비 /
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(230, 224, 212, 0.2); / 트랙 배경색, 약간의 투명도를 추가하여 페이지 배경과 자연스럽게 조화 /
+    border-radius: 10px; / 트랙의 모서리를 부드럽게 둥글게 설정 /
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(74, 59, 44, 0.6); / 스크롤 핸들 색상, 약간의 투명도를 추가하여 페이지 색상과 조화롭게 설정 /
+    border-radius: 10px; / 핸들의 모서리를 부드럽게 둥글게 설정 /
+    border: 2px solid rgba(245, 242, 230, 0.8); / 핸들 외곽선, 페이지 배경색과 통일감 있게 설정 /
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(74, 59, 44, 0.8);/ 핸들에 마우스를 올렸을 때의 색상, 약간의 투명도를 추가하여 페이지와 자연스럽게 어우러짐 /
+}
+
+/ Firefox 및 기타 브라우저용 스크롤바 스타일 /
+.index_scrollable-content {
+    scrollbar-color: #b8a388 #e6e0d4; / 핸들 및 트랙 색상, 투명도 적용 안됨 /
+    scrollbar-width: thin; / 스크롤바 너비를 얇게 설정 */
+}
+

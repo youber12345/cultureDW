@@ -4,6 +4,7 @@ main {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    flex: 1; /* main 콘텐츠가 남은 공간을 차지하게 설정 */
 }
 
 /* 지도 리스트를 카드 형식으로 나열 */
@@ -79,6 +80,9 @@ main {
     font-size: 14px;
     line-height: 1.5;
     font-family: 'Do Hyeon', sans-serif;
+    position: relative; /* 기본 상태에서 footer가 페이지의 맨 아래에 위치 */
+    bottom: 0;
+    width: 100%;
 }
 
 .footer-top {
@@ -114,3 +118,16 @@ main {
 .footer-bottom a:hover {
     color: #FFCCCB;
 }
+
+/* body에 전체 페이지 레이아웃 적용 */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 화면 높이 전체를 채움 */
+    margin: 0;
+}
+
+main {
+    flex: 1; /* main 콘텐츠가 남은 공간을 차지 */
+}
+
