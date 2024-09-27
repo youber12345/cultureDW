@@ -33,13 +33,6 @@
             <a href="<%= request.getContextPath() %>/findIdPage">아이디 찾기</a>
             <a href="<%= request.getContextPath() %>/findPasswordPage">비밀번호 찾기</a>
         </div>
-        <div class="slider">
-            <div class="slides">
-                <div class="slide">
-                    <img src="<%=request.getContextPath()%>/static/event/example.png" alt="Event">
-                </div>
-            </div>
-        </div>
     </div>
 </body>
 </html>
