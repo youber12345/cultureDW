@@ -174,6 +174,7 @@ function closeCommentSection() {
 }
 
 // 댓글 목록 불러오기
+
 function loadComments() {
     const eventNum = getEventNumFromURL();
     fetch(`/event/${eventNum}`)
@@ -190,25 +191,40 @@ function loadComments() {
         .catch(error => console.error('Error loading comments:', error));
 }
 
+
 // 댓글 요소 생성 함수
 function createCommentElement(comment) {
     const commentItem = document.createElement('div');
-    commentItem.classList.add('comment-item');
-    commentItem.setAttribute('data-id', comment.commentId);
-    commentItem.id = `comment-${comment.commentId}`;
+    commentItem.className = 'comment-item';
 
-    commentItem.innerHTML = `
-        <p>${document.createTextNode(comment.comm).textContent}</p>
-        <span>작성자: ${comment.userNum}</span>
-        <span>작성일: ${new Date(comment.createdAt).toLocaleString()}</span>
-        ${isLoggedIn && comment.userNum === document.getElementById('userNum').value ? `
-            <button onclick="editComment(${comment.commentId})">수정</button>
-            <button onclick="deleteComment(${comment.commentId})">삭제</button>
-        ` : ''}
-    `;
+    // 작성자를 username으로 표시하고 순서를 바꿔서 추가
+    const usernameElement = document.createElement('span');
+    usernameElement.className = 'comment-username';  // Add a class for styling
+    usernameElement.textContent = comment.username;
+    commentItem.appendChild(usernameElement);
+
+    // Add a space between username and timestamp
+    const spaceElement = document.createElement('span');
+    spaceElement.textContent = ' ';  // This adds a space
+    commentItem.appendChild(spaceElement);
+
+    const createdAtElement = document.createElement('span');
+    createdAtElement.className = 'comment-timestamp';  // Add a class for styling
+    if (comment.createdAt) {
+        createdAtElement.textContent = new Date(comment.createdAt).toLocaleString();
+        commentItem.appendChild(createdAtElement);
+    }
+
+    const contentElement = document.createElement('p');
+    contentElement.className = 'comment-content';  // Add a class for styling
+    contentElement.textContent = comment.comm;
+    commentItem.appendChild(contentElement);
 
     return commentItem;
 }
+
+
+
 
 // URL에서 이벤트 번호 추출 함수
 function getEventNumFromURL() {

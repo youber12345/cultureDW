@@ -449,26 +449,36 @@ public class IndexController {
         }
     }
     
- // 댓글 등록
+    // 댓글 등록
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<Comment> insertComment(@RequestParam("comm") String comm, @RequestParam("eventNum") int eventNum, @RequestParam("userNum") int userNum) {
+        // 댓글 객체 생성 및 설정
         Comment comment = new Comment();
         comment.setComm(comm);
         comment.setEventNum(eventNum);
         comment.setUserNum(userNum);
         
+        // 댓글 추가
         commentService.insertComment(comment);
         
-        return ResponseEntity.ok(comment); // 추가된 댓글 정보 반환
+        // 추가된 댓글 정보를 반환 (JSON 형식)
+        return ResponseEntity.ok(comment);
     }
 
- // 댓글 수정
+    // 댓글 수정
     @PostMapping("/update/{commentId}")
     @ResponseBody
-    public ResponseEntity<?> updateComment(@PathVariable int commentId, @RequestParam("comm") String comm) {
+    public ResponseEntity<?> updateComment(@PathVariable int commentId, @RequestParam("comm") String comm, @RequestParam("userNum") int userNum) {
+        // 댓글이 본인 댓글인지 확인
+        Comment comment = commentService.getCommentById(commentId);
+        if (comment == null || comment.getUserNum() != userNum) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("댓글을 수정할 권한이 없습니다.");
+        }
+
+        // 댓글 수정
         boolean updated = commentService.updateComment(commentId, comm);
-        
+
         // 수정 성공 시 200 OK, 실패 시 404 Not Found
         return updated ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
@@ -476,9 +486,16 @@ public class IndexController {
     // 댓글 삭제
     @PostMapping("/delete/{commentId}")
     @ResponseBody
-    public ResponseEntity<?> deleteComment(@PathVariable int commentId) {
+    public ResponseEntity<?> deleteComment(@PathVariable int commentId, @RequestParam("userNum") int userNum) {
+        // 댓글이 본인 댓글인지 확인
+        Comment comment = commentService.getCommentById(commentId);
+        if (comment == null || comment.getUserNum() != userNum) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("댓글을 삭제할 권한이 없습니다.");
+        }
+
+        // 댓글 삭제
         boolean deleted = commentService.deleteComment(commentId);
-        
+
         // 삭제 성공 시 200 OK, 실패 시 404 Not Found
         return deleted ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
@@ -488,9 +505,26 @@ public class IndexController {
     @ResponseBody
     public ResponseEntity<List<Comment>> getCommentsByEvent(@PathVariable int eventNum) {
         List<Comment> comments = commentService.getCommentsByEvent(eventNum);
-        
+
         // 댓글 목록을 JSON 형식으로 반환
         return ResponseEntity.ok(comments);
+    }
+
+    // 대댓글 등록 (댓글에 대한 댓글)
+    @PostMapping("/reply")
+    @ResponseBody
+    public ResponseEntity<Comment> insertReply(@RequestParam("comm") String comm, @RequestParam("parentCommentId") int parentCommentId, @RequestParam("userNum") int userNum) {
+        // 대댓글 객체 생성 및 설정
+        Comment reply = new Comment();
+        reply.setComm(comm);
+        reply.setParentCommentId(parentCommentId);
+        reply.setUserNum(userNum);
+
+        // 대댓글 추가
+        commentService.insertReply(reply);
+
+        // 추가된 대댓글 정보를 반환 (JSON 형식)
+        return ResponseEntity.ok(reply);
     }
 
     @RequestMapping(value = "/searchEvent", method = RequestMethod.GET)
@@ -518,7 +552,5 @@ public class IndexController {
         
         return "index"; 
        }
-
-    
     
 }

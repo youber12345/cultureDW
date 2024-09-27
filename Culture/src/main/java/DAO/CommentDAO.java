@@ -26,6 +26,17 @@ public class CommentDAO {
         }
     }
 
+    // 대댓글 등록
+    public void insertReply(Comment reply) {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            sqlSession.insert("mapper.CommentMapper.insertReply", reply);  // Mapper에 대댓글 삽입 SQL 필요
+            sqlSession.commit(); // 변경사항을 커밋
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to insert reply", e);
+        }
+    }
+
     // 댓글 수정 
     public boolean updateComment(int commentId, String comm) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
@@ -48,6 +59,16 @@ public class CommentDAO {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    // 특정 댓글 ID로 댓글 조회
+    public Comment getCommentById(int commentId) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.selectOne("mapper.CommentMapper.getCommentById", commentId);  // Mapper에 SQL 필요
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to retrieve comment by ID", e);
         }
     }
 

@@ -24,14 +24,34 @@ public class CommentService {
         commentDAO.insertComment(comment);
     }
 
+    // 대댓글 추가
+    public void insertReply(Comment reply) {
+        commentDAO.insertReply(reply);  // DAO에 대댓글 삽입 기능 추가 필요
+    }
+
     // 댓글 수정
     public boolean updateComment(int commentId, String comm) {
-        return commentDAO.updateComment(commentId, comm);
+        // 댓글이 존재하는지 확인하고 수정
+        Comment existingComment = commentDAO.getCommentById(commentId);
+        if (existingComment != null) {
+            return commentDAO.updateComment(commentId, comm);
+        }
+        return false;  // 수정할 댓글이 존재하지 않는 경우 false 반환
     }
 
     // 댓글 삭제
     public boolean deleteComment(int commentId) {
-        return commentDAO.deleteComment(commentId);
+        // 댓글이 존재하는지 확인하고 삭제
+        Comment existingComment = commentDAO.getCommentById(commentId);
+        if (existingComment != null) {
+            return commentDAO.deleteComment(commentId);
+        }
+        return false;  // 삭제할 댓글이 존재하지 않는 경우 false 반환
+    }
+
+    // 특정 댓글 ID로 댓글 조회
+    public Comment getCommentById(int commentId) {
+        return commentDAO.getCommentById(commentId);
     }
 
     // 이벤트별 댓글 목록 조회

@@ -97,22 +97,26 @@
                         <button onclick="closeCommentSection()" class="close-btn">X</button>
                     </div>
 
-                    <!-- 댓글 목록 -->
-                 <div class="comment-list" id="commentList">
-					    <c:forEach var="comment" items="${comments}">
-					        <div class="comment-item" id="comment-${comment.commentId}" style="margin-left: <c:out value="${comment.parentCommentId != null ? 20 : 0}"/>px;">
-					            <p>${comment.comm}</p>
-					            <span>작성자: ${comment.username}</span>
-					            <c:if test="${not empty comment.createdAt}">
-					                <span>작성일: <fmt:formatDate value="${comment.createdAt}" pattern="yy.MM.dd HH:mm:ss" /></span>
-					            </c:if>
-					            <c:if test="${comment.parentCommentId == null}"> <!-- Only show reply button for parent comments -->
-					                <button onclick="reply(${comment.commentId})">답글 달기</button>
-					            </c:if>
-					        </div>
-					    </c:forEach>
-					</div>
+              <!-- 댓글 목록 -->
+				<div class="comment-list" id="commentList">
+				    <c:forEach var="comment" items="${comments}">
+				        <div class="comment-item" id="comment-${comment.commentId}" style="margin-left: <c:out value="${comment.parentCommentId != null ? 20 : 0}"/>px;">
+				            <!-- 작성자 표시 및 댓글 내용 순서 변경 -->
+				            <span>${comment.username}</span>
+				            <p>${comment.comm}</p>
+				            
+				            <c:if test="${not empty comment.createdAt}">
+				                <span><fmt:formatDate value="${comment.createdAt}" pattern="yy.MM.dd HH:mm:ss" /></span>
+				            </c:if>
+				            
+				            <c:if test="${comment.parentCommentId == null}"> <!-- 답글 버튼 -->
+				                <button onclick="reply(${comment.commentId})">답글 달기</button>
+				            </c:if>
+				        </div>
+				    </c:forEach>
+				</div>
 
+					
 
 
                     <!-- 댓글 입력 -->
